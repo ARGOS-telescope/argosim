@@ -1,6 +1,6 @@
 """Random utils.
 
-A small module to hold a class for a temporary seed, 
+A small module to hold a class for a temporary seed,
 so as to not mess with any global seed.
 
 :Authors: Samuel Gullin <gullin@ia.forth.gr>

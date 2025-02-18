@@ -1,6 +1,6 @@
 """Imaging utils.
 
-This module contains functions to perform radio interferometric imaging. 
+This module contains functions to perform radio interferometric imaging.
 
 :Authors: Ezequiel Centofanti <ezequiel.centofanti@cea.fr>
           Samuel Gullin <gullin@ia.forth.gr>

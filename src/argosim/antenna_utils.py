@@ -1,6 +1,6 @@
 """Antenna utils.
 
-This module contains functions to generate antenna arrays, compute its baselines, 
+This module contains functions to generate antenna arrays, compute its baselines,
 perform aperture synthesis, obtain uv-coverage and get observations from sky models.
 
 :Authors: Ezequiel Centofanti <ezequiel.centofanti@cea.fr>
