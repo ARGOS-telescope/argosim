@@ -1,6 +1,6 @@
 """Clean.
 
-This module contains the functions to perform 
+This module contains the functions to perform
 the Hogbom's clean algorithm on dirty observations.
 
 :Authors: Ezequiel Centofanti <ezequiel.centofanti@cea.fr>

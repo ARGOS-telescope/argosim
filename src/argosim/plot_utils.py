@@ -1,6 +1,6 @@
 """Plot utils.
 
-This module contains functions to plot the antenna array, beam, baselines, 
+This module contains functions to plot the antenna array, beam, baselines,
 uv-coverage and sky models.
 
 :Authors: Ezequiel Centofanti <ezequiel.centofanti@cea.fr>
