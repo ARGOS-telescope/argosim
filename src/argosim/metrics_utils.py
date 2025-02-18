@@ -7,7 +7,7 @@ This module contains utility functions to compute metrics between images.
 """
 
 import numpy as np
-from skimage.metrics import structural_similarity as ssim_skimage
+# from skimage.metrics import structural_similarity as ssim_skimage
 
 
 def mse(img1, img2):
@@ -51,24 +51,24 @@ def residual(img1, img2, absolute=True):
     return np.abs(res) if absolute else res
 
 
-def ssim(img1, img2):
-    """Structural similarity index.
+# def ssim(img1, img2):
+#     """Structural similarity index.
 
-    Function to compute the structural similarity index between two images.
+#     Function to compute the structural similarity index between two images.
 
-    Parameters
-    ----------
-    img1 : np.ndarray
-        The first image.
-    img2 : np.ndarray
-        The second image.
+#     Parameters
+#     ----------
+#     img1 : np.ndarray
+#         The first image.
+#     img2 : np.ndarray
+#         The second image.
 
-    Returns
-    -------
-    ssim : float
-        The structural similarity index between the two images.
-    """
-    return ssim_skimage(img1, img2)
+#     Returns
+#     -------
+#     ssim : float
+#         The structural similarity index between the two images.
+#     """
+#     return ssim_skimage(img1, img2)
 
 
 def compute_metrics(img1, img2):
@@ -91,6 +91,6 @@ def compute_metrics(img1, img2):
     metrics = {
         "mse": mse(img1, img2),
         "residual": residual(img1, img2),
-        "ssim": ssim(img1, img2),
+        # "ssim": ssim(img1, img2),
     }
     return metrics
