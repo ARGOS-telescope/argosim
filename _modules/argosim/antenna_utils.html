@@ -15,8 +15,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -26,17 +26,17 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../_static/documentation_options.js?v=e645c8fa"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -178,9 +178,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -275,10 +280,10 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">numpy.random</span> <span class="k">as</span> <span class="nn">rnd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy.random</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rnd</span>
 
-<span class="kn">from</span> <span class="nn">argosim.rand_utils</span> <span class="kn">import</span> <span class="n">local_seed</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">argosim.rand_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">local_seed</span>
 
 <span class="c1">########################################</span>
 <span class="c1">#      Generate antenna positions      #</span>
@@ -287,7 +292,7 @@
 
 <div class="viewcode-block" id="random_antenna_pos">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.random_antenna_pos">[docs]</a>
-<span class="k">def</span> <span class="nf">random_antenna_pos</span><span class="p">(</span><span class="n">E_lim</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">N_lim</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">U_lim</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">random_antenna_pos</span><span class="p">(</span><span class="n">E_lim</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">N_lim</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">U_lim</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Random antenna pos.</span>
 
 <span class="sd">    Function to generate a random antenna location in ENU coordinates.</span>
@@ -322,7 +327,7 @@
 
 <div class="viewcode-block" id="circular_antenna_arr">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.circular_antenna_arr">[docs]</a>
-<span class="k">def</span> <span class="nf">circular_antenna_arr</span><span class="p">(</span><span class="n">n_antenna</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">300.0</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">circular_antenna_arr</span><span class="p">(</span><span class="n">n_antenna</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">300.0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Circular antenna arr.</span>
 
 <span class="sd">    Function to generate a circular antenna array. Antennas lie in a circumference</span>
@@ -352,7 +357,7 @@
 
 <div class="viewcode-block" id="y_antenna_arr">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.y_antenna_arr">[docs]</a>
-<span class="k">def</span> <span class="nf">y_antenna_arr</span><span class="p">(</span><span class="n">n_antenna</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">500.0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">y_antenna_arr</span><span class="p">(</span><span class="n">n_antenna</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">500.0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Y antenna arr.</span>
 
 <span class="sd">    Function to generate a Y-shaped antenna array. Antennas lie equispaced in three radial arms</span>
@@ -394,7 +399,7 @@
 
 <div class="viewcode-block" id="random_antenna_arr">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.random_antenna_arr">[docs]</a>
-<span class="k">def</span> <span class="nf">random_antenna_arr</span><span class="p">(</span><span class="n">n_antenna</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">E_lim</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">N_lim</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">U_lim</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">random_antenna_arr</span><span class="p">(</span><span class="n">n_antenna</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">E_lim</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">N_lim</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">U_lim</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Random antenna arr.</span>
 
 <span class="sd">    Function to generate a random antenna array. Antennas lie randomly distributed</span>
@@ -428,7 +433,7 @@
 
 <div class="viewcode-block" id="uni_antenna_array">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.uni_antenna_array">[docs]</a>
-<span class="k">def</span> <span class="nf">uni_antenna_array</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">uni_antenna_array</span><span class="p">(</span>
     <span class="n">n_antenna_E</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">n_antenna_N</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">E_lim</span><span class="o">=</span><span class="mf">800.0</span><span class="p">,</span> <span class="n">N_lim</span><span class="o">=</span><span class="mf">800.0</span><span class="p">,</span> <span class="n">U_lim</span><span class="o">=</span><span class="mf">0.0</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Uniform (grid) antenna arr.</span>
@@ -474,7 +479,7 @@
 
 <div class="viewcode-block" id="get_baselines">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.get_baselines">[docs]</a>
-<span class="k">def</span> <span class="nf">get_baselines</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_baselines</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get baselines.</span>
 
 <span class="sd">    Function to compute the baselines of an antenna array.</span>
@@ -501,7 +506,7 @@
 
 <div class="viewcode-block" id="ENU_to_XYZ">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.ENU_to_XYZ">[docs]</a>
-<span class="k">def</span> <span class="nf">ENU_to_XYZ</span><span class="p">(</span><span class="n">b_ENU</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="mf">35.0</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ENU_to_XYZ</span><span class="p">(</span><span class="n">b_ENU</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="mf">35.0</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;ENU to XYZ.</span>
 
 <span class="sd">    Function to convert the baselines from East-North-Up (ENU) to XYZ coordinates.</span>
@@ -537,7 +542,7 @@
 
 <div class="viewcode-block" id="XYZ_to_uvw">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.XYZ_to_uvw">[docs]</a>
-<span class="k">def</span> <span class="nf">XYZ_to_uvw</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="mf">30.0</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mf">1420e6</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">XYZ_to_uvw</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="mf">30.0</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mf">1420e6</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;XYZ to uvw.</span>
 
 <span class="sd">    Get the uvw sampling points from the XYZ coordinates given a</span>
@@ -642,7 +647,7 @@
 
 <div class="viewcode-block" id="uv_track_multiband">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.uv_track_multiband">[docs]</a>
-<span class="k">def</span> <span class="nf">uv_track_multiband</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">uv_track_multiband</span><span class="p">(</span>
     <span class="n">b_ENU</span><span class="p">,</span>
     <span class="n">lat</span><span class="o">=</span><span class="mf">35.0</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>
     <span class="n">dec</span><span class="o">=</span><span class="mf">35.0</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>
@@ -713,7 +718,7 @@
 
 <div class="viewcode-block" id="combine_antenna_arr">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.combine_antenna_arr">[docs]</a>
-<span class="k">def</span> <span class="nf">combine_antenna_arr</span><span class="p">(</span><span class="n">arr1</span><span class="p">,</span> <span class="n">arr2</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">combine_antenna_arr</span><span class="p">(</span><span class="n">arr1</span><span class="p">,</span> <span class="n">arr2</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Combine antenna arr.</span>
 
 <span class="sd">    Function to combine two antenna arrays.</span>
@@ -736,7 +741,7 @@
 
 <div class="viewcode-block" id="load_antenna_enu_txt">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.load_antenna_enu_txt">[docs]</a>
-<span class="k">def</span> <span class="nf">load_antenna_enu_txt</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_antenna_enu_txt</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load antenna txt.</span>
 
 <span class="sd">    Function to load antenna ENU positions from a txt file.</span>
@@ -815,8 +820,8 @@ By Ezequiel Centofanti, Emma Aycoberry
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

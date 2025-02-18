@@ -15,8 +15,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -26,17 +26,17 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../_static/documentation_options.js?v=e645c8fa"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -178,9 +178,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -274,14 +279,14 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">argosim.rand_utils</span> <span class="kn">import</span> <span class="n">local_seed</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">argosim.rand_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">local_seed</span>
 
 
 <div class="viewcode-block" id="gauss_source">
 <a class="viewcode-back" href="../../argosim.data_utils.html#argosim.data_utils.gauss_source">[docs]</a>
-<span class="k">def</span> <span class="nf">gauss_source</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">sigma</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">fwhm_pix</span><span class="o">=</span><span class="mi">64</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gauss_source</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">sigma</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">fwhm_pix</span><span class="o">=</span><span class="mi">64</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Gauss source.</span>
 
 <span class="sd">    Function to generate a 2D Gaussian source.</span>
@@ -323,7 +328,7 @@
 
 <div class="viewcode-block" id="sigma2d">
 <a class="viewcode-back" href="../../argosim.data_utils.html#argosim.data_utils.sigma2d">[docs]</a>
-<span class="k">def</span> <span class="nf">sigma2d</span><span class="p">(</span><span class="n">min_var</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cov_lim</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigma2d</span><span class="p">(</span><span class="n">min_var</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cov_lim</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Sigma 2D.</span>
 
 <span class="sd">    Function to generate a random 2D covariance matrix.</span>
@@ -354,7 +359,7 @@
 
 <div class="viewcode-block" id="mu2d">
 <a class="viewcode-back" href="../../argosim.data_utils.html#argosim.data_utils.mu2d">[docs]</a>
-<span class="k">def</span> <span class="nf">mu2d</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mu2d</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Mu 2D.</span>
 
 <span class="sd">    Function to generate a random 2D mean vector in the range [-1,1]x[-1,1].</span>
@@ -377,7 +382,7 @@
 
 <div class="viewcode-block" id="random_source">
 <a class="viewcode-back" href="../../argosim.data_utils.html#argosim.data_utils.random_source">[docs]</a>
-<span class="k">def</span> <span class="nf">random_source</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">pix_size</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">random_source</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">pix_size</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Random source.</span>
 
 <span class="sd">    Function to generate 2D Gaussian source with random mean and covariance.</span>
@@ -405,7 +410,7 @@
 
 <div class="viewcode-block" id="n_source_sky">
 <a class="viewcode-back" href="../../argosim.data_utils.html#argosim.data_utils.n_source_sky">[docs]</a>
-<span class="k">def</span> <span class="nf">n_source_sky</span><span class="p">(</span><span class="n">shape_px</span><span class="p">,</span> <span class="n">fov</span><span class="p">,</span> <span class="n">deg_size_list</span><span class="p">,</span> <span class="n">source_intensity_list</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">n_source_sky</span><span class="p">(</span><span class="n">shape_px</span><span class="p">,</span> <span class="n">fov</span><span class="p">,</span> <span class="n">deg_size_list</span><span class="p">,</span> <span class="n">source_intensity_list</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;N source sky.</span>
 
 <span class="sd">    Function to generate a sky image with multiple Gaussian sources at random positions.</span>
@@ -501,8 +506,8 @@ By Ezequiel Centofanti, Emma Aycoberry
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

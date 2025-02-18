@@ -15,8 +15,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -26,17 +26,17 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../_static/documentation_options.js?v=e645c8fa"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -178,9 +178,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -274,14 +279,14 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 
 <div class="viewcode-block" id="plot_beam">
 <a class="viewcode-back" href="../../argosim.plot_utils.html#argosim.plot_utils.plot_beam">[docs]</a>
-<span class="k">def</span> <span class="nf">plot_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">pRng</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">pRng</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot beam.</span>
 
 <span class="sd">    Function to plot the synthesised beam image.</span>
@@ -318,7 +323,7 @@
 
 <div class="viewcode-block" id="plot_antenna_arr">
 <a class="viewcode-back" href="../../argosim.plot_utils.html#argosim.plot_utils.plot_antenna_arr">[docs]</a>
-<span class="k">def</span> <span class="nf">plot_antenna_arr</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Array&quot;</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_antenna_arr</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Array&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot antenna array.</span>
 
 <span class="sd">    Function to plot the antenna array in ground coordinates.</span>
@@ -360,7 +365,7 @@
 
 <div class="viewcode-block" id="plot_baselines">
 <a class="viewcode-back" href="../../argosim.plot_utils.html#argosim.plot_utils.plot_baselines">[docs]</a>
-<span class="k">def</span> <span class="nf">plot_baselines</span><span class="p">(</span><span class="n">baselines</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ENU</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_baselines</span><span class="p">(</span><span class="n">baselines</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ENU</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot baselines.</span>
 
 <span class="sd">    Function to plot the baselines in uv-space.</span>
@@ -404,7 +409,7 @@
 
 <div class="viewcode-block" id="plot_sky">
 <a class="viewcode-back" href="../../argosim.plot_utils.html#argosim.plot_utils.plot_sky">[docs]</a>
-<span class="k">def</span> <span class="nf">plot_sky</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">fov_size</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Sky&quot;</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_sky</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">fov_size</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Sky&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot sky.</span>
 
 <span class="sd">    Function to plot the sky model.</span>
@@ -438,7 +443,7 @@
 
 <div class="viewcode-block" id="plot_sky_uv">
 <a class="viewcode-back" href="../../argosim.plot_utils.html#argosim.plot_utils.plot_sky_uv">[docs]</a>
-<span class="k">def</span> <span class="nf">plot_sky_uv</span><span class="p">(</span><span class="n">sky_uv</span><span class="p">,</span> <span class="n">fov_size</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_sky_uv</span><span class="p">(</span><span class="n">sky_uv</span><span class="p">,</span> <span class="n">fov_size</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot sky uv.</span>
 
 <span class="sd">    Function to plot the sky model in uv-space in logarithmic amplitud sale.</span>
@@ -495,7 +500,7 @@
 
 <div class="viewcode-block" id="plot_uv_hist">
 <a class="viewcode-back" href="../../argosim.plot_utils.html#argosim.plot_utils.plot_uv_hist">[docs]</a>
-<span class="k">def</span> <span class="nf">plot_uv_hist</span><span class="p">(</span><span class="n">baselines</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_uv_hist</span><span class="p">(</span><span class="n">baselines</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot uv histogram.</span>
 
 <span class="sd">    Function to plot the histogram of the uv-sampling distribution.</span>
@@ -638,8 +643,8 @@ By Ezequiel Centofanti, Emma Aycoberry
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

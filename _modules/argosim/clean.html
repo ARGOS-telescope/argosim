@@ -15,8 +15,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -26,17 +26,17 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../_static/documentation_options.js?v=e645c8fa"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -178,9 +178,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -274,14 +279,14 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">argosim.data_utils</span> <span class="kn">import</span> <span class="n">gauss_source</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">argosim.data_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">gauss_source</span>
 
 
 <div class="viewcode-block" id="shift_beam">
 <a class="viewcode-back" href="../../argosim.clean.html#argosim.clean.shift_beam">[docs]</a>
-<span class="k">def</span> <span class="nf">shift_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">shift_x</span><span class="p">,</span> <span class="n">shift_y</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">shift_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">shift_x</span><span class="p">,</span> <span class="n">shift_y</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Shift beam.</span>
 
 <span class="sd">    Function to shift the beam image by a given amount of pixels in the</span>
@@ -318,7 +323,7 @@
 
 <div class="viewcode-block" id="find_peak">
 <a class="viewcode-back" href="../../argosim.clean.html#argosim.clean.find_peak">[docs]</a>
-<span class="k">def</span> <span class="nf">find_peak</span><span class="p">(</span><span class="n">I</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">find_peak</span><span class="p">(</span><span class="n">I</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Find peak.</span>
 
 <span class="sd">    Function to find the peak of an image.</span>
@@ -376,7 +381,7 @@
 
 <div class="viewcode-block" id="clean_hogbom">
 <a class="viewcode-back" href="../../argosim.clean.html#argosim.clean.clean_hogbom">[docs]</a>
-<span class="k">def</span> <span class="nf">clean_hogbom</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">clean_hogbom</span><span class="p">(</span>
     <span class="n">I_obs</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">clean_beam_size_px</span><span class="o">=</span><span class="mi">2</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean Hogbom.</span>
@@ -485,8 +490,8 @@ By Ezequiel Centofanti, Emma Aycoberry
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>
