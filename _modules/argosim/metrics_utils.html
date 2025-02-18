@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>argosim.rand_utils &#8212; Argosim 0.0.1 documentation</title>
+    <title>argosim.metrics_utils &#8212; Argosim 0.0.1 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/argosim/rand_utils';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/argosim/metrics_utils';</script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -270,63 +270,112 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for argosim.rand_utils</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Random utils.</span>
+  <h1>Source code for argosim.metrics_utils</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Metrics utils.</span>
 
-<span class="sd">A small module to hold a class for a temporary seed,</span>
-<span class="sd">so as to not mess with any global seed.</span>
+<span class="sd">This module contains utility functions to compute metrics between images.</span>
 
-<span class="sd">:Authors: Samuel Gullin &lt;gullin@ia.forth.gr&gt;</span>
+<span class="sd">:Authors: Ezequiel Centofanti &lt;ezequiel.centofanti@cea.fr&gt;</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
+<span class="c1"># from skimage.metrics import structural_similarity as ssim_skimage</span>
 
-<div class="viewcode-block" id="local_seed">
-<a class="viewcode-back" href="../../argosim.rand_utils.html#argosim.rand_utils.local_seed">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">local_seed</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Holds a seed for use with `numpy.random` in a local scope.</span>
 
-<span class="sd">    Can be instantiated with no seed, in which case it will yield the default behaviour.</span>
-<span class="sd">    Note that if `seed` is set to the same seed `numpy` was using outside this scope,</span>
-<span class="sd">    that doesn&#39;t mean the state is the same -- if you intend to keep the same state,</span>
-<span class="sd">    use `seed = None`.</span>
+<div class="viewcode-block" id="mse">
+<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.mse">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">mse</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mean squared error.</span>
 
-<span class="sd">    Attributes</span>
+<span class="sd">    Function to compute the mean squared error between two images.</span>
+
+<span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    seed: int, optional</span>
-<span class="sd">        The seed used for numpy.random in the local scope.</span>
-<span class="sd">    old_state:</span>
-<span class="sd">        The state of numpy.random outside this scope, to be resumed afterwards.</span>
+<span class="sd">    img1 : np.ndarray</span>
+<span class="sd">        The first image.</span>
+<span class="sd">    img2 : np.ndarray</span>
+<span class="sd">        The second image.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    mse : float</span>
+<span class="sd">        The mean squared error between the two images.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">img1</span> <span class="o">-</span> <span class="n">img2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span></div>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Instantiate with a set seed.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="n">seed</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">old_state</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Enter local scope.</span>
 
-<span class="sd">        Grabs `numpy.randoms`&#39;s state only if a `seed != None` was supplied</span>
-<span class="sd">        upon creation, and then seeds `numpy.random`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">old_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+<div class="viewcode-block" id="residual">
+<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.residual">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">residual</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">,</span> <span class="n">absolute</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Residual.</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Exit local scope.</span>
+<span class="sd">    Function to compute the residual between two images.</span>
 
-<span class="sd">        Reverts `numpy.random` to the outer scope&#39;s state, if a `seed != None`</span>
-<span class="sd">        was supplied upon creation.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">:</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">old_state</span><span class="p">)</span></div>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    img1 : np.ndarray</span>
+<span class="sd">        The first image.</span>
+<span class="sd">    img2 : np.ndarray</span>
+<span class="sd">        The second image.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    residual : np.ndarray</span>
+<span class="sd">        The residual between the two images.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">img1</span> <span class="o">-</span> <span class="n">img2</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="k">if</span> <span class="n">absolute</span> <span class="k">else</span> <span class="n">res</span></div>
+
+
+
+<span class="c1"># def ssim(img1, img2):</span>
+<span class="c1">#     &quot;&quot;&quot;Structural similarity index.</span>
+
+<span class="c1">#     Function to compute the structural similarity index between two images.</span>
+
+<span class="c1">#     Parameters</span>
+<span class="c1">#     ----------</span>
+<span class="c1">#     img1 : np.ndarray</span>
+<span class="c1">#         The first image.</span>
+<span class="c1">#     img2 : np.ndarray</span>
+<span class="c1">#         The second image.</span>
+
+<span class="c1">#     Returns</span>
+<span class="c1">#     -------</span>
+<span class="c1">#     ssim : float</span>
+<span class="c1">#         The structural similarity index between the two images.</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     return ssim_skimage(img1, img2)</span>
+
+
+<div class="viewcode-block" id="compute_metrics">
+<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.compute_metrics">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_metrics</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute metrics.</span>
+
+<span class="sd">    Function to compute the metrics between two images.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    img1 : np.ndarray</span>
+<span class="sd">        The first image.</span>
+<span class="sd">    img2 : np.ndarray</span>
+<span class="sd">        The second image.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    metrics : dict</span>
+<span class="sd">        The metrics between the two images.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;mse&quot;</span><span class="p">:</span> <span class="n">mse</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">),</span>
+        <span class="s2">&quot;residual&quot;</span><span class="p">:</span> <span class="n">residual</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">),</span>
+        <span class="c1"># &quot;ssim&quot;: ssim(img1, img2),</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">metrics</span></div>
 
 </pre></div>
 
