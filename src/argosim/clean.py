@@ -69,40 +69,39 @@ def find_peak(I):
     shift_y : int
         The shift in the y direction from the center of the image.
     """
-    y_max, x_max = int(np.argmax(I) / I.shape[0]), np.mod(np.argmax(I), I.shape[0])
+    y_max, x_max = int(np.argmax(np.abs(I)) / I.shape[0]), np.mod(
+        np.argmax(np.abs(I)), I.shape[0]
+    )
     x_off, y_off = int(I.shape[0] / 2), int(I.shape[1] / 2)
     shift_x, shift_y = x_max - x_off, y_max - y_off
-    max_val = np.max(I)
+    max_val = I[y_max, x_max]
     return max_val, x_max, y_max, shift_x, shift_y
 
 
-# def clean_beam(B, search_box=20):
-#     """Clean beam.
+def pad_odd(im):
+    """Pad odd.
 
-#     Function extract the clean beam image from the dirty beam image.
-#     A box of size search_box around the peak of the dirty beam image is
-#     extracted and padded to the original size of the dirty beam image.
+    Function to pad an image with zeros to make it odd in size.
 
-#     Parameters
-#     ----------
-#     B : np.ndarray
-#         The beam image.
-#     search_box : int
-#         The search box size in pixels.
+    Parameters
+    ----------
+    im : np.ndarray
+        The image to pad.
 
-#     Returns
-#     -------
-#     B_clean : np.ndarray
-#         The cleaned beam image.
-#     """
-#     max_val, x_max, y_max, shift_x, shift_y = find_peak(B)
-#     B_clean = B[y_max-search_box:y_max+search_box,x_max-search_box:x_max+search_box]
-#     B_clean = np.pad(B_clean,((y_max-search_box,B.shape[0]-y_max-search_box),(x_max-search_box,B.shape[1]-x_max-search_box)))
-#     return B_clean
+    Returns
+    -------
+    im_padded : np.ndarray
+        The padded image.
+    """
+    n = im.shape[0]
+    if n % 2 != 0:
+        return im
+    else:
+        return np.pad(im, ((0, 1), (0, 1)), mode="constant")
 
 
 def clean_hogbom(
-    I_obs, B, gamma=0.2, max_iter=100, threshold=None, clean_beam_size_px=2
+    I_obs, B, gamma=0.2, max_iter=100, threshold=None, clean_beam_size_px=2, res=False
 ):
     """Clean Hogbom.
 
@@ -126,6 +125,12 @@ def clean_hogbom(
     I_clean : np.ndarray
         The cleaned image.
     """
+    # If the observation and beam are even in size, pad them with zeros at the bottom and right
+    # An odd beam is easier to place at the image peaks
+    if I_obs.shape[0] % 2 == 0:
+        I_obs = pad_odd(I_obs)
+        B = pad_odd(B)
+
     I_res = I_obs.copy()
     I_clean = np.zeros_like(I_obs)
     sky_model = np.zeros_like(I_obs)
@@ -146,4 +151,15 @@ def clean_hogbom(
         sky_model[y_max, x_max] += gamma * max_val
         I_clean += gamma * max_val * shift_beam(B_clean, shift_x, shift_y)
 
-    return I_clean + I_res, sky_model
+        if max_val < 0:
+            print("Warning: negative peak found with amplitude:", max_val)
+
+    if I_obs.shape[0] % 2 != 0:
+        I_res = I_res[:-1, :-1]
+        I_clean = I_clean[:-1, :-1]
+        sky_model = sky_model[:-1, :-1]
+
+    if res:
+        return I_clean + I_res, sky_model
+    else:
+        return I_clean, sky_model
