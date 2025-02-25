@@ -3,8 +3,8 @@ argosim package
 
 .. automodule:: argosim
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Submodules
 ----------
