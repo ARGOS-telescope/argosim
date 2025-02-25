@@ -119,6 +119,10 @@ def clean_hogbom(
         The maximum number of iterations.
     threshold : float
         The threshold to stop the cleaning process.
+    clean_beam_size_px : int
+        The size (FWHM) of the clean beam in pixels.
+    res : bool
+        Add residual signal to clean image.
 
     Returns
     -------
