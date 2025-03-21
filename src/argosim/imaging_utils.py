@@ -9,6 +9,7 @@ This module contains functions to perform radio interferometric imaging.
 
 import numpy as np
 import numpy.random as rnd
+import jax.numpy as jnp
 
 from argosim.rand_utils import local_seed
 
@@ -102,7 +103,7 @@ from argosim.rand_utils import local_seed
 
 
 def sky2uv(sky):
-    """Sky to uv plane.
+    """Sky to uv plane. (JAX version)
 
     Function to compute the Fourier transform of the sky.
 
@@ -117,13 +118,66 @@ def sky2uv(sky):
         The Fourier transform of the sky.
     """
     # return np.fft.fft2(sky)
-    return np.fft.fftshift(np.fft.fft2(np.fft.ifftshift(sky)))
+    return jnp.fft.fftshift(jnp.fft.fft2(jnp.fft.ifftshift(sky)))
 
+def scale_uv_samples(uv_samples, sky_uv_shape, fov_size):
+    """Scale uv samples.
+
+    Function to scale the uv samples to pixel coordinates.
+
+    Parameters
+    ----------
+    uv_samples : np.ndarray
+        The uv samples coordinates in meters.
+    sky_uv_shape : tuple
+        The shape of the sky model in pixels.
+    fov_size : tuple
+        The field of view size in degrees.
+
+    Returns
+    -------
+    uv_samples_indices : np.ndarray
+        The indices of the uv samples in pixel coordinates.
+    """
+
+    max_u = (180 / jnp.pi) * sky_uv_shape[0] / (2 * fov_size[0])
+    max_v = (180 / jnp.pi) * sky_uv_shape[1] / (2 * fov_size[1])
+    uv_samples_indices = (
+        jnp.rint(
+            uv_samples[:, :2] / jnp.array([max_u, max_v]) / 2 * jnp.array(sky_uv_shape)
+        )
+        + jnp.array(sky_uv_shape) // 2
+    )
+    return uv_samples_indices
+
+def check_uv_samples_range(uv_samples_indices, uv_samples, sky_uv_shape, fov_size):
+    """Check uv samples range. (JAX version)
+
+    Function to check if the uv samples are within the uv-plane range.
+
+    Parameters
+    ----------
+    uv_samples_indices : np.ndarray
+        The indices of the uv samples in pixel coordinates.
+    sky_uv_shape : tuple
+        The shape of the sky model in pixels.
+    uv_samples : np.ndarray
+        The uv samples coordinates in meters.
+    fov_size : tuple
+        The field of view size in degrees.
+    """
+    sky_uv_shape_array = jnp.array(sky_uv_shape)
+    if jnp.any(sky_uv_shape_array <= jnp.max(uv_samples_indices, axis=0)):
+        max_uv = jnp.max(jnp.abs(uv_samples[:, :2]), axis=0)
+        required_npix = jnp.ceil(max_uv * 2 * jnp.pi * jnp.array(fov_size) / 180)
+        raise ValueError(
+            f"uv samples lie out of the uv-plane. Required Npix > {required_npix}"
+        )
 
 def grid_uv_samples(
     uv_samples, sky_uv_shape, fov_size, mask_type="binary", weights=None
 ):
-    """Grid uv samples.
+    """Grid uv samples. (JAX version)
 
     Compute the uv sampling mask from the uv samples.
 
@@ -147,53 +201,74 @@ def grid_uv_samples(
     uv_samples_indices : np.ndarray
         The indices of the uv samples in pixel coordinates.
     """
-    max_u = (180 / np.pi) * sky_uv_shape[0] / (2 * fov_size[0])
-    max_v = (180 / np.pi) * sky_uv_shape[1] / (2 * fov_size[1])
-    uv_samples_indices = (
-        np.rint(
-            uv_samples[:, :2] / np.array([max_u, max_v]) / 2 * np.array(sky_uv_shape)
-        )
-        + np.array(sky_uv_shape) // 2
-    )
+    # max_u = (180 / np.pi) * sky_uv_shape[0] / (2 * fov_size[0])
+    # max_v = (180 / np.pi) * sky_uv_shape[1] / (2 * fov_size[1])
+    # uv_samples_indices = (
+    #     np.rint(
+    #         uv_samples[:, :2] / np.array([max_u, max_v]) / 2 * np.array(sky_uv_shape)
+    #     )
+    #     + np.array(sky_uv_shape) // 2
+    # )
+    uv_samples_indices = scale_uv_samples(uv_samples, sky_uv_shape, fov_size)
 
-    if any(np.array(sky_uv_shape) <= np.max(uv_samples_indices, axis=0)):
+    # if any(np.array(sky_uv_shape) <= np.max(uv_samples_indices, axis=0)):
+    #     raise ValueError(
+    #         "uv samples are out of the uv-plane range. Required Npix > {}".format(
+    #             # np.max(uv_samples_indices, axis=0)
+    #             np.ceil(
+    #                 np.max(np.abs(uv_samples[:, :2]), axis=0)
+    #                 * 2
+    #                 * np.pi
+    #                 * fov_size
+    #                 / 180
+    #             )
+    #         )
+    #     )
+    check_uv_samples_range(uv_samples_indices, uv_samples, sky_uv_shape, fov_size)
+
+    uv_mask = jnp.zeros(sky_uv_shape, dtype=jnp.complex64)
+
+    # Convert uv_samples_indices to integer indices
+    indices = jnp.array(uv_samples_indices, dtype=jnp.int32)
+
+    if mask_type == "binary":
+        uv_mask = uv_mask.at[indices[:, 1], indices[:, 0]].set(1 + 0j)
+    elif mask_type == "histogram":
+        uv_mask = uv_mask.at[indices[:, 1], indices[:, 0]].add(1 + 0j)
+    elif mask_type == "weighted":
+        assert (
+            weights is not None
+        ), "Weights must be provided for mask type 'weighted'."
+        uv_mask = uv_mask.at[indices[:, 1], indices[:, 0]].add(
+            weights[indices[:, 0], indices[:, 1]]
+        )
+    else:     
         raise ValueError(
-            "uv samples are out of the uv-plane range. Required Npix > {}".format(
-                # np.max(uv_samples_indices, axis=0)
-                np.ceil(
-                    np.max(np.abs(uv_samples[:, :2]), axis=0)
-                    * 2
-                    * np.pi
-                    * fov_size
-                    / 180
-                )
-            )
+            "Invalid mask type. Choose between 'binary', 'histogram' and 'weighted'."
         )
 
-    uv_mask = np.zeros(sky_uv_shape, dtype=complex)
-
-    for index in uv_samples_indices:
-        if mask_type == "binary":
-            uv_mask[int(index[1]), int(index[0])] = 1 + 0j
-        elif mask_type == "histogram":
-            uv_mask[int(index[1]), int(index[0])] += 1 + 0j
-        elif mask_type == "weighted":
-            assert (
-                weights is not None
-            ), "Weights must be provided for mask type 'weighted'."
-            uv_mask[int(index[1]), int(index[0])] += weights[
-                int(index[0]), int(index[1])
-            ]
-        else:
-            raise ValueError(
-                "Invalid mask type. Choose between 'binary', 'histogram' and 'weighted'."
-            )
+    # for index in indices:
+    #     if mask_type == "binary":
+    #         uv_mask[int(index[1]), int(index[0])] = 1 + 0j
+    #     elif mask_type == "histogram":
+    #         uv_mask[int(index[1]), int(index[0])] += 1 + 0j
+    #     elif mask_type == "weighted":
+    #         assert (
+    #             weights is not None
+    #         ), "Weights must be provided for mask type 'weighted'."
+    #         uv_mask[int(index[1]), int(index[0])] += weights[
+    #             int(index[0]), int(index[1])
+    #         ]
+    #     else:
+    #         raise ValueError(
+    #             "Invalid mask type. Choose between 'binary', 'histogram' and 'weighted'."
+    #         )
 
     return uv_mask, uv_samples_indices
 
 
 def uv2sky(uv):
-    """Uv to sky.
+    """Uv to sky. (JAX version)
 
     Function to compute the inverse Fourier transform of the uv plane.
 
@@ -207,7 +282,7 @@ def uv2sky(uv):
     sky : np.ndarray
         The image in the sky domain.
     """
-    return np.fft.fftshift(np.fft.ifft2(np.fft.ifftshift(uv))).real
+    return jnp.fft.fftshift(jnp.fft.ifft2(jnp.fft.ifftshift(uv))).real
 
 
 def compute_visibilities_grid(sky_uv, uv_mask):
