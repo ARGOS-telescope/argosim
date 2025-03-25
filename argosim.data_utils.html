@@ -401,7 +401,7 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 
 <dl class="py function">
 <dt class="sig sig-object py" id="argosim.data_utils.n_source_sky">
-<span class="sig-prename descclassname"><span class="pre">argosim.data_utils.</span></span><span class="sig-name descname"><span class="pre">n_source_sky</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape_px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deg_size_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_intensity_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/data_utils.html#n_source_sky"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.data_utils.n_source_sky" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">argosim.data_utils.</span></span><span class="sig-name descname"><span class="pre">n_source_sky</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape_px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deg_size_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_intensity_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/data_utils.html#n_source_sky"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.data_utils.n_source_sky" title="Link to this definition">#</a></dt>
 <dd><p>N source sky.</p>
 <p>Function to generate a sky image with multiple Gaussian sources at random positions.</p>
 <dl class="field-list simple">
@@ -414,6 +414,7 @@ calculate the source sizes.</p></li>
 <li><p><strong>source_intensity_list</strong> (<em>list</em>) – The intensity of each Gaussian source in the final image.
 The sum of all the sources should be equal to 1 to have a normalized image.</p></li>
 <li><p><strong>seed</strong> (<em>int</em>) – Optional seed to set</p></li>
+<li><p><strong>norm</strong> (<em>str</em>) – The normalization method. Options are ‘none’, ‘flux’ and ‘max’. Default is ‘none’.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

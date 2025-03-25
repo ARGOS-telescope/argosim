@@ -384,8 +384,11 @@ document.write(`
 <span class="sd">    metrics : dict</span>
 <span class="sd">        The metrics between the two images.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mse_val</span> <span class="o">=</span> <span class="n">mse</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">)</span>
+    <span class="n">norm_sq</span> <span class="o">=</span> <span class="n">mse</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
     <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;mse&quot;</span><span class="p">:</span> <span class="n">mse</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">),</span>
+        <span class="s2">&quot;mse&quot;</span><span class="p">:</span> <span class="n">mse_val</span><span class="p">,</span>
+        <span class="s2">&quot;rel_mse&quot;</span><span class="p">:</span> <span class="n">mse_val</span> <span class="o">/</span> <span class="n">norm_sq</span><span class="p">,</span>
         <span class="s2">&quot;residual&quot;</span><span class="p">:</span> <span class="n">residual</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">),</span>
         <span class="c1"># &quot;ssim&quot;: ssim(img1, img2),</span>
     <span class="p">}</span>

@@ -425,7 +425,7 @@ document.write(`
 
 <div class="viewcode-block" id="n_source_sky">
 <a class="viewcode-back" href="../../argosim.data_utils.html#argosim.data_utils.n_source_sky">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">n_source_sky</span><span class="p">(</span><span class="n">shape_px</span><span class="p">,</span> <span class="n">fov</span><span class="p">,</span> <span class="n">deg_size_list</span><span class="p">,</span> <span class="n">source_intensity_list</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">n_source_sky</span><span class="p">(</span><span class="n">shape_px</span><span class="p">,</span> <span class="n">fov</span><span class="p">,</span> <span class="n">deg_size_list</span><span class="p">,</span> <span class="n">source_intensity_list</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;N source sky.</span>
 
 <span class="sd">    Function to generate a sky image with multiple Gaussian sources at random positions.</span>
@@ -444,6 +444,8 @@ document.write(`
 <span class="sd">        The sum of all the sources should be equal to 1 to have a normalized image.</span>
 <span class="sd">    seed : int</span>
 <span class="sd">        Optional seed to set</span>
+<span class="sd">    norm : str</span>
+<span class="sd">        The normalization method. Options are &#39;none&#39;, &#39;flux&#39; and &#39;max&#39;. Default is &#39;none&#39;.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -457,7 +459,19 @@ document.write(`
             <span class="n">random_source</span><span class="p">((</span><span class="n">shape_px</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shape_px</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">pix_size</span><span class="p">)</span> <span class="o">*</span> <span class="n">intensity</span>
             <span class="k">for</span> <span class="n">pix_size</span><span class="p">,</span> <span class="n">intensity</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pix_size_list</span><span class="p">,</span> <span class="n">source_intensity_list</span><span class="p">)</span>
         <span class="p">]</span>
-    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">source_list</span><span class="p">)</span></div>
+
+    <span class="n">sky</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">source_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">norm</span> <span class="o">==</span> <span class="s1">&#39;flux&#39;</span><span class="p">:</span>
+        <span class="n">norm_sky</span> <span class="o">=</span> <span class="n">sky</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sky</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">norm</span> <span class="o">==</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span>
+        <span class="n">norm_sky</span> <span class="o">=</span> <span class="n">sky</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">sky</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">norm</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">:</span>
+        <span class="n">norm_sky</span> <span class="o">=</span> <span class="n">sky</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid normalization method. Use &#39;sum&#39;, &#39;max&#39; or &#39;none&#39;.&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">norm_sky</span></div>
 
 </pre></div>
 
