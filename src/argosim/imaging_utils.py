@@ -121,7 +121,7 @@ def sky2uv(sky):
     return jnp.fft.fftshift(jnp.fft.fft2(jnp.fft.ifftshift(sky)))
 
 def scale_uv_samples(uv_samples, sky_uv_shape, fov_size):
-    """Scale uv samples.
+    """Scale uv samples. (JAX version)
 
     Function to scale the uv samples to pixel coordinates.
 
