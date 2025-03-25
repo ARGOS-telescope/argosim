@@ -89,8 +89,11 @@ def compute_metrics(img1, img2):
     metrics : dict
         The metrics between the two images.
     """
+    mse_val = mse(img1, img2)
+    norm_sq = mse(img1, 0.)
     metrics = {
-        "mse": mse(img1, img2),
+        "mse": mse_val,
+        "rel_mse": mse_val / norm_sq,
         "residual": residual(img1, img2),
         # "ssim": ssim(img1, img2),
     }

@@ -125,7 +125,7 @@ def random_source(shape, pix_size, seed=None):
     return gauss_source(shape[0], shape[1], mu, sigma, pix_size)
 
 
-def n_source_sky(shape_px, fov, deg_size_list, source_intensity_list, seed=None):
+def n_source_sky(shape_px, fov, deg_size_list, source_intensity_list, seed=None, norm='none'):
     """N source sky.
 
     Function to generate a sky image with multiple Gaussian sources at random positions.
@@ -144,6 +144,8 @@ def n_source_sky(shape_px, fov, deg_size_list, source_intensity_list, seed=None)
         The sum of all the sources should be equal to 1 to have a normalized image.
     seed : int
         Optional seed to set
+    norm : str
+        The normalization method. Options are 'none', 'flux' and 'max'. Default is 'none'.
 
     Returns
     -------
@@ -157,4 +159,16 @@ def n_source_sky(shape_px, fov, deg_size_list, source_intensity_list, seed=None)
             random_source((shape_px[0], shape_px[1]), pix_size) * intensity
             for pix_size, intensity in zip(pix_size_list, source_intensity_list)
         ]
-    return sum(source_list)
+
+    sky = np.sum(source_list, axis=0)
+
+    if norm == 'flux':
+        norm_sky = sky / np.sum(sky, axis=(0, 1))
+    elif norm == 'max':
+        norm_sky = sky / np.max(sky)
+    elif norm == 'none':
+        norm_sky = sky
+    else:
+        raise ValueError("Invalid normalization method. Use 'sum', 'max' or 'none'.")
+    
+    return norm_sky
