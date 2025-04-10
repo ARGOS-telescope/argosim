@@ -94,7 +94,7 @@ def compute_metrics(img1, img2):
     metrics = {
         "mse": mse_val,
         "rel_mse": mse_val / norm_sq,
-        "residuals": residuals(img1, img2),
+        "residual": residuals(img1, img2),
         # "ssim": ssim(img1, img2),
     }
     return metrics
