@@ -31,10 +31,10 @@ def mse(img1, img2):
     return np.mean((img1 - img2) ** 2)
 
 
-def residual(img1, img2, absolute=True):
-    """Residual.
+def residuals(img1, img2, absolute=True):
+    """Residuals.
 
-    Function to compute the residual between two images.
+    Function to compute the residuals between two images.
 
     Parameters
     ----------
@@ -46,7 +46,7 @@ def residual(img1, img2, absolute=True):
     Returns
     -------
     residual : np.ndarray
-        The residual between the two images.
+        The residuals between the two images.
     """
     res = img1 - img2
     return np.abs(res) if absolute else res
@@ -90,11 +90,11 @@ def compute_metrics(img1, img2):
         The metrics between the two images.
     """
     mse_val = mse(img1, img2)
-    norm_sq = mse(img1, 0.)
+    norm_sq = mse(img1, 0.0)
     metrics = {
         "mse": mse_val,
         "rel_mse": mse_val / norm_sq,
-        "residual": residual(img1, img2),
+        "residual": residuals(img1, img2),
         # "ssim": ssim(img1, img2),
     }
     return metrics
