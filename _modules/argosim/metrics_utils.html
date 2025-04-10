@@ -321,12 +321,12 @@ document.write(`
 
 
 
-<div class="viewcode-block" id="residual">
-<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.residual">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">residual</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">,</span> <span class="n">absolute</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Residual.</span>
+<div class="viewcode-block" id="residuals">
+<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.residuals">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">residuals</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">,</span> <span class="n">absolute</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Residuals.</span>
 
-<span class="sd">    Function to compute the residual between two images.</span>
+<span class="sd">    Function to compute the residuals between two images.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -338,7 +338,7 @@ document.write(`
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    residual : np.ndarray</span>
-<span class="sd">        The residual between the two images.</span>
+<span class="sd">        The residuals between the two images.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">img1</span> <span class="o">-</span> <span class="n">img2</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="k">if</span> <span class="n">absolute</span> <span class="k">else</span> <span class="n">res</span></div>
@@ -385,11 +385,11 @@ document.write(`
 <span class="sd">        The metrics between the two images.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mse_val</span> <span class="o">=</span> <span class="n">mse</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">)</span>
-    <span class="n">norm_sq</span> <span class="o">=</span> <span class="n">mse</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
+    <span class="n">norm_sq</span> <span class="o">=</span> <span class="n">mse</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
     <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;mse&quot;</span><span class="p">:</span> <span class="n">mse_val</span><span class="p">,</span>
         <span class="s2">&quot;rel_mse&quot;</span><span class="p">:</span> <span class="n">mse_val</span> <span class="o">/</span> <span class="n">norm_sq</span><span class="p">,</span>
-        <span class="s2">&quot;residual&quot;</span><span class="p">:</span> <span class="n">residual</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">),</span>
+        <span class="s2">&quot;residual&quot;</span><span class="p">:</span> <span class="n">residuals</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">),</span>
         <span class="c1"># &quot;ssim&quot;: ssim(img1, img2),</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">metrics</span></div>
