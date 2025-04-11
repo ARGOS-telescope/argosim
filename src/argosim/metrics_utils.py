@@ -5,6 +5,7 @@ This module contains utility functions to compute metrics between images.
 :Authors: Ezequiel Centofanti <ezequiel.centofanti@cea.fr>
 
 """
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -141,7 +142,7 @@ def mask_main_lobe(beam, center, radius):
     """
     beam_copy = beam.copy()
     y, x = np.indices(beam.shape)
-    mask = ((x - center[0])**2 + (y - center[1])**2) < radius**2
+    mask = ((x - center[0]) ** 2 + (y - center[1]) ** 2) < radius**2
     beam_copy[mask] = 0
     return beam_copy
 
@@ -180,9 +181,11 @@ def compute_sll(beam, center, fwhm_x, fwhm_y, masking_factor=3, plot=False):
 
     if plot:
         plt.figure(figsize=(6, 5))
-        plt.imshow(beam_masked, origin='lower', cmap='viridis', vmin=-0.01, vmax=0.02)
+        plt.imshow(beam_masked, origin="lower", cmap="viridis", vmin=-0.01, vmax=0.02)
         plt.colorbar()
-        plt.xlim(center[0] - 30, center[0] + 30)   # zoom in on an area around the center with more or less 30px : better visibility of the plot
+        plt.xlim(
+            center[0] - 30, center[0] + 30
+        )  # zoom in on an area around the center with more or less 30px : better visibility of the plot
         plt.ylim(center[1] - 30, center[1] + 30)
         plt.title(f"Dirty Beam (main lobe masked)\nSLL = {sll_db:.8f} dB")
         plt.show()
