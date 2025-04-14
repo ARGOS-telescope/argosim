@@ -326,7 +326,6 @@ def compute_eccentricity(fwhm_x, fwhm_y):
     float
         Ellipticity e ∈ [0, 1], where 0 = circle and 1 = highly elongated.
     """
-
     a = max(fwhm_x, fwhm_y)
     b = min(fwhm_x, fwhm_y)
     return np.sqrt(1 - (b / a) ** 2)
