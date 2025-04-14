@@ -10,6 +10,7 @@ uv-coverage and sky models.
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.patches import Ellipse
 
 
 def plot_beam(beam, pRng=(-0.1, 0.5), ax=None, fig=None):
@@ -291,3 +292,59 @@ def plot_uv_hist(baselines, bins=20, output_folder=None):
         plt.show()
 
     return baseline_hist
+
+
+from metrics_utils import compute_eccentricity
+
+
+def plot_beam_fit_ellipse(beam, fit_result, zoom=30):
+    """
+    Plot the dirty beam with an overlaid ellipse representing the fitted main lobe.
+
+    Parameters
+    ----------
+    beam : np.ndarray
+        The dirty beam image (2D).
+    fit_result : dict
+        Dictionary returned by `fit_elliptical_beam()` from metrics_utils,
+        containing FWHM, angle, center, eccentricity, etc.
+    zoom : int
+        Number of pixels to show around the center (for zooming).
+
+    Returns
+    -------
+    None
+        Displays the plot with an ellipse overlay.
+    """
+    center = fit_result["center"]
+    fwhm_x = fit_result["fwhm_x"]
+    fwhm_y = fit_result["fwhm_y"]
+    angle_deg = fit_result["angle_deg"]
+
+    # Eccentricity
+    eccentricity = fit_result.get("eccentricity", compute_eccentricity(fwhm_x, fwhm_y))
+
+    # Plot the beam
+    plt.figure(figsize=(6, 5))
+    plt.imshow(beam, origin="lower", cmap="viridis", vmin=-0.01, vmax=0.02)
+    plt.colorbar()
+
+    # Add the fitted ellipse
+    ellipse = Ellipse(
+        xy=center,
+        width=fwhm_x,
+        height=fwhm_y,
+        angle=angle_deg,
+        edgecolor="red",
+        facecolor="none",
+        lw=2,
+        label="Fitted ellipse",
+    )
+    ax = plt.gca()
+    ax.add_patch(ellipse)
+    ax.set_xlim(center[0] - zoom, center[0] + zoom)
+    ax.set_ylim(center[1] - zoom, center[1] + zoom)
+    ax.set_aspect("equal")
+    plt.title(f" Elliptical Fit (e = {eccentricity:.4f})")
+    plt.legend()
+    plt.show()
