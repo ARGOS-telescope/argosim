@@ -11,6 +11,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Ellipse
+from argosim import metrics_utils
 
 
 def plot_beam(beam, pRng=(-0.1, 0.5), ax=None, fig=None):
@@ -294,57 +295,74 @@ def plot_uv_hist(baselines, bins=20, output_folder=None):
     return baseline_hist
 
 
-from metrics_utils import compute_eccentricity
-
-
-def plot_beam_fit_ellipse(beam, fit_result, zoom=30):
+def plot_sll_visualization(beam_masked, sll_db, zoom):
     """
-    Plot the dirty beam with an overlaid ellipse representing the fitted main lobe.
+    Plot the masked beam with annotated SLL value.
 
     Parameters
     ----------
-    beam : np.ndarray
-        The dirty beam image (2D).
+    beam_masked : np.ndarray
+        Beam image with the main lobe masked.
     fit_result : dict
-        Dictionary returned by `fit_elliptical_beam()` from metrics_utils,
-        containing FWHM, angle, center, eccentricity, etc.
+        Dictionary containing 'center' of the beam (from elliptical fit).
+    sll_db : float
+        Computed SLL value to annotate.
     zoom : int
-        Number of pixels to show around the center (for zooming).
+        Number of pixels around the center to zoom.
 
     Returns
     -------
     None
-        Displays the plot with an ellipse overlay.
     """
-    center = fit_result["center"]
-    fwhm_x = fit_result["fwhm_x"]
-    fwhm_y = fit_result["fwhm_y"]
-    angle_deg = fit_result["angle_deg"]
+    center = np.unravel_index(np.argmax(np.abs(beam_masked)), beam_masked.shape)
 
-    # Eccentricity
-    eccentricity = fit_result.get("eccentricity", compute_eccentricity(fwhm_x, fwhm_y))
+    z_min = np.min(beam_masked)
+    z_max = np.max(beam_masked)
+    vmin = z_min - 0.1 * (z_max - z_min)
+    vmax = z_max + 0.1 * (z_max - z_min)
 
-    # Plot the beam
     plt.figure(figsize=(6, 5))
-    plt.imshow(beam, origin="lower", cmap="viridis", vmin=-0.01, vmax=0.02)
+    plt.imshow(beam_masked, origin="lower", cmap="viridis", vmin=vmin, vmax=vmax)
+    plt.colorbar()
+    plt.xlim(center[0] - zoom, center[0] + zoom)
+    plt.ylim(center[1] - zoom, center[1] + zoom)
+    plt.title(f"Dirty Beam (main lobe masked)\nSLL = {sll_db:.8f} dB")
+    plt.show()
+
+
+def plot_beam_with_fitted_ellipse(beam, fit_result):
+    """
+    Plot the beam and overlay the fitted ellipse.
+
+    Parameters
+    ----------
+    beam : np.ndarray
+        2D beam image.
+    fit_result : dict
+        Dictionary returned by `fit_full_ellipse_from_bright_region`.
+
+    Returns
+    -------
+    None
+    """
+    plt.figure(figsize=(6, 5))
+    plt.imshow(beam, origin="lower", cmap="viridis")
     plt.colorbar()
 
-    # Add the fitted ellipse
     ellipse = Ellipse(
-        xy=center,
-        width=fwhm_x,
-        height=fwhm_y,
-        angle=angle_deg,
+        xy=fit_result["center"],
+        width=fit_result["width"],
+        height=fit_result["height"],
+        angle=fit_result["angle_deg"],
         edgecolor="red",
         facecolor="none",
         lw=2,
-        label="Fitted ellipse",
+        label="Fitted Ellipse",
     )
+
     ax = plt.gca()
     ax.add_patch(ellipse)
-    ax.set_xlim(center[0] - zoom, center[0] + zoom)
-    ax.set_ylim(center[1] - zoom, center[1] + zoom)
     ax.set_aspect("equal")
-    plt.title(f" Elliptical Fit (e = {eccentricity:.4f})")
+    plt.title(f"Elliptical Fit (e = {fit_result['eccentricity']:.4f})")
     plt.legend()
     plt.show()

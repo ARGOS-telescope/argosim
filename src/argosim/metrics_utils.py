@@ -6,10 +6,8 @@ This module contains utility functions to compute metrics between images.
 
 """
 
-import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import curve_fit
-from matplotlib.patches import Ellipse
 
 
 # from skimage.metrics import structural_similarity as ssim_skimage
@@ -104,191 +102,69 @@ def compute_metrics(img1, img2):
     return metrics
 
 
-def compute_mask_radius(fwhm_x, fwhm_y, masking_factor=3):
+def mask_main_lobe_elliptical(beam, fit_result, scale=1.0):
     """
-    Compute the radius (in pixels) for masking the main lobe.
-
-    Parameters
-    ----------
-    fwhm_x : float
-        Full Width at Half Maximum along x-axis.
-    fwhm_y : float
-        Full Width at Half Maximum along y-axis.
-    masking_factor : float
-        Factor to reduce the mask size (default is 3).
-
-    Returns
-    -------
-    radius : int
-        Radius in pixels used to mask the main lobe.
-    """
-    return int(np.round((fwhm_x + fwhm_y) / masking_factor))
-
-
-def mask_main_lobe(beam, center, radius):
-    """
-    Apply a circular mask to suppress the main lobe from a beam image.
+    Apply an elliptical mask to suppress the main lobe from a beam image.
 
     Parameters
     ----------
     beam : np.ndarray
         2D beam image.
-    center : tuple of int
-        (x, y) coordinates of the beam center.
-    radius : int
-        Radius of the exclusion zone in pixels.
+    fit_result : dict
+        Dictionary containing the ellipse parameters (center, width, height, angle_deg).
+    scale : float
+        Scale factor to enlarge or shrink the ellipse mask (default is 1.0).
 
     Returns
     -------
     beam_masked : np.ndarray
         Beam image with the main lobe masked (set to 0).
     """
-    beam_copy = beam.copy()
+    center_x, center_y = fit_result["center"]
+    width = fit_result["width"] * scale
+    height = fit_result["height"] * scale
+    angle = np.radians(fit_result["angle_deg"])
+
     y, x = np.indices(beam.shape)
-    mask = ((x - center[0]) ** 2 + (y - center[1]) ** 2) < radius**2
+    x_shifted = x - center_x
+    y_shifted = y - center_y
+
+    cos_angle = np.cos(angle)
+    sin_angle = np.sin(angle)
+    x_rot = cos_angle * x_shifted + sin_angle * y_shifted
+    y_rot = -sin_angle * x_shifted + cos_angle * y_shifted
+
+    mask = (x_rot**2 / (width / 2) ** 2 + y_rot**2 / (height / 2) ** 2) < 1
+
+    beam_copy = beam.copy()
     beam_copy[mask] = 0
     return beam_copy
 
 
-def compute_sll(beam, center, fwhm_x, fwhm_y, masking_factor=3, plot=False):
+def compute_sll(beam, fit_result, scale=1.0):
     """
-    Compute the Side-Lobe Level (SLL) of a beam.
+    Compute the Side-Lobe Level (SLL) of a beam using an elliptical mask.
 
     Parameters
     ----------
     beam : np.ndarray
         The beam image (2D).
-    center : tuple of int
-        Coordinates of the beam center.
-    fwhm_x : float
-        Beam width along x.
-    fwhm_y : float
-        Beam width along y.
-    masking_factor : float
-        Factor to determine the radius size for the mask.
-    plot : bool
-        If True, plot the masked beam.
+    fit_result : dict
+        Elliptical fit result containing center, width, height, angle_deg.
+    scale : float
+        Scale factor for the ellipse mask.
 
     Returns
     -------
     sll_db : float
         Side-Lobe Level in dB.
     """
-    beam_shifted = np.fft.fftshift(beam.copy())
-    radius = compute_mask_radius(fwhm_x, fwhm_y, masking_factor)
-    beam_masked = mask_main_lobe(beam_shifted, center, radius)
+    main_lobe_peak = np.max(np.abs(beam))
+    beam_masked = mask_main_lobe_elliptical(np.abs(beam), fit_result, scale=scale)
+    side_lobe_peak = np.max(beam_masked)
 
-    main_lobe_peak = np.max(beam_shifted)
-    side_lobe_peak = np.max(np.abs(beam_masked))
     sll_db = 10 * np.log10(side_lobe_peak / main_lobe_peak + 1e-12)
-
-    if plot:
-        plt.figure(figsize=(6, 5))
-        plt.imshow(beam_masked, origin="lower", cmap="viridis", vmin=-0.01, vmax=0.02)
-        plt.colorbar()
-        plt.xlim(
-            center[0] - 30, center[0] + 30
-        )  # zoom in on an area around the center with more or less 30px : better visibility of the plot
-        plt.ylim(center[1] - 30, center[1] + 30)
-        plt.title(f"Dirty Beam (main lobe masked)\nSLL = {sll_db:.8f} dB")
-        plt.show()
-
     return sll_db
-
-
-def gaussian_2d_elliptical(coords, amp, sigma_x, sigma_y, theta, offset, x0, y0):
-    """
-    2D elliptical Gaussian function with rotation.
-
-    Parameters
-    ----------
-    coords : tuple of np.ndarray
-        Tuple containing 2D coordinate arrays (x, y).
-    amp : float
-        Amplitude of the Gaussian.
-    sigma_x : float
-        Standard deviation along x-axis.
-    sigma_y : float
-        Standard deviation along y-axis.
-    theta : float
-        Rotation angle (in radians).
-    offset : float
-        Constant background offset.
-    x0, y0 : float
-        Center of the Gaussian.
-
-    Returns
-    -------
-    np.ndarray
-        Flattened 2D elliptical Gaussian evaluated at coords.
-    """
-    x, y = coords
-    x0, y0 = float(x0), float(y0)
-
-    xp = (x - x0) * np.cos(theta) + (y - y0) * np.sin(theta)
-    yp = -(x - x0) * np.sin(theta) + (y - y0) * np.cos(theta)
-
-    return (
-        amp * np.exp(-((xp**2) / (2 * sigma_x**2) + (yp**2) / (2 * sigma_y**2)))
-        + offset
-    )
-
-
-def get_beam_crop(beam, center, crop_size):
-    """
-    Extract a square region from the beam centered at a given pixel.
-
-    Parameters
-    ----------
-    beam : np.ndarray
-        Full 2D beam image.
-    center : tuple
-        Pixel coordinates (x, y) of the beam center.
-    crop_size : int
-        Size of the square region to extract.
-
-    Returns
-    -------
-    np.ndarray
-        Cropped square region of shape (crop_size, crop_size).
-    """
-    x0, y0 = center
-    half = crop_size // 2
-    x1, x2 = x0 - half, x0 + half
-    y1, y2 = y0 - half, y0 + half
-    return beam[y1:y2, x1:x2]
-
-
-def fit_elliptical_gaussian_to_crop(crop, x0_local, y0_local):
-    """
-    Fit an elliptical 2D Gaussian model to a cropped beam region.
-
-    Parameters
-    ----------
-    crop : np.ndarray
-        2D cropped beam region.
-    x0_local, y0_local : int
-        Local coordinates of the Gaussian center in the crop.
-
-    Returns
-    -------
-    popt : list
-        Optimal parameters [amp, sigma_x, sigma_y, theta, offset].
-    """
-    y, x = np.indices(crop.shape)
-
-    def model(coords, amp, sigma_x, sigma_y, theta, offset):
-        return gaussian_2d_elliptical(
-            coords, amp, sigma_x, sigma_y, theta, offset, x0_local, y0_local
-        )
-
-    p0 = (np.max(crop), 4.5, 4.5, 0, 0)
-    bounds = ([0, 0.5, 0.5, -np.pi, -np.inf], [np.inf, 10, 10, np.pi, np.inf])
-
-    popt, _ = curve_fit(
-        model, (x.ravel(), y.ravel()), crop.ravel(), p0=p0, bounds=bounds
-    )
-    return popt
 
 
 def compute_fwhm(sigma_x, sigma_y):
@@ -331,48 +207,54 @@ def compute_eccentricity(fwhm_x, fwhm_y):
     return np.sqrt(1 - (b / a) ** 2)
 
 
-def fit_elliptical_beam(beam, center=(271, 271), crop_size=4):
+def fit_elliptical_beam(beam, threshold_ratio=0.5):
     """
-    Fit an elliptical 2D Gaussian to the main lobe of the beam.
+    Fit an ellipse to the brightest region of the beam based on intensity thresholding.
 
     Parameters
     ----------
     beam : np.ndarray
-        The dirty beam (2D array).
-    center : tuple
-        Pixel coordinates of the beam center.
-    crop_size : int
-        Size of the window around the center to fit the Gaussian.
+        2D beam image.
+    threshold_ratio : float
+        Threshold fraction of the maximum intensity to define the bright region.
 
     Returns
     -------
     dict
-        Dictionary with fit results: FWHM, eccentricity, angle, sigma.
+        Ellipse parameters: center, width, height, angle_deg, eccentricity.
     """
-    crop = get_beam_crop(beam, center, crop_size)
-    x0_local = crop.shape[1] // 2
-    y0_local = crop.shape[0] // 2
+    max_val = np.max(np.abs(beam))
+    threshold = threshold_ratio * max_val
+    mask = np.abs(beam) >= threshold
+    coords_yx = np.column_stack(np.where(mask))
 
-    amp, sigma_x, sigma_y, theta, offset = fit_elliptical_gaussian_to_crop(
-        crop, x0_local, y0_local
-    )
+    # Compute center and covariance matrix
+    center_y, center_x = np.mean(coords_yx, axis=0)
+    cov = np.cov(coords_yx, rowvar=False)
 
-    fwhm_x, fwhm_y = compute_fwhm(sigma_x, sigma_y)
-    angle_deg = np.degrees(theta) % 180
-    eccentricity = compute_eccentricity(fwhm_x, fwhm_y)
+    # Eigendecomposition
+    eigvals, eigvecs = np.linalg.eigh(cov)
+    order = np.argsort(eigvals)[::-1]
+    eigvals = eigvals[order]
+    eigvecs = eigvecs[:, order]
 
-    print("Elliptical Beam Fit:")
-    print(f" - FWHM X         : {fwhm_x:.2f} px")
-    print(f" - FWHM Y         : {fwhm_y:.2f} px")
-    print(f" - Angle          : {angle_deg:.2f}°")
-    print(f" - Eccentricity   : {eccentricity:.4f}")
+    major_axis = eigvecs[:, 0]
+    angle_rad = np.arctan2(major_axis[0], major_axis[1])
+    angle_deg = np.degrees(angle_rad)
+
+    # Axes
+    scale = 2
+    width = 2 * np.sqrt(eigvals[0]) * scale
+    height = 2 * np.sqrt(eigvals[1]) * scale
+
+    # Eccentricity
+    a, b = max(width, height), min(width, height)
+    eccentricity = np.sqrt(1 - (b / a) ** 2)
 
     return {
-        "sigma_x": sigma_x,
-        "sigma_y": sigma_y,
-        "fwhm_x": fwhm_x,
-        "fwhm_y": fwhm_y,
+        "center": (center_x, center_y),
+        "width": width,
+        "height": height,
         "angle_deg": angle_deg,
-        "center": center,
         "eccentricity": eccentricity,
     }
