@@ -11,7 +11,6 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Ellipse
-from argosim import metrics_utils
 
 
 def plot_beam(beam, pRng=(-0.1, 0.5), ax=None, fig=None):
