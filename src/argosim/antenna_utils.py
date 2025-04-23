@@ -488,7 +488,6 @@ def load_antenna_latlon_txt(path, noise=False):
     noise_level : np.ndarray
         If noise==True, return antenna noise level.
     """
-
     R = 6378137.0  # Mean radius of the Earth (m)
 
     antenna_info = np.genfromtxt(path)
@@ -536,7 +535,6 @@ def save_antenna_enu_txt(antenna, path):
     -------
     No return, it only saves the file.
     """
-
     nb_antennas = len(antenna)
     antenna_name = np.linspace(1, nb_antennas, nb_antennas, dtype=int).reshape(-1, 1)
 
@@ -563,7 +561,6 @@ def save_antenna_noise_enu_txt(antenna, noise, path):
     -------
     No return, it only saves the file.
     """
-
     nb_antennas = len(antenna)
     antenna_name = np.linspace(1, nb_antennas, nb_antennas, dtype=int).reshape(-1, 1)
 
