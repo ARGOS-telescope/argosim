@@ -437,19 +437,133 @@ def combine_antenna_arr(arr1, arr2):
     return np.concatenate((arr1, arr2), axis=0)
 
 
-def load_antenna_enu_txt(path):
+def load_antenna_enu_txt(path, noise=False):
     """Load antenna txt.
 
-    Function to load antenna ENU positions from a txt file.
+    Function to load antenna name, ENU positions and noise from a txt file.
 
     Parameters
     ----------
     path : str
         The path to the txt file.
+    noise : bool
+        Specify if the file contain the noise level of each antenna.
 
     Returns
     -------
     antenna_arr : np.ndarray
         The antenna array positions.
+    noise_level : np.ndarray
+        If noise==True, return antenna noise level.
     """
-    return np.genfromtxt(path)
+    antenna_info = np.genfromtxt(path)
+    name = antenna_info[:,0]
+
+    if noise==True:
+        noise_level = antenna_info[:,-1]
+        return antenna_info[:,1:4], noise_level
+    else:
+        return antenna_info[:,1:4]
+    
+def load_antenna_latlon_txt(path, noise=False):
+    """(lat,long,altitude) to ENU.
+
+    Function to load the antenna name, latitude (degree), longitude (degree), altitude (metre) and noise from a txt file, 
+    and return the information with ENU positions.
+    The reference is taken as the middle of all the antennas.
+    Waring: the computation of the upp coordinate is valid for antennas that are close enough.
+
+    Parameters
+    ----------
+    path : str
+        The path to the txt file.
+    noise : bool
+        Specify if the file contain the noise level of each antenna.
+    
+    Returns
+    -------
+    antenna_arr : np.ndarray
+        The antenna array positions.
+    noise_level : np.ndarray
+        If noise==True, return antenna noise level.
+    """
+
+    R = 6378137.0  # Mean radius of the Earth (m)
+
+    antenna_info = np.genfromtxt(path)
+    name = antenna_info[:,0]
+    antenna_pos = antenna_info[:,1:4]
+
+    # Compute the reference
+    ref = np.mean(antenna_pos, axis=0)
+    lat0, lon0, h0 = np.radians(ref[0]), np.radians(ref[1]), ref[2]
+
+    enu_list = []
+    for lat, lon, h in antenna_pos:
+        # Compute the difference between the antenna and the reference (deg, deg, m)
+        d_lat = np.radians(lat - ref[0])
+        d_lon = np.radians(lon - ref[1])
+        d_h = h - h0
+
+        # Convert into ENU
+        d_north = d_lat * R
+        d_east = d_lon * R * np.cos(lat0)
+        d_up = d_h
+        enu_list.append((d_east, d_north, d_up))
+    enu_array = np.array(enu_list)
+
+    if noise==True:
+        noise_level = antenna_info[:,-1]
+        return enu_array, noise_level
+    else:
+        return enu_array
+    
+def save_antenna_enu_txt(antenna,path):
+    """Save the antenna information into a txt file.
+        
+    Function to save the antenna name and ENU positions into a txt file.
+        
+    Parameters
+    ----------
+    antenna : np.ndarray
+        The numpy array which contain the antenna information.
+    path : str
+        The path to the txt file.
+            
+    Returns
+    -------
+    No return, it only saves the file.
+    """
+
+    nb_antennas = len(antenna)
+    antenna_name = np.linspace(1,nb_antennas,nb_antennas,dtype=int).reshape(-1, 1)
+    
+    antenna_info = np.concatenate((antenna_name,antenna),axis=1)
+
+    np.savetxt(path,antenna_info, fmt='%d %.6f %.6f %.6f', header="Name | E | N | U")
+
+def save_antenna_noise_enu_txt(antenna,noise,path):
+    """Save the antenna information into a txt file.
+        
+    Function to save the antenna name, ENU positions and noise into a txt file.
+        
+    Parameters
+    ----------
+    antenna : np.ndarray
+        The numpy array which contain the antenna information.
+    noise  np.ndarray
+        The numpy array which contain the noise information.
+    path : str
+        The path to the txt file.
+            
+    Returns
+    -------
+    No return, it only saves the file.
+    """
+
+    nb_antennas = len(antenna)
+    antenna_name = np.linspace(1,nb_antennas,nb_antennas,dtype=int).reshape(-1, 1)
+    
+    antenna_info = np.concatenate((antenna_name,antenna,noise.reshape(-1, 1)),axis=1)
+
+    np.savetxt(path,antenna_info, fmt='%d %.6f %.6f %.6f %.6f', header="Name | E | N | U | Noise level")
