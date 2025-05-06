@@ -100,8 +100,63 @@ def compute_metrics(img1, img2):
     return metrics
 
 
-def mask_main_lobe_elliptical(beam, fit_result, scale=1.0):
+def fit_elliptical_beam(beam, threshold_ratio=0.5):
+    """Fit elliptical beam
+
+    Fit an ellipse to the brightest region of the beam based on intensity thresholding.
+
+    Parameters
+    ----------
+    beam : np.ndarray
+        2D beam image.
+    threshold_ratio : float
+        Threshold fraction of the maximum intensity to define the bright region.
+
+    Returns
+    -------
+    dict : dictionary
+        Ellipse parameters: center, width, height, angle_deg, eccentricity.
     """
+    max_val = np.max(np.abs(beam))
+    threshold = threshold_ratio * max_val
+    mask = np.abs(beam) >= threshold
+    coords_yx = np.column_stack(np.where(mask))
+
+    # Compute center and covariance matrix
+    center_y, center_x = np.mean(coords_yx, axis=0)
+    cov = np.cov(coords_yx, rowvar=False)
+
+    # Eigendecomposition
+    eigvals, eigvecs = np.linalg.eigh(cov)
+    order = np.argsort(eigvals)[::-1]
+    eigvals = eigvals[order]
+    eigvecs = eigvecs[:, order]
+
+    major_axis = eigvecs[:, 0]
+    angle_rad = np.arctan2(major_axis[0], major_axis[1])
+    angle_deg = np.degrees(angle_rad)
+
+    # Axes
+
+    width = 2 * np.sqrt(eigvals[0])
+    height = 2 * np.sqrt(eigvals[1])
+
+    # Eccentricity
+    a, b = max(width, height), min(width, height)
+    eccentricity = np.sqrt(1 - (b / a) ** 2)
+
+    return {
+        "center": (center_x, center_y),
+        "width": width,
+        "height": height,
+        "angle_deg": angle_deg,
+        "eccentricity": eccentricity,
+    }
+
+
+def mask_main_lobe_elliptical(beam, fit_result, scale=3):
+    """Mask main lobe elliptical
+
     Apply an elliptical mask to suppress the main lobe from a beam image.
 
     Parameters
@@ -134,13 +189,14 @@ def mask_main_lobe_elliptical(beam, fit_result, scale=1.0):
 
     mask = (x_rot**2 / (width / 2) ** 2 + y_rot**2 / (height / 2) ** 2) < 1
 
-    beam_copy = beam.copy()
-    beam_copy[mask] = 0
-    return beam_copy
+    beam_masked = beam.copy()
+    beam_masked[mask] = 0
+    return beam_masked
 
 
-def compute_sll(beam, fit_result, scale=1.0):
-    """
+def compute_sll(beam, fit_result=None, scale=3):
+    """Compute sll
+
     Compute the Side-Lobe Level (SLL) of a beam using an elliptical mask.
 
     Parameters
@@ -157,102 +213,83 @@ def compute_sll(beam, fit_result, scale=1.0):
     sll_db : float
         Side-Lobe Level in dB.
     """
+    if fit_result is None:
+        fit_result = fit_elliptical_beam(beam)
     main_lobe_peak = np.max(np.abs(beam))
     beam_masked = mask_main_lobe_elliptical(np.abs(beam), fit_result, scale=scale)
     side_lobe_peak = np.max(beam_masked)
-
     sll_db = 10 * np.log10(side_lobe_peak / main_lobe_peak + 1e-12)
     return sll_db
 
 
-def compute_fwhm(sigma_x, sigma_y):
-    """
-    Convert standard deviations to FWHM.
+def compute_fwhm(beam, fit_result=None):
+    """Compute fwhm
+
+    Compute FWHM from beam
 
     Parameters
     ----------
-    sigma_x : float
-        Standard deviation along x-axis.
-    sigma_y : float
-        Standard deviation along y-axis.
+    beam : np.ndarray
+        The beam image (2D)
+    fit_result : dict
+        Dictionary containing the ellipse parameters (center, width, height, angle_deg).
+
     Returns
     -------
     tuple
         FWHM along x and y.
     """
-    factor = 2.553  # approximation for FWHM = 2*sqrt(2*ln(2))
-    return factor * sigma_x, factor * sigma_y
+    if fit_result is None:
+        fit_result = fit_elliptical_beam(beam)
+    return fit_result["width"], fit_result["height"]
 
 
-def compute_eccentricity(fwhm_x, fwhm_y):
-    """
-    Compute the eccentricity of an ellipse from FWHM values.
+def compute_eccentricity(beam, fit_result=None):
+    """Compute eccentricity
+
+    Compute the eccentricity of an ellipse from beam.
 
     Parameters
     ----------
-    fwhm_x : float
-        FWHM along x-axis.
-    fwhm_y : float
-        FWHM along y-axis.
+    beam : np.ndarray
+        The beam image (2D)
+    fit_result : dict
+        Dictionary containing the ellipse parameters (center, width, height, angle_deg).
 
     Returns
     -------
     float
         Ellipticity e ∈ [0, 1], where 0 = circle and 1 = highly elongated.
     """
-    a = max(fwhm_x, fwhm_y)
-    b = min(fwhm_x, fwhm_y)
-    return np.sqrt(1 - (b / a) ** 2)
+    if fit_result is None:
+        fit_result = fit_elliptical_beam(beam)
+    fwhm_a, fwhm_b = compute_fwhm(beam, fit_result)
+    A = max(fwhm_a, fwhm_b)
+    B = min(fwhm_a, fwhm_b)
+    return np.sqrt(1 - (B / A) ** 2)
 
 
-def fit_elliptical_beam(beam, threshold_ratio=0.5):
-    """
-    Fit an ellipse to the brightest region of the beam based on intensity thresholding.
+def compute_beam_metrics(beam):
+    """Compute beam metrics
+
+    Compute main beam metrics: SLL, FWHM, and eccentricity.
 
     Parameters
     ----------
     beam : np.ndarray
-        2D beam image.
-    threshold_ratio : float
-        Threshold fraction of the maximum intensity to define the bright region.
+        The beam image (2D)
 
     Returns
     -------
     dict
-        Ellipse parameters: center, width, height, angle_deg, eccentricity.
+        Dictionary containing SLL (dB), FWHM (x, y), and eccentricity.
     """
-    max_val = np.max(np.abs(beam))
-    threshold = threshold_ratio * max_val
-    mask = np.abs(beam) >= threshold
-    coords_yx = np.column_stack(np.where(mask))
-
-    # Compute center and covariance matrix
-    center_y, center_x = np.mean(coords_yx, axis=0)
-    cov = np.cov(coords_yx, rowvar=False)
-
-    # Eigendecomposition
-    eigvals, eigvecs = np.linalg.eigh(cov)
-    order = np.argsort(eigvals)[::-1]
-    eigvals = eigvals[order]
-    eigvecs = eigvecs[:, order]
-
-    major_axis = eigvecs[:, 0]
-    angle_rad = np.arctan2(major_axis[0], major_axis[1])
-    angle_deg = np.degrees(angle_rad)
-
-    # Axes
-    scale = 2
-    width = 2 * np.sqrt(eigvals[0]) * scale
-    height = 2 * np.sqrt(eigvals[1]) * scale
-
-    # Eccentricity
-    a, b = max(width, height), min(width, height)
-    eccentricity = np.sqrt(1 - (b / a) ** 2)
-
+    fit_result = fit_elliptical_beam(beam)
+    sll = compute_sll(beam, fit_result)
+    fwhm_a, fwhm_b = compute_fwhm(beam, fit_result)
+    eccentricity = compute_eccentricity(beam, fit_result)
     return {
-        "center": (center_x, center_y),
-        "width": width,
-        "height": height,
-        "angle_deg": angle_deg,
+        "sll_db": sll,
+        "fwhm": (fwhm_a, fwhm_b),
         "eccentricity": eccentricity,
     }
