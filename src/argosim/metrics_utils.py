@@ -101,9 +101,9 @@ def compute_metrics(img1, img2):
 
 
 def fit_elliptical_beam(beam, threshold_ratio=0.5):
-    """Fit elliptical beam
+    """Fit elliptical beam.
 
-    Fit an ellipse to the brightest region of the beam based on intensity thresholding.
+    Fit an ellipse to the main lobe of the dirty beam using intensity thresholding.
 
     Parameters
     ----------
@@ -137,7 +137,6 @@ def fit_elliptical_beam(beam, threshold_ratio=0.5):
     angle_deg = np.degrees(angle_rad)
 
     # Axes
-
     width = 2 * np.sqrt(eigvals[0])
     height = 2 * np.sqrt(eigvals[1])
 
@@ -154,8 +153,8 @@ def fit_elliptical_beam(beam, threshold_ratio=0.5):
     }
 
 
-def mask_main_lobe_elliptical(beam, fit_result, scale=3):
-    """Mask main lobe elliptical
+def mask_main_lobe_elliptical(beam, fit_result, scale=3.0):
+    """Mask main lobe elliptical.
 
     Apply an elliptical mask to suppress the main lobe from a beam image.
 
@@ -164,9 +163,9 @@ def mask_main_lobe_elliptical(beam, fit_result, scale=3):
     beam : np.ndarray
         2D beam image.
     fit_result : dict
-        Dictionary containing the ellipse parameters (center, width, height, angle_deg).
+        Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity).
     scale : float
-        Scale factor to enlarge or shrink the ellipse mask (default is 1.0).
+        Scale factor to enlarge or shrink the ellipse mask (default is 3.0).
 
     Returns
     -------
@@ -190,28 +189,28 @@ def mask_main_lobe_elliptical(beam, fit_result, scale=3):
     mask = (x_rot**2 / (width / 2) ** 2 + y_rot**2 / (height / 2) ** 2) < 1
 
     beam_masked = beam.copy()
-    beam_masked[mask] = 0
+    beam_masked[mask] = 0.0
     return beam_masked
 
 
-def compute_sll(beam, fit_result=None, scale=3):
-    """Compute sll
+def compute_sll(beam, fit_result=None, scale=3.0):
+    """Compute sll.
 
-    Compute the Side-Lobe Level (SLL) of a beam using an elliptical mask.
+    Compute the Side-lobe level (SLL) of a beam using an elliptical mask.
 
     Parameters
     ----------
     beam : np.ndarray
         The beam image (2D).
     fit_result : dict
-        Elliptical fit result containing center, width, height, angle_deg.
+        Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.
     scale : float
-        Scale factor for the ellipse mask.
+        Scale factor for the elliptical mask.
 
     Returns
     -------
     sll_db : float
-        Side-Lobe Level in dB.
+        Side-lobe level in dB.
     """
     if fit_result is None:
         fit_result = fit_elliptical_beam(beam)
@@ -223,21 +222,21 @@ def compute_sll(beam, fit_result=None, scale=3):
 
 
 def compute_fwhm(beam, fit_result=None):
-    """Compute fwhm
+    """Compute fwhm.
 
-    Compute FWHM from beam
+    Compute FWHM from beam.
 
     Parameters
     ----------
     beam : np.ndarray
-        The beam image (2D)
+        The beam image (2D).
     fit_result : dict
-        Dictionary containing the ellipse parameters (center, width, height, angle_deg).
+        Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.
 
     Returns
     -------
     tuple
-        FWHM along x and y.
+        FWHM along the semi-major and semi-minor axis of the beam.
     """
     if fit_result is None:
         fit_result = fit_elliptical_beam(beam)
@@ -245,39 +244,37 @@ def compute_fwhm(beam, fit_result=None):
 
 
 def compute_eccentricity(beam, fit_result=None):
-    """Compute eccentricity
+    """Compute eccentricity.
 
-    Compute the eccentricity of an ellipse from beam.
+    Compute the eccentricity of the beam main lobe.
 
     Parameters
     ----------
     beam : np.ndarray
-        The beam image (2D)
+        The beam image (2D).
     fit_result : dict
-        Dictionary containing the ellipse parameters (center, width, height, angle_deg).
+        Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.
 
     Returns
     -------
     float
-        Ellipticity e ∈ [0, 1], where 0 = circle and 1 = highly elongated.
+        Eccentricity of the beam. Ranges from 0 to 1, where 0 indicates a perfectly circular beam and 1 a completely degenerated beam.
     """
     if fit_result is None:
         fit_result = fit_elliptical_beam(beam)
     fwhm_a, fwhm_b = compute_fwhm(beam, fit_result)
-    A = max(fwhm_a, fwhm_b)
-    B = min(fwhm_a, fwhm_b)
-    return np.sqrt(1 - (B / A) ** 2)
+    return np.sqrt(1 - (fwhm_b / fwhm_a) ** 2)
 
 
 def compute_beam_metrics(beam):
-    """Compute beam metrics
+    """Compute beam metrics.
 
     Compute main beam metrics: SLL, FWHM, and eccentricity.
 
     Parameters
     ----------
     beam : np.ndarray
-        The beam image (2D)
+        The beam image (2D).
 
     Returns
     -------

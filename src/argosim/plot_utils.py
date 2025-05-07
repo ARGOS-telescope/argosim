@@ -11,6 +11,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Ellipse
+from argosim import metrics_utils
 
 
 def plot_beam(beam, pRng=(-0.1, 0.5), ax=None, fig=None):
@@ -294,43 +295,9 @@ def plot_uv_hist(baselines, bins=20, output_folder=None):
     return baseline_hist
 
 
-def plot_sll_visualization(beam_masked, sll_db, zoom):
-    """
-    Plot the masked beam with annotated SLL value.
+def plot_beam_fit(beam, fit_result=None):
+    """Plot beam fit.
 
-    Parameters
-    ----------
-    beam_masked : np.ndarray
-        Beam image with the main lobe masked.
-    fit_result : dict
-        Dictionary containing 'center' of the beam (from elliptical fit).
-    sll_db : float
-        Computed SLL value to annotate.
-    zoom : int
-        Number of pixels around the center to zoom.
-
-    Returns
-    -------
-    None
-    """
-    center = np.unravel_index(np.argmax(np.abs(beam_masked)), beam_masked.shape)
-
-    z_min = np.min(beam_masked)
-    z_max = np.max(beam_masked)
-    vmin = z_min - 0.1 * (z_max - z_min)
-    vmax = z_max + 0.1 * (z_max - z_min)
-
-    plt.figure(figsize=(6, 5))
-    plt.imshow(beam_masked, origin="lower", cmap="viridis", vmin=vmin, vmax=vmax)
-    plt.colorbar()
-    plt.xlim(center[0] - zoom, center[0] + zoom)
-    plt.ylim(center[1] - zoom, center[1] + zoom)
-    plt.title(f"Dirty Beam (main lobe masked)\nSLL = {sll_db:.8f} dB")
-    plt.show()
-
-
-def plot_beam_with_fitted_ellipse(beam, fit_result):
-    """
     Plot the beam and overlay the fitted ellipse.
 
     Parameters
@@ -338,14 +305,16 @@ def plot_beam_with_fitted_ellipse(beam, fit_result):
     beam : np.ndarray
         2D beam image.
     fit_result : dict
-        Dictionary returned by `fit_full_ellipse_from_bright_region`.
+        Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.
 
     Returns
     -------
     None
     """
-    plt.figure(figsize=(6, 5))
-    plt.imshow(beam, origin="lower", cmap="viridis")
+    if fit_result is None:
+        fit_result = metrics_utils.fit_elliptical_beam(beam)
+
+    plt.imshow(beam, origin="lower")
     plt.colorbar()
 
     ellipse = Ellipse(
