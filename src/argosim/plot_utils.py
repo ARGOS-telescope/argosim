@@ -274,6 +274,7 @@ def plot_uv_hist(baselines, bins=20, output_folder=None):
         orientation="vertical",
         label="Counts",
     )
+
     ax[1].set_aspect("equal")
     ax[1].set_xlim(-r_list[-1] * 1.1, r_list[-1] * 1.1)
     ax[1].set_ylim(-r_list[-1] * 1.1, r_list[-1] * 1.1)
