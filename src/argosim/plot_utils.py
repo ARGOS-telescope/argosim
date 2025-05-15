@@ -10,6 +10,9 @@ uv-coverage and sky models.
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.patches import Ellipse
+
+from argosim import metrics_utils
 
 
 def plot_beam(beam, pRng=(-0.1, 0.5), ax=None, fig=None):
@@ -272,6 +275,7 @@ def plot_uv_hist(baselines, bins=20, output_folder=None):
         orientation="vertical",
         label="Counts",
     )
+
     ax[1].set_aspect("equal")
     ax[1].set_xlim(-r_list[-1] * 1.1, r_list[-1] * 1.1)
     ax[1].set_ylim(-r_list[-1] * 1.1, r_list[-1] * 1.1)
@@ -291,3 +295,44 @@ def plot_uv_hist(baselines, bins=20, output_folder=None):
         plt.show()
 
     return baseline_hist
+
+
+def plot_beam_fit(beam, fit_result=None):
+    """Plot beam fit.
+
+    Plot the beam and overlay the fitted ellipse.
+
+    Parameters
+    ----------
+    beam : np.ndarray
+        2D beam image.
+    fit_result : dict
+        Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.
+
+    Returns
+    -------
+    None
+    """
+    if fit_result is None:
+        fit_result = metrics_utils.fit_elliptical_beam(beam)
+
+    plt.imshow(beam, origin="lower")
+    plt.colorbar()
+
+    ellipse = Ellipse(
+        xy=fit_result["center"],
+        width=fit_result["width"],
+        height=fit_result["height"],
+        angle=fit_result["angle_deg"],
+        edgecolor="red",
+        facecolor="none",
+        lw=2,
+        label="Fitted Ellipse",
+    )
+
+    ax = plt.gca()
+    ax.add_patch(ellipse)
+    ax.set_aspect("equal")
+    plt.title(f"Elliptical Fit (e = {fit_result['eccentricity']:.4f})")
+    plt.legend()
+    plt.show()
