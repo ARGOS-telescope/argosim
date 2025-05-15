@@ -165,7 +165,7 @@ def mask_main_lobe_elliptical(beam, fit_result, scale=3.0):
     fit_result : dict
         Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity).
     scale : float
-        Scale factor to enlarge or shrink the ellipse mask (default is 3).
+        Scale factor to enlarge or shrink the elliptical mask (default is 3).
 
     Returns
     -------
