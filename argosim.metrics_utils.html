@@ -331,7 +331,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.compute_beam_metrics"><code class="docutils literal notranslate"><span class="pre">compute_beam_metrics()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.compute_eccentricity"><code class="docutils literal notranslate"><span class="pre">compute_eccentricity()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.compute_fwhm"><code class="docutils literal notranslate"><span class="pre">compute_fwhm()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.compute_metrics"><code class="docutils literal notranslate"><span class="pre">compute_metrics()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.compute_sll"><code class="docutils literal notranslate"><span class="pre">compute_sll()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.fit_elliptical_beam"><code class="docutils literal notranslate"><span class="pre">fit_elliptical_beam()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.mask_main_lobe_elliptical"><code class="docutils literal notranslate"><span class="pre">mask_main_lobe_elliptical()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.mse"><code class="docutils literal notranslate"><span class="pre">mse()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.residuals"><code class="docutils literal notranslate"><span class="pre">residuals()</span></code></a></li>
 </ul>
@@ -355,6 +361,66 @@ document.write(`
 </dd>
 </dl>
 <dl class="py function">
+<dt class="sig sig-object py" id="argosim.metrics_utils.compute_beam_metrics">
+<span class="sig-prename descclassname"><span class="pre">argosim.metrics_utils.</span></span><span class="sig-name descname"><span class="pre">compute_beam_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beam</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/metrics_utils.html#compute_beam_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.metrics_utils.compute_beam_metrics" title="Link to this definition">#</a></dt>
+<dd><p>Compute beam metrics.</p>
+<p>Compute main beam metrics: SLL, FWHM, and eccentricity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>beam</strong> (<em>np.ndarray</em>) – The beam image (2D).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary containing SLL (dB), FWHM (x, y), and eccentricity.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.metrics_utils.compute_eccentricity">
+<span class="sig-prename descclassname"><span class="pre">argosim.metrics_utils.</span></span><span class="sig-name descname"><span class="pre">compute_eccentricity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/metrics_utils.html#compute_eccentricity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.metrics_utils.compute_eccentricity" title="Link to this definition">#</a></dt>
+<dd><p>Compute eccentricity.</p>
+<p>Compute the eccentricity of the beam main lobe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>beam</strong> (<em>np.ndarray</em>) – The beam image (2D).</p></li>
+<li><p><strong>fit_result</strong> (<em>dict</em>) – Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Eccentricity of the beam. Ranges from 0 to 1, where 0 indicates a perfectly circular beam and 1 a completely degenerated beam.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.metrics_utils.compute_fwhm">
+<span class="sig-prename descclassname"><span class="pre">argosim.metrics_utils.</span></span><span class="sig-name descname"><span class="pre">compute_fwhm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/metrics_utils.html#compute_fwhm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.metrics_utils.compute_fwhm" title="Link to this definition">#</a></dt>
+<dd><p>Compute fwhm.</p>
+<p>Compute FWHM from beam.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>beam</strong> (<em>np.ndarray</em>) – The beam image (2D).</p></li>
+<li><p><strong>fit_result</strong> (<em>dict</em>) – Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>FWHM along the semi-major and semi-minor axis of the beam.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="argosim.metrics_utils.compute_metrics">
 <span class="sig-prename descclassname"><span class="pre">argosim.metrics_utils.</span></span><span class="sig-name descname"><span class="pre">compute_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/metrics_utils.html#compute_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.metrics_utils.compute_metrics" title="Link to this definition">#</a></dt>
 <dd><p>Compute metrics.</p>
@@ -371,6 +437,71 @@ document.write(`
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.metrics_utils.compute_sll">
+<span class="sig-prename descclassname"><span class="pre">argosim.metrics_utils.</span></span><span class="sig-name descname"><span class="pre">compute_sll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/metrics_utils.html#compute_sll"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.metrics_utils.compute_sll" title="Link to this definition">#</a></dt>
+<dd><p>Compute sll.</p>
+<p>Compute the Side-lobe level (SLL) of a beam using an elliptical mask.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>beam</strong> (<em>np.ndarray</em>) – The beam image (2D).</p></li>
+<li><p><strong>fit_result</strong> (<em>dict</em>) – Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.</p></li>
+<li><p><strong>scale</strong> (<em>float</em>) – Scale factor for the elliptical mask.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>sll_db</strong> – Side-lobe level in dB.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.metrics_utils.fit_elliptical_beam">
+<span class="sig-prename descclassname"><span class="pre">argosim.metrics_utils.</span></span><span class="sig-name descname"><span class="pre">fit_elliptical_beam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/metrics_utils.html#fit_elliptical_beam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.metrics_utils.fit_elliptical_beam" title="Link to this definition">#</a></dt>
+<dd><p>Fit elliptical beam.</p>
+<p>Fit an ellipse to the main lobe of the dirty beam using intensity thresholding.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>beam</strong> (<em>np.ndarray</em>) – 2D beam image.</p></li>
+<li><p><strong>threshold_ratio</strong> (<em>float</em>) – Threshold fraction of the maximum intensity to define the bright region.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dict</strong> – Ellipse parameters: center, width, height, angle_deg, eccentricity.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.metrics_utils.mask_main_lobe_elliptical">
+<span class="sig-prename descclassname"><span class="pre">argosim.metrics_utils.</span></span><span class="sig-name descname"><span class="pre">mask_main_lobe_elliptical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/metrics_utils.html#mask_main_lobe_elliptical"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.metrics_utils.mask_main_lobe_elliptical" title="Link to this definition">#</a></dt>
+<dd><p>Mask main lobe elliptical.</p>
+<p>Apply an elliptical mask to suppress the main lobe from a beam image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>beam</strong> (<em>np.ndarray</em>) – 2D beam image.</p></li>
+<li><p><strong>fit_result</strong> (<em>dict</em>) – Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity).</p></li>
+<li><p><strong>scale</strong> (<em>float</em>) – Scale factor to enlarge or shrink the elliptical mask (default is 3).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>beam_masked</strong> – Beam image with the main lobe masked (set to 0).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -464,7 +595,13 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.compute_beam_metrics"><code class="docutils literal notranslate"><span class="pre">compute_beam_metrics()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.compute_eccentricity"><code class="docutils literal notranslate"><span class="pre">compute_eccentricity()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.compute_fwhm"><code class="docutils literal notranslate"><span class="pre">compute_fwhm()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.compute_metrics"><code class="docutils literal notranslate"><span class="pre">compute_metrics()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.compute_sll"><code class="docutils literal notranslate"><span class="pre">compute_sll()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.fit_elliptical_beam"><code class="docutils literal notranslate"><span class="pre">fit_elliptical_beam()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.mask_main_lobe_elliptical"><code class="docutils literal notranslate"><span class="pre">mask_main_lobe_elliptical()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.mse"><code class="docutils literal notranslate"><span class="pre">mse()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.residuals"><code class="docutils literal notranslate"><span class="pre">residuals()</span></code></a></li>
 </ul>

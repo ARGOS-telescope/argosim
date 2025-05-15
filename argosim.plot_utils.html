@@ -334,6 +334,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.plot_utils.plot_antenna_arr"><code class="docutils literal notranslate"><span class="pre">plot_antenna_arr()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.plot_utils.plot_baselines"><code class="docutils literal notranslate"><span class="pre">plot_baselines()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.plot_utils.plot_beam"><code class="docutils literal notranslate"><span class="pre">plot_beam()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.plot_utils.plot_beam_fit"><code class="docutils literal notranslate"><span class="pre">plot_beam_fit()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.plot_utils.plot_sky"><code class="docutils literal notranslate"><span class="pre">plot_sky()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.plot_utils.plot_sky_uv"><code class="docutils literal notranslate"><span class="pre">plot_sky_uv()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.plot_utils.plot_uv_hist"><code class="docutils literal notranslate"><span class="pre">plot_uv_hist()</span></code></a></li>
@@ -410,6 +411,24 @@ uv-coverage and sky models.</p>
 <li><p><strong>pRng</strong> (<em>tuple</em>) – The range of the colorbar.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em>) – The axis to plot the beam. For plotting on a specific subplot axis.</p></li>
 <li><p><strong>fig</strong> (<em>matplotlib.figure.Figure</em>) – The figure to plot the beam. For plotting on a specific subplot axis.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.plot_utils.plot_beam_fit">
+<span class="sig-prename descclassname"><span class="pre">argosim.plot_utils.</span></span><span class="sig-name descname"><span class="pre">plot_beam_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/plot_utils.html#plot_beam_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.plot_utils.plot_beam_fit" title="Link to this definition">#</a></dt>
+<dd><p>Plot beam fit.</p>
+<p>Plot the beam and overlay the fitted ellipse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>beam</strong> (<em>np.ndarray</em>) – 2D beam image.</p></li>
+<li><p><strong>fit_result</strong> (<em>dict</em>) – Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -523,6 +542,7 @@ uv-coverage and sky models.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.plot_utils.plot_antenna_arr"><code class="docutils literal notranslate"><span class="pre">plot_antenna_arr()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.plot_utils.plot_baselines"><code class="docutils literal notranslate"><span class="pre">plot_baselines()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.plot_utils.plot_beam"><code class="docutils literal notranslate"><span class="pre">plot_beam()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.plot_utils.plot_beam_fit"><code class="docutils literal notranslate"><span class="pre">plot_beam_fit()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.plot_utils.plot_sky"><code class="docutils literal notranslate"><span class="pre">plot_sky()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.plot_utils.plot_sky_uv"><code class="docutils literal notranslate"><span class="pre">plot_sky_uv()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.plot_utils.plot_uv_hist"><code class="docutils literal notranslate"><span class="pre">plot_uv_hist()</span></code></a></li>

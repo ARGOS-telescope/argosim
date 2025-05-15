@@ -394,6 +394,216 @@ document.write(`
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">metrics</span></div>
 
+
+
+<div class="viewcode-block" id="fit_elliptical_beam">
+<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.fit_elliptical_beam">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">fit_elliptical_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">threshold_ratio</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fit elliptical beam.</span>
+
+<span class="sd">    Fit an ellipse to the main lobe of the dirty beam using intensity thresholding.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    beam : np.ndarray</span>
+<span class="sd">        2D beam image.</span>
+<span class="sd">    threshold_ratio : float</span>
+<span class="sd">        Threshold fraction of the maximum intensity to define the bright region.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict : dictionary</span>
+<span class="sd">        Ellipse parameters: center, width, height, angle_deg, eccentricity.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">max_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">beam</span><span class="p">))</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="n">threshold_ratio</span> <span class="o">*</span> <span class="n">max_val</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">beam</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">threshold</span>
+    <span class="n">coords_yx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">))</span>
+
+    <span class="c1"># Compute center and covariance matrix</span>
+    <span class="n">center_y</span><span class="p">,</span> <span class="n">center_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">coords_yx</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">coords_yx</span><span class="p">,</span> <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># Eigendecomposition</span>
+    <span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">eigvals</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">eigvals</span> <span class="o">=</span> <span class="n">eigvals</span><span class="p">[</span><span class="n">order</span><span class="p">]</span>
+    <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">eigvecs</span><span class="p">[:,</span> <span class="n">order</span><span class="p">]</span>
+
+    <span class="n">major_axis</span> <span class="o">=</span> <span class="n">eigvecs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">angle_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">major_axis</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">major_axis</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">angle_deg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">angle_rad</span><span class="p">)</span>
+
+    <span class="c1"># Axes</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvals</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvals</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># Eccentricity</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+    <span class="n">eccentricity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">b</span> <span class="o">/</span> <span class="n">a</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span><span class="p">),</span>
+        <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
+        <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span>
+        <span class="s2">&quot;angle_deg&quot;</span><span class="p">:</span> <span class="n">angle_deg</span><span class="p">,</span>
+        <span class="s2">&quot;eccentricity&quot;</span><span class="p">:</span> <span class="n">eccentricity</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="mask_main_lobe_elliptical">
+<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.mask_main_lobe_elliptical">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">mask_main_lobe_elliptical</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">3.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mask main lobe elliptical.</span>
+
+<span class="sd">    Apply an elliptical mask to suppress the main lobe from a beam image.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    beam : np.ndarray</span>
+<span class="sd">        2D beam image.</span>
+<span class="sd">    fit_result : dict</span>
+<span class="sd">        Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity).</span>
+<span class="sd">    scale : float</span>
+<span class="sd">        Scale factor to enlarge or shrink the elliptical mask (default is 3).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    beam_masked : np.ndarray</span>
+<span class="sd">        Beam image with the main lobe masked (set to 0).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span> <span class="o">=</span> <span class="n">fit_result</span><span class="p">[</span><span class="s2">&quot;center&quot;</span><span class="p">]</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">fit_result</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">scale</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">fit_result</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">scale</span>
+    <span class="n">angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">fit_result</span><span class="p">[</span><span class="s2">&quot;angle_deg&quot;</span><span class="p">])</span>
+
+    <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">beam</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">x_shifted</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">center_x</span>
+    <span class="n">y_shifted</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">center_y</span>
+
+    <span class="n">cos_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+    <span class="n">sin_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+    <span class="n">x_rot</span> <span class="o">=</span> <span class="n">cos_angle</span> <span class="o">*</span> <span class="n">x_shifted</span> <span class="o">+</span> <span class="n">sin_angle</span> <span class="o">*</span> <span class="n">y_shifted</span>
+    <span class="n">y_rot</span> <span class="o">=</span> <span class="o">-</span><span class="n">sin_angle</span> <span class="o">*</span> <span class="n">x_shifted</span> <span class="o">+</span> <span class="n">cos_angle</span> <span class="o">*</span> <span class="n">y_shifted</span>
+
+    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_rot</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y_rot</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span>
+
+    <span class="n">beam_masked</span> <span class="o">=</span> <span class="n">beam</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">beam_masked</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">return</span> <span class="n">beam_masked</span></div>
+
+
+
+<div class="viewcode-block" id="compute_sll">
+<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.compute_sll">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_sll</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">3.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute sll.</span>
+
+<span class="sd">    Compute the Side-lobe level (SLL) of a beam using an elliptical mask.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    beam : np.ndarray</span>
+<span class="sd">        The beam image (2D).</span>
+<span class="sd">    fit_result : dict</span>
+<span class="sd">        Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.</span>
+<span class="sd">    scale : float</span>
+<span class="sd">        Scale factor for the elliptical mask.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sll_db : float</span>
+<span class="sd">        Side-lobe level in dB.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">fit_result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fit_result</span> <span class="o">=</span> <span class="n">fit_elliptical_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">)</span>
+    <span class="n">main_lobe_peak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">beam</span><span class="p">))</span>
+    <span class="n">beam_masked</span> <span class="o">=</span> <span class="n">mask_main_lobe_elliptical</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">beam</span><span class="p">),</span> <span class="n">fit_result</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
+    <span class="n">side_lobe_peak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">beam_masked</span><span class="p">)</span>
+    <span class="n">sll_db</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">side_lobe_peak</span> <span class="o">/</span> <span class="n">main_lobe_peak</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sll_db</span></div>
+
+
+
+<div class="viewcode-block" id="compute_fwhm">
+<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.compute_fwhm">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_fwhm</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute fwhm.</span>
+
+<span class="sd">    Compute FWHM from beam.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    beam : np.ndarray</span>
+<span class="sd">        The beam image (2D).</span>
+<span class="sd">    fit_result : dict</span>
+<span class="sd">        Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        FWHM along the semi-major and semi-minor axis of the beam.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">fit_result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fit_result</span> <span class="o">=</span> <span class="n">fit_elliptical_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fit_result</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">],</span> <span class="n">fit_result</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="compute_eccentricity">
+<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.compute_eccentricity">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_eccentricity</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute eccentricity.</span>
+
+<span class="sd">    Compute the eccentricity of the beam main lobe.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    beam : np.ndarray</span>
+<span class="sd">        The beam image (2D).</span>
+<span class="sd">    fit_result : dict</span>
+<span class="sd">        Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Eccentricity of the beam. Ranges from 0 to 1, where 0 indicates a perfectly circular beam and 1 a completely degenerated beam.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">fit_result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fit_result</span> <span class="o">=</span> <span class="n">fit_elliptical_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">)</span>
+    <span class="n">fwhm_a</span><span class="p">,</span> <span class="n">fwhm_b</span> <span class="o">=</span> <span class="n">compute_fwhm</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">fwhm_b</span> <span class="o">/</span> <span class="n">fwhm_a</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="compute_beam_metrics">
+<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.compute_beam_metrics">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_beam_metrics</span><span class="p">(</span><span class="n">beam</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute beam metrics.</span>
+
+<span class="sd">    Compute main beam metrics: SLL, FWHM, and eccentricity.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    beam : np.ndarray</span>
+<span class="sd">        The beam image (2D).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Dictionary containing SLL (dB), FWHM (x, y), and eccentricity.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fit_result</span> <span class="o">=</span> <span class="n">fit_elliptical_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">)</span>
+    <span class="n">sll</span> <span class="o">=</span> <span class="n">compute_sll</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="p">)</span>
+    <span class="n">fwhm_a</span><span class="p">,</span> <span class="n">fwhm_b</span> <span class="o">=</span> <span class="n">compute_fwhm</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="p">)</span>
+    <span class="n">eccentricity</span> <span class="o">=</span> <span class="n">compute_eccentricity</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;sll_db&quot;</span><span class="p">:</span> <span class="n">sll</span><span class="p">,</span>
+        <span class="s2">&quot;fwhm&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">fwhm_a</span><span class="p">,</span> <span class="n">fwhm_b</span><span class="p">),</span>
+        <span class="s2">&quot;eccentricity&quot;</span><span class="p">:</span> <span class="n">eccentricity</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
 </pre></div>
 
                 </article>
