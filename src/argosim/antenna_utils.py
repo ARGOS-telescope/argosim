@@ -519,10 +519,10 @@ def load_antenna_latlon_txt(path, noise=False):
         return enu_array
 
 
-def save_antenna_enu_txt(antenna, path):
+def save_antenna_enu_txt(antenna, path, noise=None):
     """Save the antenna information into a txt file.
 
-    Function to save the antenna name and ENU positions into a txt file.
+    Function to save the antenna name, ENU positions and optionally noise into a txt file.
 
     Parameters
     ----------
@@ -530,45 +530,31 @@ def save_antenna_enu_txt(antenna, path):
         The numpy array which contain the antenna information.
     path : str
         The path to the txt file.
-
-    Returns
-    -------
-    No return, it only saves the file.
-    """
-    nb_antennas = len(antenna)
-    antenna_name = np.linspace(1, nb_antennas, nb_antennas, dtype=int).reshape(-1, 1)
-
-    antenna_info = np.concatenate((antenna_name, antenna), axis=1)
-
-    np.savetxt(path, antenna_info, fmt="%d %.6f %.6f %.6f", header="Name | E | N | U")
-
-
-def save_antenna_noise_enu_txt(antenna, noise, path):
-    """Save the antenna information into a txt file.
-
-    Function to save the antenna name, ENU positions and noise into a txt file.
-
-    Parameters
-    ----------
-    antenna : np.ndarray
-        The numpy array which contain the antenna information.
     noise  np.ndarray
-        The numpy array which contain the noise information.
-    path : str
-        The path to the txt file.
+        The numpy array which contain the noise information, if available.
 
     Returns
     -------
-    No return, it only saves the file.
+    None
+        The function only saves the file.
     """
     nb_antennas = len(antenna)
     antenna_name = np.linspace(1, nb_antennas, nb_antennas, dtype=int).reshape(-1, 1)
 
-    antenna_info = np.concatenate((antenna_name, antenna, noise.reshape(-1, 1)), axis=1)
+    if noise is not None:
+        antenna_info = np.concatenate(
+            (antenna_name, antenna, noise.reshape(-1, 1)), axis=1
+        )
+        fmt = "%d %.6f %.6f %.6f %.6f"
+        header = "Name | E | N | U | Noise level"
+    else:
+        antenna_info = np.concatenate((antenna_name, antenna), axis=1)
+        fmt = "%d %.6f %.6f %.6f"
+        header = "Name | E | N | U"
 
     np.savetxt(
         path,
         antenna_info,
-        fmt="%d %.6f %.6f %.6f %.6f",
-        header="Name | E | N | U | Noise level",
+        fmt=fmt,
+        header=header,
     )
