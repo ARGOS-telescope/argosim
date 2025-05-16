@@ -756,22 +756,133 @@ document.write(`
 
 <div class="viewcode-block" id="load_antenna_enu_txt">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.load_antenna_enu_txt">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">load_antenna_enu_txt</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_antenna_enu_txt</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load antenna txt.</span>
 
-<span class="sd">    Function to load antenna ENU positions from a txt file.</span>
+<span class="sd">    Function to load antenna name, ENU positions and noise from a txt file.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    path : str</span>
 <span class="sd">        The path to the txt file.</span>
+<span class="sd">    noise : bool</span>
+<span class="sd">        Specify if the file contain the noise level of each antenna.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    antenna_arr : np.ndarray</span>
 <span class="sd">        The antenna array positions.</span>
+<span class="sd">    noise_level : np.ndarray</span>
+<span class="sd">        If noise==True, return antenna noise level.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+    <span class="n">antenna_info</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">antenna_info</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">noise</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">noise_level</span> <span class="o">=</span> <span class="n">antenna_info</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">antenna_info</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">noise_level</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">antenna_info</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="load_antenna_latlon_txt">
+<a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.load_antenna_latlon_txt">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_antenna_latlon_txt</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;(lat,long,altitude) to ENU.</span>
+
+<span class="sd">    Function to load the antenna name, latitude (degree), longitude (degree), altitude (metre) and noise from a txt file,</span>
+<span class="sd">    and return the information with ENU positions.</span>
+<span class="sd">    The reference is taken as the middle of all the antennas.</span>
+<span class="sd">    Waring: the computation of the upp coordinate is valid for antennas that are close enough.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        The path to the txt file.</span>
+<span class="sd">    noise : bool</span>
+<span class="sd">        Specify if the file contain the noise level of each antenna.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    antenna_arr : np.ndarray</span>
+<span class="sd">        The antenna array positions.</span>
+<span class="sd">    noise_level : np.ndarray</span>
+<span class="sd">        If noise==True, return antenna noise level.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="mf">6378137.0</span>  <span class="c1"># Mean radius of the Earth (m)</span>
+
+    <span class="n">antenna_info</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">antenna_info</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">antenna_pos</span> <span class="o">=</span> <span class="n">antenna_info</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+
+    <span class="c1"># Compute the reference</span>
+    <span class="n">ref</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">antenna_pos</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">lat0</span><span class="p">,</span> <span class="n">lon0</span><span class="p">,</span> <span class="n">h0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">ref</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">ref</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">ref</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="n">enu_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">antenna_pos</span><span class="p">:</span>
+        <span class="c1"># Compute the difference between the antenna and the reference (deg, deg, m)</span>
+        <span class="n">d_lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lat</span> <span class="o">-</span> <span class="n">ref</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">d_lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lon</span> <span class="o">-</span> <span class="n">ref</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">d_h</span> <span class="o">=</span> <span class="n">h</span> <span class="o">-</span> <span class="n">h0</span>
+
+        <span class="c1"># Convert into ENU</span>
+        <span class="n">d_north</span> <span class="o">=</span> <span class="n">d_lat</span> <span class="o">*</span> <span class="n">R</span>
+        <span class="n">d_east</span> <span class="o">=</span> <span class="n">d_lon</span> <span class="o">*</span> <span class="n">R</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat0</span><span class="p">)</span>
+        <span class="n">d_up</span> <span class="o">=</span> <span class="n">d_h</span>
+        <span class="n">enu_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">d_east</span><span class="p">,</span> <span class="n">d_north</span><span class="p">,</span> <span class="n">d_up</span><span class="p">))</span>
+    <span class="n">enu_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">enu_list</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">noise</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">noise_level</span> <span class="o">=</span> <span class="n">antenna_info</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">enu_array</span><span class="p">,</span> <span class="n">noise_level</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">enu_array</span></div>
+
+
+
+<div class="viewcode-block" id="save_antenna_enu_txt">
+<a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.save_antenna_enu_txt">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">save_antenna_enu_txt</span><span class="p">(</span><span class="n">antenna</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Save the antenna information into a txt file.</span>
+
+<span class="sd">    Function to save the antenna name, ENU positions and optionally noise into a txt file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    antenna : np.ndarray</span>
+<span class="sd">        The numpy array which contain the antenna information.</span>
+<span class="sd">    path : str</span>
+<span class="sd">        The path to the txt file.</span>
+<span class="sd">    noise  np.ndarray</span>
+<span class="sd">        The numpy array which contain the noise information, if available.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        The function only saves the file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nb_antennas</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">antenna</span><span class="p">)</span>
+    <span class="n">antenna_name</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nb_antennas</span><span class="p">,</span> <span class="n">nb_antennas</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">noise</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">antenna_info</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">antenna_name</span><span class="p">,</span> <span class="n">antenna</span><span class="p">,</span> <span class="n">noise</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> </span><span class="si">%.6f</span><span class="s2"> </span><span class="si">%.6f</span><span class="s2"> </span><span class="si">%.6f</span><span class="s2"> </span><span class="si">%.6f</span><span class="s2">&quot;</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="s2">&quot;Name | E | N | U | Noise level&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">antenna_info</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">antenna_name</span><span class="p">,</span> <span class="n">antenna</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> </span><span class="si">%.6f</span><span class="s2"> </span><span class="si">%.6f</span><span class="s2"> </span><span class="si">%.6f</span><span class="s2">&quot;</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="s2">&quot;Name | E | N | U&quot;</span>
+
+    <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span>
+        <span class="n">path</span><span class="p">,</span>
+        <span class="n">antenna_info</span><span class="p">,</span>
+        <span class="n">fmt</span><span class="o">=</span><span class="n">fmt</span><span class="p">,</span>
+        <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+    <span class="p">)</span></div>
 
 </pre></div>
 

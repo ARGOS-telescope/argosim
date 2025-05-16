@@ -337,8 +337,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.combine_antenna_arr"><code class="docutils literal notranslate"><span class="pre">combine_antenna_arr()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.get_baselines"><code class="docutils literal notranslate"><span class="pre">get_baselines()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.load_antenna_enu_txt"><code class="docutils literal notranslate"><span class="pre">load_antenna_enu_txt()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.load_antenna_latlon_txt"><code class="docutils literal notranslate"><span class="pre">load_antenna_latlon_txt()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.random_antenna_arr"><code class="docutils literal notranslate"><span class="pre">random_antenna_arr()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.random_antenna_pos"><code class="docutils literal notranslate"><span class="pre">random_antenna_pos()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.save_antenna_enu_txt"><code class="docutils literal notranslate"><span class="pre">save_antenna_enu_txt()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.uni_antenna_array"><code class="docutils literal notranslate"><span class="pre">uni_antenna_array()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.uv_track_multiband"><code class="docutils literal notranslate"><span class="pre">uv_track_multiband()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.y_antenna_arr"><code class="docutils literal notranslate"><span class="pre">y_antenna_arr()</span></code></a></li>
@@ -478,18 +480,47 @@ of radius ‘r’ from the center [0,0] and are equally spaced.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="argosim.antenna_utils.load_antenna_enu_txt">
-<span class="sig-prename descclassname"><span class="pre">argosim.antenna_utils.</span></span><span class="sig-name descname"><span class="pre">load_antenna_enu_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/antenna_utils.html#load_antenna_enu_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.antenna_utils.load_antenna_enu_txt" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">argosim.antenna_utils.</span></span><span class="sig-name descname"><span class="pre">load_antenna_enu_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/antenna_utils.html#load_antenna_enu_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.antenna_utils.load_antenna_enu_txt" title="Link to this definition">#</a></dt>
 <dd><p>Load antenna txt.</p>
-<p>Function to load antenna ENU positions from a txt file.</p>
+<p>Function to load antenna name, ENU positions and noise from a txt file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The path to the txt file.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – The path to the txt file.</p></li>
+<li><p><strong>noise</strong> (<em>bool</em>) – Specify if the file contain the noise level of each antenna.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>antenna_arr</strong> – The antenna array positions.</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>antenna_arr</strong> (<em>np.ndarray</em>) – The antenna array positions.</p></li>
+<li><p><strong>noise_level</strong> (<em>np.ndarray</em>) – If noise==True, return antenna noise level.</p></li>
+</ul>
+</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>np.ndarray</p>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.antenna_utils.load_antenna_latlon_txt">
+<span class="sig-prename descclassname"><span class="pre">argosim.antenna_utils.</span></span><span class="sig-name descname"><span class="pre">load_antenna_latlon_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/antenna_utils.html#load_antenna_latlon_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.antenna_utils.load_antenna_latlon_txt" title="Link to this definition">#</a></dt>
+<dd><p>(lat,long,altitude) to ENU.</p>
+<p>Function to load the antenna name, latitude (degree), longitude (degree), altitude (metre) and noise from a txt file,
+and return the information with ENU positions.
+The reference is taken as the middle of all the antennas.
+Waring: the computation of the upp coordinate is valid for antennas that are close enough.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – The path to the txt file.</p></li>
+<li><p><strong>noise</strong> (<em>bool</em>) – Specify if the file contain the noise level of each antenna.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>antenna_arr</strong> (<em>np.ndarray</em>) – The antenna array positions.</p></li>
+<li><p><strong>noise_level</strong> (<em>np.ndarray</em>) – If noise==True, return antenna noise level.</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -539,6 +570,28 @@ Antenna lies in the range: [-E_lims/2, E_lims/2]x[-N_lims/2, N_lims/2]x[0, U_lim
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.antenna_utils.save_antenna_enu_txt">
+<span class="sig-prename descclassname"><span class="pre">argosim.antenna_utils.</span></span><span class="sig-name descname"><span class="pre">save_antenna_enu_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">antenna</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/antenna_utils.html#save_antenna_enu_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.antenna_utils.save_antenna_enu_txt" title="Link to this definition">#</a></dt>
+<dd><p>Save the antenna information into a txt file.</p>
+<p>Function to save the antenna name, ENU positions and optionally noise into a txt file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>antenna</strong> (<em>np.ndarray</em>) – The numpy array which contain the antenna information.</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – The path to the txt file.</p></li>
+<li><p><strong>np.ndarray</strong> (<em>noise</em>) – The numpy array which contain the noise information, if available.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The function only saves the file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -675,8 +728,10 @@ of 120 degrees each.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.combine_antenna_arr"><code class="docutils literal notranslate"><span class="pre">combine_antenna_arr()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.get_baselines"><code class="docutils literal notranslate"><span class="pre">get_baselines()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.load_antenna_enu_txt"><code class="docutils literal notranslate"><span class="pre">load_antenna_enu_txt()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.load_antenna_latlon_txt"><code class="docutils literal notranslate"><span class="pre">load_antenna_latlon_txt()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.random_antenna_arr"><code class="docutils literal notranslate"><span class="pre">random_antenna_arr()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.random_antenna_pos"><code class="docutils literal notranslate"><span class="pre">random_antenna_pos()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.save_antenna_enu_txt"><code class="docutils literal notranslate"><span class="pre">save_antenna_enu_txt()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.uni_antenna_array"><code class="docutils literal notranslate"><span class="pre">uni_antenna_array()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.uv_track_multiband"><code class="docutils literal notranslate"><span class="pre">uv_track_multiband()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.antenna_utils.y_antenna_arr"><code class="docutils literal notranslate"><span class="pre">y_antenna_arr()</span></code></a></li>
