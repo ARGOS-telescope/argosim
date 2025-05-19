@@ -326,6 +326,9 @@ def add_noise_uv(vis, uv_mask, sigma=0.1, seed=None):
     vis : np.ndarray
         The visibilities with added noise.
     """
+    if sigma == 0.:
+        return vis
+    
     with local_seed(seed):
         noise_sky = rnd.normal(0, sigma, vis.shape)
     noise_uv = sky2uv(noise_sky)
