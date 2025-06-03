@@ -188,14 +188,12 @@ def uni_antenna_array(
     array_grid = np.column_stack((E_flat, N_flat, U_flat))
     return array_grid
 
-
 ########################################
 #  Compute baselines and uv sampling   #
 ########################################
 
-
 def get_baselines(array):
-    """Get baselines.
+    """Get baselines. (JAX version)
 
     Function to compute the baselines of an antenna array.
 
@@ -209,13 +207,11 @@ def get_baselines(array):
     baselines : np.ndarray
         The baselines of the antenna array.
     """
-    # Get the baseline for every combination of antennas i-j.
-    # Remove the i=j baselines: np.delete(array, list, axis=0) -> delete the rows listed on 'list' from array 'array'.
-    return np.delete(
-        np.array([antenna_i - antenna_j for antenna_i in array for antenna_j in array]),
-        [(len(array) + 1) * n for n in range(len(array))],
-        0,
-    )
+    # Get the baseline for every combination of antennas except for i=j baselines.
+    array = jnp.asarray(array)
+    diffs = array[:, None, :] - array[None, :, :]  # Shape: (n, n, 3)
+    mask = ~jnp.eye(array.shape[0], dtype=bool)  # Shape: (n, n), True where i ≠ j
+    return diffs[mask].reshape(-1, 3)
 
 @jit
 def ENU_to_XYZ(b_ENU, lat=35.0 / 180 * jnp.pi):
