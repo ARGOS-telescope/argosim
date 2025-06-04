@@ -20,7 +20,7 @@ class TestImagingUtils:
         (256, 256), # Image shape in pixels
         (3., 3.) # FOV in degrees
     )
-    pathfinder_uv_mask_path = "src/argosim/tests/data/argos_pathfinder_uv_mask.npy"
+    pathfinder_uv_mask_path = "src/argosim/tests/data/argos_pathfinder_uv_mask_binary.npy"
     pathfinder_uv_mask_hist_path = "src/argosim/tests/data/argos_pathfinder_uv_mask_hist.npy"
     pathfinder_uv_mask_weighted_path = "src/argosim/tests/data/argos_pathfinder_uv_mask_weighted.npy"
     uv_weights_path = "src/argosim/tests/data/uv_sampling_weights.npy"
