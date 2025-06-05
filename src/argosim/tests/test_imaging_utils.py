@@ -6,7 +6,7 @@ import argosim.imaging_utils as aiu
 class TestImagingUtils:
 
     sky_model_params = (
-        (128, 128), # shape_px
+        (256, 256), # shape_px
         1.0, # fov
         [0.01, 0.02, 0.03], # deg_size_list
         [0.4, 0.3, 0.3], # source_intensity_list
@@ -24,6 +24,22 @@ class TestImagingUtils:
     pathfinder_uv_mask_hist_path = "src/argosim/tests/data/argos_pathfinder_uv_mask_hist.npy"
     pathfinder_uv_mask_weighted_path = "src/argosim/tests/data/argos_pathfinder_uv_mask_weighted.npy"
     uv_weights_path = "src/argosim/tests/data/uv_sampling_weights.npy"
+
+    sky_uv_w_masked_path = "src/argosim/tests/data/sky_uv_w_masked.npy"
+
+    uv_noise_params = (
+        0.1, # noise_level
+        612 # seed
+    )
+    sky_uv_w_masked_noisy_path = "src/argosim/tests/data/sky_uv_w_masked_noisy.npy"
+
+    obs_sim_sigle_band_path = "src/argosim/tests/data/obs_sim_single_band.npy"
+    dirty_beam_sim_single_band_path = "src/argosim/tests/data/dirty_beam_sim_single_band.npy"
+    obs_sim_sigle_band_params = {
+        "fov_size": 1.,
+        "sigma": 0.1,
+        "seed": 717,
+    }
 
     def test_sky2uv(self):
         sky = np.load(self.sky_model_expected_path)
@@ -95,3 +111,49 @@ class TestImagingUtils:
         with npt.assert_raises(AssertionError):
             mask_uv, _ = aiu.grid_uv_samples(track, *self.grid_uv_samples_params, mask_type='weighted')
         
+    def test_compute_visibilities_grid(self):
+        sky_uv = np.load(self.sky_model_uv_expected_path)
+        mask_uv = np.load(self.pathfinder_uv_mask_weighted_path)
+        sky_uv_w_masked_out = aiu.compute_visibilities_grid(sky_uv, mask_uv)
+        sky_uv_w_masked_exp = np.load(self.sky_uv_w_masked_path)
+        npt.assert_array_almost_equal(
+            sky_uv_w_masked_out, 
+            sky_uv_w_masked_exp,
+            err_msg="Computed grided visibilities do not match the expected output."
+        )
+
+    def test_add_noise_uv(self):
+        sky_uv_masked = np.load(self.sky_uv_w_masked_path)
+        mask_uv = np.load(self.pathfinder_uv_mask_weighted_path)
+        sky_uv_masked_noisy_out = aiu.add_noise_uv(sky_uv_masked, mask_uv, *self.uv_noise_params)
+        sky_uv_masked_noisy_exp = np.load(self.sky_uv_w_masked_noisy_path)
+        npt.assert_array_almost_equal(
+            sky_uv_masked_noisy_out, 
+            sky_uv_masked_noisy_exp,
+            err_msg="Adding noise to UV samples did not produce the expected output."
+        )
+
+    def test_simulate_dirty_obs_single_band(self):
+        sky = np.load(self.sky_model_expected_path)
+        track = np.load(self.pathfinder_uv_track_path)
+        params = self.obs_sim_sigle_band_params
+        obs_out, dirty_beam_out = aiu.simulate_dirty_observation(
+            sky,
+            track,
+            fov_size=params['fov_size'],
+            sigma=params['sigma'],
+            seed=params['seed'],
+        )
+        obs_exp = np.load(self.obs_sim_sigle_band_path)
+        dirty_beam_exp = np.load(self.dirty_beam_sim_single_band_path)
+
+        npt.assert_array_almost_equal(
+            obs_out, 
+            obs_exp,
+            err_msg="Simulated dirty observation does not match the expected output."
+        )
+        npt.assert_array_almost_equal(
+            dirty_beam_out, 
+            dirty_beam_exp,
+            err_msg="Simulated dirty beam does not match the expected output."
+        )
