@@ -39,6 +39,7 @@ class TestImagingUtils:
         "fov_size": 1.,
         "sigma": 0.1,
         "seed": 717,
+        "freqs": [1.5e9]
     }
 
     def test_sky2uv(self):
@@ -156,4 +157,31 @@ class TestImagingUtils:
             dirty_beam_out, 
             dirty_beam_exp,
             err_msg="Simulated dirty beam does not match the expected output."
+        )
+
+    def test_simulate_dirty_obs_multi_band(self):
+        sky = np.load(self.sky_model_expected_path)
+        track = np.load(self.pathfinder_uv_track_path)
+        params = self.obs_sim_sigle_band_params
+        obs_out_multi, dirty_beam_out_multi = aiu.simulate_dirty_observation(
+            sky,
+            np.expand_dims(track, axis=0),
+            fov_size=params['fov_size'],
+            sigma=params['sigma'],
+            seed=params['seed'],
+            multi_band=True,
+            freqs=params['freqs']
+        )
+        obs_exp = np.load(self.obs_sim_sigle_band_path)
+        dirty_beam_exp = np.load(self.dirty_beam_sim_single_band_path)
+
+        npt.assert_array_almost_equal(
+            obs_out_multi[0], 
+            obs_exp,
+            err_msg="Simulated multi-band dirty observation does not match the expected output."
+        )
+        npt.assert_array_almost_equal(
+            dirty_beam_out_multi[0], 
+            dirty_beam_exp,
+            err_msg="Simulated multi-band dirty beam does not match the expected output."
         )
