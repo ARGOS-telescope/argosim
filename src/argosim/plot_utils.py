@@ -15,7 +15,7 @@ from matplotlib.patches import Ellipse
 from argosim import metrics_utils
 
 
-def plot_beam(beam, pRng=(-0.1, 0.5), ax=None, fig=None):
+def plot_beam(beam, pRng=(-0.1, 0.5), ax=None, fig=None): # pragma: no cover
     """Plot beam.
 
     Function to plot the synthesised beam image.
@@ -49,7 +49,7 @@ def plot_beam(beam, pRng=(-0.1, 0.5), ax=None, fig=None):
         plt.show()
 
 
-def plot_antenna_arr(array, ax=None, fig=None, title="Array"):
+def plot_antenna_arr(array, ax=None, fig=None, title="Array"): # pragma: no cover
     """Plot antenna array.
 
     Function to plot the antenna array in ground coordinates.
@@ -88,7 +88,7 @@ def plot_antenna_arr(array, ax=None, fig=None, title="Array"):
         plt.show()
 
 
-def plot_baselines(baselines, ax=None, fig=None, ENU=False):
+def plot_baselines(baselines, ax=None, fig=None, ENU=False): # pragma: no cover
     """Plot baselines.
 
     Function to plot the baselines in uv-space.
@@ -129,7 +129,7 @@ def plot_baselines(baselines, ax=None, fig=None, ENU=False):
         plt.show()
 
 
-def plot_sky(image, fov_size=(1.0, 1.0), ax=None, fig=None, title="Sky"):
+def plot_sky(image, fov_size=(1.0, 1.0), ax=None, fig=None, title="Sky"): # pragma: no cover
     """Plot sky.
 
     Function to plot the sky model.
@@ -160,7 +160,7 @@ def plot_sky(image, fov_size=(1.0, 1.0), ax=None, fig=None, title="Sky"):
         plt.show()
 
 
-def plot_sky_uv(sky_uv, fov_size):
+def plot_sky_uv(sky_uv, fov_size): # pragma: no cover
     """Plot sky uv.
 
     Function to plot the sky model in uv-space in logarithmic amplitud sale.
@@ -214,7 +214,7 @@ def plot_sky_uv(sky_uv, fov_size):
 #     plt.show()
 
 
-def plot_uv_hist(baselines, bins=20, output_folder=None):
+def plot_uv_hist(baselines, bins=20, output_folder=None): # pragma: no cover
     """Plot uv histogram.
 
     Function to plot the histogram of the uv-sampling distribution.
@@ -297,7 +297,7 @@ def plot_uv_hist(baselines, bins=20, output_folder=None):
     return baseline_hist
 
 
-def plot_beam_fit(beam, fit_result=None):
+def plot_beam_fit(beam, fit_result=None): # pragma: no cover
     """Plot beam fit.
 
     Plot the beam and overlay the fitted ellipse.
