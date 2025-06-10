@@ -259,7 +259,8 @@ def add_noise_uv(vis, uv_mask, sigma=0.1, seed=None):
 
 
 def simulate_dirty_observation(
-    sky, track, fov_size, multi_band=False, freqs=None, beam=None, sigma=0.2, seed=None):
+    sky, track, fov_size, multi_band=False, freqs=None, beam=None, sigma=0.2, seed=None
+):
     """Simulate dirty observation.
 
     Function to simulate a radio observation of the sky model from the track uv-samples.
