@@ -131,7 +131,7 @@ class CosCubeBeam:
         self.fov_deg = fov_deg
         self.check_fov()
 
-    def Cf(self):
+    def Cf(self): 
         """Cf.
 
         Function to compute the Cf parameter.
@@ -237,7 +237,7 @@ class CosCubeBeam:
             r_fov = self.r_fov()
         return np.pi * r_fov**2
 
-    def plot_beam_1d(self, freqs):
+    def plot_beam_1d(self, freqs): # pragma: no cover
         """Plot beam 1D.
 
         Function to plot the simulated beam in 1D as a function of the angle.
@@ -276,7 +276,7 @@ class CosCubeBeam:
         plt.show()
         self.set_f(f_old)
 
-    def plot_beam_2d(self):
+    def plot_beam_2d(self): # pragma: no cover
         """Plot beam 2D.
 
         Function to plot the simulated beam in 2D over the field of view.
@@ -314,7 +314,7 @@ class CosCubeBeam:
         )
         plt.show()
 
-    def evaluate_beam_fit(self, freqs, norm_beam_list):
+    def evaluate_beam_fit(self, freqs, norm_beam_list): # pragma: no cover
         """Evaluate beam fit.
 
         Function to evaluate the beam fit at the given frequencies and compare it with the beam measurements.

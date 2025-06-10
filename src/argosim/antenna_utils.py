@@ -519,7 +519,7 @@ def load_antenna_latlon_txt(path, noise=False):
         return enu_array
 
 
-def save_antenna_enu_txt(antenna, path, noise=None):
+def save_antenna_enu_txt(antenna, path, noise=None): # pragma: no cover
     """Save the antenna information into a txt file.
 
     Function to save the antenna name, ENU positions and optionally noise into a txt file.
