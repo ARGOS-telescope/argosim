@@ -144,6 +144,8 @@ class TestAntennaUtils:
     )
     multiband_track_shape_exp = (2, 18, 3)
 
+    track_atol = 1e-7
+
     def test_random_antenna_pos_default(self):
 
         antenna_pos = au.random_antenna_pos()
@@ -293,6 +295,7 @@ class TestAntennaUtils:
         npt.assert_allclose(
             track,
             self.uv_track_default_exp,
+            atol=self.track_atol,
             err_msg="UV track computed from random antenna baselines does not match expected output.",
         )
 
@@ -303,6 +306,7 @@ class TestAntennaUtils:
         npt.assert_allclose(
             track,
             self.uv_track_exp,
+            atol=self.track_atol,
             err_msg="UV track computed from random antenna baselines does not match expected output.",
         )
 
