@@ -128,6 +128,8 @@ def clean_hogbom(
     -------
     I_clean : np.ndarray
         The cleaned image.
+    sky_model : np.ndarray
+        The sky model image.
     """
     # If the observation and beam are even in size, pad them with zeros at the bottom and right
     # An odd beam is easier to place at the image peaks
