@@ -62,10 +62,10 @@ class TestBeamUtils:
 
     def test_get_beam(self):
         beam = abu.CosCubeBeam()
-        beam_imgae_out = beam.get_beam()
+        beam_image_out = beam.get_beam()
         beam_image_exp = np.load(self.beam_cos_cube_path)
         npt.assert_almost_equal(
-            beam_imgae_out,
+            beam_image_out,
             beam_image_exp,
             decimal=self.beam_value_exp_decimal,
             err_msg="Beam image does not match expected value.",

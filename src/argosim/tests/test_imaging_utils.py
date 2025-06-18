@@ -37,11 +37,11 @@ class TestImagingUtils:
     uv_noise_params = (0.1, 612)  # noise_level  # seed
     sky_uv_w_masked_noisy_path = "src/argosim/tests/data/sky_uv_w_masked_noisy.npy"
 
-    obs_sim_sigle_band_path = "src/argosim/tests/data/obs_sim_single_band.npy"
+    obs_sim_single_band_path = "src/argosim/tests/data/obs_sim_single_band.npy"
     dirty_beam_sim_single_band_path = (
         "src/argosim/tests/data/dirty_beam_sim_single_band.npy"
     )
-    obs_sim_sigle_band_params = {
+    obs_sim_single_band_params = {
         "fov_size": 1.0,
         "sigma": 0.1,
         "seed": 717,
@@ -157,7 +157,7 @@ class TestImagingUtils:
     def test_simulate_dirty_obs_single_band(self):
         sky = np.load(self.sky_model_expected_path)
         track = np.load(self.pathfinder_uv_track_path)
-        params = self.obs_sim_sigle_band_params
+        params = self.obs_sim_single_band_params
         obs_out, dirty_beam_out = aiu.simulate_dirty_observation(
             sky,
             track,
@@ -165,7 +165,7 @@ class TestImagingUtils:
             sigma=params["sigma"],
             seed=params["seed"],
         )
-        obs_exp = np.load(self.obs_sim_sigle_band_path)
+        obs_exp = np.load(self.obs_sim_single_band_path)
         dirty_beam_exp = np.load(self.dirty_beam_sim_single_band_path)
 
         npt.assert_array_almost_equal(
@@ -182,7 +182,7 @@ class TestImagingUtils:
     def test_simulate_dirty_obs_multi_band(self):
         sky = np.load(self.sky_model_expected_path)
         track = np.load(self.pathfinder_uv_track_path)
-        params = self.obs_sim_sigle_band_params
+        params = self.obs_sim_single_band_params
         obs_out_multi, dirty_beam_out_multi = aiu.simulate_dirty_observation(
             sky,
             np.expand_dims(track, axis=0),
@@ -192,7 +192,7 @@ class TestImagingUtils:
             multi_band=True,
             freqs=params["freqs"],
         )
-        obs_exp = np.load(self.obs_sim_sigle_band_path)
+        obs_exp = np.load(self.obs_sim_single_band_path)
         dirty_beam_exp = np.load(self.dirty_beam_sim_single_band_path)
 
         npt.assert_array_almost_equal(
