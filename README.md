@@ -1,3 +1,5 @@
+[![License](https://img.shields.io/badge/License-MIT-brigthgreen.svg)](https://github.com/ARGOS-telescope/argosim/blob/main/LICENSE) 
+
 # Argosim
 Argosim is a python package for radio interferometric observation simulations and image reconstruction.
 
