@@ -259,7 +259,7 @@ def add_noise_uv(vis, uv_mask, sigma=0.1, seed=None):
 
 
 def simulate_dirty_observation(
-    sky, track, fov_size, multi_band=False, freqs=None, beam=None, sigma=0.2
+    sky, track, fov_size, multi_band=False, freqs=None, beam=None, sigma=0.2, seed=None
 ):
     """Simulate dirty observation.
 
@@ -281,6 +281,8 @@ def simulate_dirty_observation(
         The beam object to apply to the sky, only used in multi-band simulations.
     sigma : float
         The standard deviation of the noise.
+    seed : int
+        Optional seed to set for reproducibility in noise realisation.
 
     Returns
     -------
@@ -309,7 +311,7 @@ def simulate_dirty_observation(
             uv_mask, _ = grid_uv_samples(track_f, sky_uv.shape, (fov_size, fov_size))
             vis_f = compute_visibilities_grid(sky_uv, uv_mask)
             # Add noise
-            vis_f = add_noise_uv(vis_f, uv_mask, sigma)
+            vis_f = add_noise_uv(vis_f, uv_mask, sigma, seed=seed)
             # Back to image domain
             obs = uv2sky(vis_f)
             dirty_beam = uv2sky(uv_mask)
@@ -323,7 +325,7 @@ def simulate_dirty_observation(
         sky_uv = sky2uv(sky)
         uv_mask, _ = grid_uv_samples(track, sky_uv.shape, (fov_size, fov_size))
         vis = compute_visibilities_grid(sky_uv, uv_mask)
-        vis = add_noise_uv(vis, uv_mask, sigma)
+        vis = add_noise_uv(vis, uv_mask, sigma, seed=seed)
         obs = uv2sky(vis)
         dirty_beam = uv2sky(uv_mask)
 
