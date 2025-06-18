@@ -27,6 +27,13 @@ class TestClean:
         ]
     )
 
+    obs_path = "src/argosim/tests/data/obs_sim_single_band.npy"
+    clean_obs_exp_path = "src/argosim/tests/data/clean_observation.npy"
+    clean_obs_res_exp_path = "src/argosim/tests/data/clean_observation_res.npy"
+    sky_model_clean_exp_path = "src/argosim/tests/data/sky_model_clean.npy"
+    sky_model_clean_res_exp_path = "src/argosim/tests/data/sky_model_clean_res.npy"
+    clean_decimal = 10
+
     def test_shift_beam(self):
         shifted_beams = np.load(self.shifted_beams_path, allow_pickle=True).item()
         shfits = shifted_beams["shifts"]
@@ -68,4 +75,43 @@ class TestClean:
             pad_out,
             pad_exp,
             err_msg="Padding an even array did not return the expected padded array.",
+        )
+
+    def test_clean_hogbom(self):
+        obs = np.load(self.obs_path)
+        beam = np.load(self.beam_path)
+        # Without residuals
+        I_clean, sky_model = ac.clean_hogbom(
+            obs, beam, 0.3, 100, 1e-2, clean_beam_size_px=10
+        )
+        npt.assert_array_almost_equal(
+            I_clean,
+            np.load(self.clean_obs_exp_path),
+            decimal=self.clean_decimal,
+            err_msg="Cleaned observation did not match expected values.",
+        )
+
+        npt.assert_array_almost_equal(
+            sky_model,
+            np.load(self.sky_model_clean_exp_path),
+            decimal=self.clean_decimal,
+            err_msg="Sky model from clean did not match expected values.",
+        )
+
+        # With residuals
+        I_clean_res, sky_model_res = ac.clean_hogbom(
+            obs, beam, 0.3, 100, 1e-2, clean_beam_size_px=10, res=True
+        )
+        npt.assert_array_almost_equal(
+            I_clean_res,
+            np.load(self.clean_obs_res_exp_path),
+            decimal=self.clean_decimal,
+            err_msg="Cleaned observation with res==True did not match expected values.",
+        )
+
+        npt.assert_array_almost_equal(
+            sky_model_res,
+            np.load(self.sky_model_clean_res_exp_path),
+            decimal=self.clean_decimal,
+            err_msg="Sky model with res==True from clean did not match expected values.",
         )
