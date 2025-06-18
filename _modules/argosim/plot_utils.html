@@ -304,7 +304,7 @@ document.write(`
 
 <div class="viewcode-block" id="plot_beam">
 <a class="viewcode-back" href="../../argosim.plot_utils.html#argosim.plot_utils.plot_beam">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">pRng</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">pRng</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot beam.</span>
 
 <span class="sd">    Function to plot the synthesised beam image.</span>
@@ -341,7 +341,7 @@ document.write(`
 
 <div class="viewcode-block" id="plot_antenna_arr">
 <a class="viewcode-back" href="../../argosim.plot_utils.html#argosim.plot_utils.plot_antenna_arr">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_antenna_arr</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Array&quot;</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_antenna_arr</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Array&quot;</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot antenna array.</span>
 
 <span class="sd">    Function to plot the antenna array in ground coordinates.</span>
@@ -383,7 +383,7 @@ document.write(`
 
 <div class="viewcode-block" id="plot_baselines">
 <a class="viewcode-back" href="../../argosim.plot_utils.html#argosim.plot_utils.plot_baselines">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_baselines</span><span class="p">(</span><span class="n">baselines</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ENU</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_baselines</span><span class="p">(</span><span class="n">baselines</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ENU</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot baselines.</span>
 
 <span class="sd">    Function to plot the baselines in uv-space.</span>
@@ -427,7 +427,9 @@ document.write(`
 
 <div class="viewcode-block" id="plot_sky">
 <a class="viewcode-back" href="../../argosim.plot_utils.html#argosim.plot_utils.plot_sky">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_sky</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">fov_size</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Sky&quot;</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_sky</span><span class="p">(</span>
+    <span class="n">image</span><span class="p">,</span> <span class="n">fov_size</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Sky&quot;</span>
+<span class="p">):</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot sky.</span>
 
 <span class="sd">    Function to plot the sky model.</span>
@@ -461,7 +463,7 @@ document.write(`
 
 <div class="viewcode-block" id="plot_sky_uv">
 <a class="viewcode-back" href="../../argosim.plot_utils.html#argosim.plot_utils.plot_sky_uv">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_sky_uv</span><span class="p">(</span><span class="n">sky_uv</span><span class="p">,</span> <span class="n">fov_size</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_sky_uv</span><span class="p">(</span><span class="n">sky_uv</span><span class="p">,</span> <span class="n">fov_size</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot sky uv.</span>
 
 <span class="sd">    Function to plot the sky model in uv-space in logarithmic amplitud sale.</span>
@@ -518,7 +520,7 @@ document.write(`
 
 <div class="viewcode-block" id="plot_uv_hist">
 <a class="viewcode-back" href="../../argosim.plot_utils.html#argosim.plot_utils.plot_uv_hist">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_uv_hist</span><span class="p">(</span><span class="n">baselines</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_uv_hist</span><span class="p">(</span><span class="n">baselines</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot uv histogram.</span>
 
 <span class="sd">    Function to plot the histogram of the uv-sampling distribution.</span>
@@ -604,7 +606,7 @@ document.write(`
 
 <div class="viewcode-block" id="plot_beam_fit">
 <a class="viewcode-back" href="../../argosim.plot_utils.html#argosim.plot_utils.plot_beam_fit">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_beam_fit</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_beam_fit</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot beam fit.</span>
 
 <span class="sd">    Plot the beam and overlay the fitted ellipse.</span>

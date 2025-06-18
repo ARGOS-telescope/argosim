@@ -563,7 +563,7 @@ document.write(`
 <div class="viewcode-block" id="simulate_dirty_observation">
 <a class="viewcode-back" href="../../argosim.imaging_utils.html#argosim.imaging_utils.simulate_dirty_observation">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">simulate_dirty_observation</span><span class="p">(</span>
-    <span class="n">sky</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">fov_size</span><span class="p">,</span> <span class="n">multi_band</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">freqs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.2</span>
+    <span class="n">sky</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">fov_size</span><span class="p">,</span> <span class="n">multi_band</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">freqs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Simulate dirty observation.</span>
 
@@ -585,6 +585,8 @@ document.write(`
 <span class="sd">        The beam object to apply to the sky, only used in multi-band simulations.</span>
 <span class="sd">    sigma : float</span>
 <span class="sd">        The standard deviation of the noise.</span>
+<span class="sd">    seed : int</span>
+<span class="sd">        Optional seed to set for reproducibility in noise realisation.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -613,7 +615,7 @@ document.write(`
             <span class="n">uv_mask</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">grid_uv_samples</span><span class="p">(</span><span class="n">track_f</span><span class="p">,</span> <span class="n">sky_uv</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="n">fov_size</span><span class="p">,</span> <span class="n">fov_size</span><span class="p">))</span>
             <span class="n">vis_f</span> <span class="o">=</span> <span class="n">compute_visibilities_grid</span><span class="p">(</span><span class="n">sky_uv</span><span class="p">,</span> <span class="n">uv_mask</span><span class="p">)</span>
             <span class="c1"># Add noise</span>
-            <span class="n">vis_f</span> <span class="o">=</span> <span class="n">add_noise_uv</span><span class="p">(</span><span class="n">vis_f</span><span class="p">,</span> <span class="n">uv_mask</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+            <span class="n">vis_f</span> <span class="o">=</span> <span class="n">add_noise_uv</span><span class="p">(</span><span class="n">vis_f</span><span class="p">,</span> <span class="n">uv_mask</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
             <span class="c1"># Back to image domain</span>
             <span class="n">obs</span> <span class="o">=</span> <span class="n">uv2sky</span><span class="p">(</span><span class="n">vis_f</span><span class="p">)</span>
             <span class="n">dirty_beam</span> <span class="o">=</span> <span class="n">uv2sky</span><span class="p">(</span><span class="n">uv_mask</span><span class="p">)</span>
@@ -627,7 +629,7 @@ document.write(`
         <span class="n">sky_uv</span> <span class="o">=</span> <span class="n">sky2uv</span><span class="p">(</span><span class="n">sky</span><span class="p">)</span>
         <span class="n">uv_mask</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">grid_uv_samples</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">sky_uv</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="n">fov_size</span><span class="p">,</span> <span class="n">fov_size</span><span class="p">))</span>
         <span class="n">vis</span> <span class="o">=</span> <span class="n">compute_visibilities_grid</span><span class="p">(</span><span class="n">sky_uv</span><span class="p">,</span> <span class="n">uv_mask</span><span class="p">)</span>
-        <span class="n">vis</span> <span class="o">=</span> <span class="n">add_noise_uv</span><span class="p">(</span><span class="n">vis</span><span class="p">,</span> <span class="n">uv_mask</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+        <span class="n">vis</span> <span class="o">=</span> <span class="n">add_noise_uv</span><span class="p">(</span><span class="n">vis</span><span class="p">,</span> <span class="n">uv_mask</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
         <span class="n">obs</span> <span class="o">=</span> <span class="n">uv2sky</span><span class="p">(</span><span class="n">vis</span><span class="p">)</span>
         <span class="n">dirty_beam</span> <span class="o">=</span> <span class="n">uv2sky</span><span class="p">(</span><span class="n">uv_mask</span><span class="p">)</span>
 
