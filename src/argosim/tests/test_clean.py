@@ -81,7 +81,9 @@ class TestClean:
         obs = np.load(self.obs_path)
         beam = np.load(self.beam_path)
         # Without residuals
-        I_clean, sky_model = ac.clean_hogbom(obs, beam, 0.3, 100, 1e-2 , clean_beam_size_px=10)
+        I_clean, sky_model = ac.clean_hogbom(
+            obs, beam, 0.3, 100, 1e-2, clean_beam_size_px=10
+        )
         npt.assert_array_almost_equal(
             I_clean,
             np.load(self.clean_obs_exp_path),
@@ -97,7 +99,9 @@ class TestClean:
         )
 
         # With residuals
-        I_clean_res, sky_model_res = ac.clean_hogbom(obs, beam, 0.3, 100, 1e-2 , clean_beam_size_px=10,res=True)
+        I_clean_res, sky_model_res = ac.clean_hogbom(
+            obs, beam, 0.3, 100, 1e-2, clean_beam_size_px=10, res=True
+        )
         npt.assert_array_almost_equal(
             I_clean_res,
             np.load(self.clean_obs_res_exp_path),
