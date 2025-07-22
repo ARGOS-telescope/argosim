@@ -340,6 +340,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.mask_main_lobe_elliptical"><code class="docutils literal notranslate"><span class="pre">mask_main_lobe_elliptical()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.mse"><code class="docutils literal notranslate"><span class="pre">mse()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.residuals"><code class="docutils literal notranslate"><span class="pre">residuals()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.ssim"><code class="docutils literal notranslate"><span class="pre">ssim()</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -548,6 +549,27 @@ document.write(`
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.metrics_utils.ssim">
+<span class="sig-prename descclassname"><span class="pre">argosim.metrics_utils.</span></span><span class="sig-name descname"><span class="pre">ssim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/metrics_utils.html#ssim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.metrics_utils.ssim" title="Link to this definition">#</a></dt>
+<dd><p>Structural similarity index.</p>
+<p>Function to compute the structural similarity index between two images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img1</strong> (<em>np.ndarray</em>) – The first image.</p></li>
+<li><p><strong>img2</strong> (<em>np.ndarray</em>) – The second image.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ssim</strong> – The structural similarity index between the two images.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
@@ -604,6 +626,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.mask_main_lobe_elliptical"><code class="docutils literal notranslate"><span class="pre">mask_main_lobe_elliptical()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.mse"><code class="docutils literal notranslate"><span class="pre">mse()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.residuals"><code class="docutils literal notranslate"><span class="pre">residuals()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.metrics_utils.ssim"><code class="docutils literal notranslate"><span class="pre">ssim()</span></code></a></li>
 </ul>
   </nav></div>
 
