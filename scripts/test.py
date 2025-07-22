@@ -1,12 +1,12 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from argosim.antenna_utils import *
-from argosim.plot_utils import *
-from argosim.data_utils import *
-from argosim.clean import *
-from argosim.imaging_utils import *
 from argosim.beam_utils import *
+from argosim.clean import *
+from argosim.data_utils import *
+from argosim.imaging_utils import *
+from argosim.plot_utils import *
 
 antenna = load_antenna_enu_txt("/home/configs/arrays/argos_pathfinder.enu.txt")
 # plot_antenna_arr(antenna)
