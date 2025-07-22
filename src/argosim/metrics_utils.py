@@ -68,7 +68,7 @@ def ssim(img1, img2):
     ssim : float
         The structural similarity index between the two images.
     """
-    return ssim_skimage(img1, img2)
+    return ssim_skimage(img1, img2, data_range=img1.max() - img1.min())
 
 
 def compute_metrics(img1, img2):
