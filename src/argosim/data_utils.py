@@ -7,8 +7,8 @@ This module contains functions to generate synthetic observations for the Argosi
 
 """
 
-import numpy as np
 import jax.numpy as jnp
+import numpy as np
 
 from argosim.rand_utils import local_seed
 

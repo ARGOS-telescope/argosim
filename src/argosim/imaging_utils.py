@@ -7,9 +7,9 @@ This module contains functions to perform radio interferometric imaging.
 
 """
 
+import jax.numpy as jnp
 import numpy as np
 import numpy.random as rnd
-import jax.numpy as jnp
 
 from argosim.rand_utils import local_seed
 
@@ -120,6 +120,7 @@ def sky2uv(sky):
     # return np.fft.fft2(sky)
     return jnp.fft.fftshift(jnp.fft.fft2(jnp.fft.ifftshift(sky)))
 
+
 def scale_uv_samples(uv_samples, sky_uv_shape, fov_size):
     """Scale uv samples (JAX version).
 
@@ -149,6 +150,7 @@ def scale_uv_samples(uv_samples, sky_uv_shape, fov_size):
     )
     return uv_samples_indices
 
+
 def check_uv_samples_range(uv_samples_indices, uv_samples, sky_uv_shape, fov_size):
     """Check uv samples range (JAX version).
 
@@ -172,6 +174,7 @@ def check_uv_samples_range(uv_samples_indices, uv_samples, sky_uv_shape, fov_siz
         raise ValueError(
             f"uv samples lie out of the uv-plane. Required Npix > {required_npix}"
         )
+
 
 def grid_uv_samples(
     uv_samples, sky_uv_shape, fov_size, mask_type="binary", weights=None
@@ -235,13 +238,11 @@ def grid_uv_samples(
     elif mask_type == "histogram":
         uv_mask = uv_mask.at[indices[:, 1], indices[:, 0]].add(1 + 0j)
     elif mask_type == "weighted":
-        assert (
-            weights is not None
-        ), "Weights must be provided for mask type 'weighted'."
+        assert weights is not None, "Weights must be provided for mask type 'weighted'."
         uv_mask = uv_mask.at[indices[:, 1], indices[:, 0]].add(
             weights[indices[:, 0], indices[:, 1]]
         )
-    else:     
+    else:
         raise ValueError(
             "Invalid mask type. Choose between 'binary', 'histogram' and 'weighted'."
         )
@@ -325,9 +326,9 @@ def add_noise_uv(vis, uv_mask, sigma=0.1, seed=None):
     vis : np.ndarray
         The visibilities with added noise.
     """
-    if sigma == 0.:
+    if sigma == 0.0:
         return vis
-    
+
     with local_seed(seed):
         noise_sky = rnd.normal(0, sigma, vis.shape)
     noise_uv = sky2uv(noise_sky)

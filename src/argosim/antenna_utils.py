@@ -8,12 +8,10 @@ perform aperture synthesis, obtain uv-coverage and get observations from sky mod
 
 """
 
+import jax.numpy as jnp
 import numpy as np
 import numpy.random as rnd
-
-import jax.numpy as jnp
-from jax import jit
-from jax import vmap
+from jax import jit, vmap
 
 from argosim.rand_utils import local_seed
 
@@ -188,9 +186,11 @@ def uni_antenna_array(
     array_grid = np.column_stack((E_flat, N_flat, U_flat))
     return array_grid
 
+
 ########################################
 #  Compute baselines and uv sampling   #
 ########################################
+
 
 def get_baselines(array):
     """Get baselines (JAX version).
@@ -212,6 +212,7 @@ def get_baselines(array):
     diffs = array[:, None, :] - array[None, :, :]  # Shape: (n, n, 3)
     mask = ~jnp.eye(array.shape[0], dtype=bool)  # Shape: (n, n), True where i ≠ j
     return diffs[mask].reshape(-1, 3)
+
 
 @jit
 def ENU_to_XYZ(b_ENU, lat=35.0 / 180 * jnp.pi):
@@ -245,6 +246,7 @@ def ENU_to_XYZ(b_ENU, lat=35.0 / 180 * jnp.pi):
     Z = D * (jnp.sin(lat) * jnp.sin(E) + jnp.cos(lat) * jnp.cos(E) * jnp.cos(A))
 
     return X, Y, Z
+
 
 @jit
 def XYZ_to_uvw(X, Y, Z, dec=30.0 / 180 * jnp.pi, ha=0.0, f=1420e6):
@@ -281,12 +283,17 @@ def XYZ_to_uvw(X, Y, Z, dec=30.0 / 180 * jnp.pi, ha=0.0, f=1420e6):
     lam_inv = f / c
     u = lam_inv * (jnp.sin(ha) * X + jnp.cos(ha) * Y)
     v = lam_inv * (
-        -jnp.sin(dec) * jnp.cos(ha) * X + jnp.sin(dec) * jnp.sin(ha) * Y + jnp.cos(dec) * Z
+        -jnp.sin(dec) * jnp.cos(ha) * X
+        + jnp.sin(dec) * jnp.sin(ha) * Y
+        + jnp.cos(dec) * Z
     )
     w = lam_inv * (
-        jnp.cos(dec) * jnp.cos(ha) * X - jnp.cos(dec) * jnp.sin(ha) * Y + jnp.sin(dec) * Z
+        jnp.cos(dec) * jnp.cos(ha) * X
+        - jnp.cos(dec) * jnp.sin(ha) * Y
+        + jnp.sin(dec) * Z
     )
     return u, v, w
+
 
 def uv_track_multiband(
     b_ENU,
