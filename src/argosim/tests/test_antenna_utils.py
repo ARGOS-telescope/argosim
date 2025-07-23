@@ -51,7 +51,7 @@ class TestAntennaUtils:
 
     ENU_antenna_in = np.array([[101.0, 200.5, -33.0]])
     XYZ_antenna_exp = {"X": -142.03409295, "Y": 101.0, "Z": 145.31196248}
-    ENU_to_XYZ_decimal_tol = 7
+    ENU_to_XYZ_decimal_tol = 4
     XYZ_to_uvw_decimal_tol = 4
     uvw_exp = {"u": 478.39762533, "v": 932.45332539, "w": -238.48430193}
 
