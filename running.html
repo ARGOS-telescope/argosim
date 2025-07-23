@@ -395,6 +395,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphical-user-interface-gui">Graphical User Interface (GUI)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-example-on-the-container">Test example on the container</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-a-jupyter-notebook-server">Launch a jupyter notebook server</a></li>
 </ul>
@@ -410,6 +411,18 @@ document.write(`
                   
   <section id="execution">
 <h1>Execution<a class="headerlink" href="#execution" title="Link to this heading">#</a></h1>
+<section id="graphical-user-interface-gui">
+<h2>Graphical User Interface (GUI)<a class="headerlink" href="#graphical-user-interface-gui" title="Link to this heading">#</a></h2>
+<p>Argosim provides a graphical user interface (GUI) for simulating radio interferometric observations.
+Running the GUI requires the <code class="docutils literal notranslate"><span class="pre">pyQt6</span></code> package, which can be installed with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">argosim</span><span class="p">[</span><span class="n">gui</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>For opening the GUI, run the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">app</span><span class="o">/</span><span class="n">argosim</span><span class="o">-</span><span class="n">gui</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</section>
 <section id="test-example-on-the-container">
 <h2>Test example on the container<a class="headerlink" href="#test-example-on-the-container" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">argosim</span><span class="p">)</span> <span class="n">root</span><span class="nd">@container_id</span><span class="p">:</span><span class="o">/</span><span class="n">workdir</span><span class="c1"># python /home/scripts/test.py</span>
@@ -473,6 +486,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphical-user-interface-gui">Graphical User Interface (GUI)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-example-on-the-container">Test example on the container</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-a-jupyter-notebook-server">Launch a jupyter notebook server</a></li>
 </ul>
