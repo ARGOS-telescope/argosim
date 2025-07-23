@@ -13,94 +13,6 @@ import numpy.random as rnd
 
 from argosim.rand_utils import local_seed
 
-# from PIL import Image
-
-########################################
-#           Grid uv samples            #
-########################################
-
-# def get_uv_plane(baseline, uv_dim=128):
-#     """Get uv plane.
-
-#     Function to compute the uv sampling mask from the baselines list.
-#     Perform a 2D histogram of the baselines list with uv_dim bins.
-
-#     Parameters
-#     ----------
-#     baseline : np.ndarray
-#         The baselines list.
-#     uv_dim : int
-#         The uv-plane sampling mask size.
-
-#     Returns
-#     -------
-#     uv_plane : np.ndarray
-#         The uv sampling mask of the antenna array. The dimensions are (uv_dim, uv_dim).
-#         The value of each pixel is the number of uv samples in that pixel.
-
-#     """
-#     # Count number of samples per uv grid
-#     x_lim=np.max(np.absolute(baseline))#*1.1
-#     y_lim=x_lim
-#     uv_plane, _, _ = np.histogram2d(baseline[:,0],baseline[:,1],bins=uv_dim, range=[[-x_lim,x_lim],[-y_lim,y_lim]])
-#     return np.fliplr(uv_plane.T)#/np.sum(uv_plane, axis=(0,1))
-
-# def get_uv_mask(uv_plane):
-#     """Get uv mask.
-
-#     Function to compute the binary mask from the uv sampling grid.
-
-#     Parameters
-#     ----------
-#     uv_plane : np.ndarray
-#         The uv sampling mask.
-
-#     Returns
-#     -------
-#     uv_plane_mask : np.ndarray
-#         The binary mask of the uv sampling mask.
-#         The value of each pixel is 1 if the pixel is sampled, 0 otherwise.
-#     """
-#     # Get binary mask from the uv sampled grid
-#     uv_plane_mask = uv_plane.copy()
-#     uv_plane_mask[np.where(uv_plane>0)] = 1
-#     return uv_plane_mask
-
-# def get_beam(uv_mask):
-#     """Get beam.
-
-#     Function to compute the telescope beam from the uv sampling mask.
-
-#     Parameters
-#     ----------
-#     uv_mask : np.ndarray
-#         The uv sampling mask.
-
-#     Returns
-#     -------
-#     beam : np.ndarray
-#         The beam image of the antenna array. The beam is fftshifted (non centered).
-#     """
-#     return np.abs(np.fft.ifft2(uv_mask))
-
-
-# def load_sky_model(path):
-#     """Load sky model.
-
-#     Function to load a sky model image.
-
-#     Parameters
-#     ----------
-#     path : str
-#         The path to the sky model image.
-
-#     Returns
-#     -------
-#     sky : np.ndarray
-#         The sky model image.
-#     """
-#     return np.array(Image.open(path).convert("L"))
-
 
 def sky2uv(sky):
     """Sky to uv plane (JAX version).
@@ -203,29 +115,8 @@ def grid_uv_samples(
     uv_samples_indices : np.ndarray
         The indices of the uv samples in pixel coordinates.
     """
-    # max_u = (180 / np.pi) * sky_uv_shape[0] / (2 * fov_size[0])
-    # max_v = (180 / np.pi) * sky_uv_shape[1] / (2 * fov_size[1])
-    # uv_samples_indices = (
-    #     np.rint(
-    #         uv_samples[:, :2] / np.array([max_u, max_v]) / 2 * np.array(sky_uv_shape)
-    #     )
-    #     + np.array(sky_uv_shape) // 2
-    # )
     uv_samples_indices = scale_uv_samples(uv_samples, sky_uv_shape, fov_size)
-
-    # if any(np.array(sky_uv_shape) <= np.max(uv_samples_indices, axis=0)):
-    #     raise ValueError(
-    #         "uv samples are out of the uv-plane range. Required Npix > {}".format(
-    #             # np.max(uv_samples_indices, axis=0)
-    #             np.ceil(
-    #                 np.max(np.abs(uv_samples[:, :2]), axis=0)
-    #                 * 2
-    #                 * np.pi
-    #                 * fov_size
-    #                 / 180
-    #             )
-    #         )
-    #     )
+    # Check if the uv samples are within the uv-plane range
     check_uv_samples_range(uv_samples_indices, uv_samples, sky_uv_shape, fov_size)
 
     uv_mask = jnp.zeros(sky_uv_shape, dtype=jnp.complex64)
@@ -246,23 +137,6 @@ def grid_uv_samples(
         raise ValueError(
             "Invalid mask type. Choose between 'binary', 'histogram' and 'weighted'."
         )
-
-    # for index in indices:
-    #     if mask_type == "binary":
-    #         uv_mask[int(index[1]), int(index[0])] = 1 + 0j
-    #     elif mask_type == "histogram":
-    #         uv_mask[int(index[1]), int(index[0])] += 1 + 0j
-    #     elif mask_type == "weighted":
-    #         assert (
-    #             weights is not None
-    #         ), "Weights must be provided for mask type 'weighted'."
-    #         uv_mask[int(index[1]), int(index[0])] += weights[
-    #             int(index[0]), int(index[1])
-    #         ]
-    #     else:
-    #         raise ValueError(
-    #             "Invalid mask type. Choose between 'binary', 'histogram' and 'weighted'."
-    #         )
 
     return uv_mask, uv_samples_indices
 
