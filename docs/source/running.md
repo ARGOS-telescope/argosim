@@ -1,5 +1,16 @@
 # Execution
 
+## Graphical User Interface (GUI)
+Argosim provides a graphical user interface (GUI) for simulating radio interferometric observations.
+Running the GUI requires the `pyQt6` package, which can be installed with the following command:
+```
+pip install argosim[gui]
+```
+For opening the GUI, run the following command:
+```
+python app/argosim-gui.py
+```
+
 ## Test example on the container
 ```
 (argosim) root@container_id:/workdir# python /home/scripts/test.py

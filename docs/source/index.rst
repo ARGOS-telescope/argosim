@@ -3,10 +3,23 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Argosim documentation
-=====================
+Argosim
+=======
 
-This is the first page of the Argosim documentation.
+This is the first page of the Argosim documentation.Argosim is a modular and lightweight package for radio interferometric simulations. 
+It is coded in Python and has a JAX computational backend.
+
+This software was developed at the [CosmoStat](https://www.cosmostat.org/) laboratory, CEA, Paris-Saclay, in the context of the [ARGOS](https://argos-telescope.eu) telescope.
+
+Argosim provides a graphical user interface (GUI) for easy interaction and visualization of simulations. 
+The GUI is mainly intended for educational purposes and to facilitate the understanding of radio interferometric simulations, along with the use of Argosim.
+
+.. figure:: img/GUI-Example.png
+  :alt: Argosim GUI screenshot
+  :align: center
+  :width: 80%
+
+  Argosim graphical user interface (GUI) for radio interferometric simulations.
 
 .. toctree::
   :hidden:
