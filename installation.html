@@ -332,6 +332,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-installation">Basic installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-installation">Local installation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-installation">Docker installation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-docker-image-optional">Build the docker image (optional)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pull-the-docker-image">Pull the docker image</a></li>
@@ -353,7 +354,15 @@ document.write(`
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h1>
 <section id="basic-installation">
 <h2>Basic installation<a class="headerlink" href="#basic-installation" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">argosim</span>
+</pre></div>
+</div>
+</section>
+<section id="local-installation">
+<h2>Local installation<a class="headerlink" href="#local-installation" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ARGOS</span><span class="o">-</span><span class="n">telescope</span><span class="o">/</span><span class="n">argosim</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">argosim</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
 </pre></div>
 </div>
 </section>
@@ -361,10 +370,13 @@ document.write(`
 <h2>Docker installation<a class="headerlink" href="#docker-installation" title="Link to this heading">#</a></h2>
 <section id="build-the-docker-image-optional">
 <h3>Build the docker image (optional)<a class="headerlink" href="#build-the-docker-image-optional" title="Link to this heading">#</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">ghcr</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">argos</span><span class="o">-</span><span class="n">telescope</span><span class="o">/</span><span class="n">argosim</span><span class="p">:</span><span class="n">main</span> <span class="o">.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">argosim</span>
+<span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">ghcr</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">argos</span><span class="o">-</span><span class="n">telescope</span><span class="o">/</span><span class="n">argosim</span><span class="p">:</span><span class="n">main</span> <span class="o">.</span>
 </pre></div>
 </div>
-<p>Build the doker image from the argosim repository.</p>
+<p>Build the doker image from the argosim repository directory. The image will be tagged as <code class="docutils literal notranslate"><span class="pre">ghcr.io/argos-telescope/argosim:main</span></code>.
+This step is optional if you want to use the pre-built image from the GitHub container registry.
+You can skip this step and go directly to the next section to pull the image from the registry.</p>
 </section>
 <section id="pull-the-docker-image">
 <h3>Pull the docker image<a class="headerlink" href="#pull-the-docker-image" title="Link to this heading">#</a></h3>
@@ -431,6 +443,7 @@ The argosim files (src, scripts, notebooks, etc.) are located at the <code class
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-installation">Basic installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-installation">Local installation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-installation">Docker installation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-docker-image-optional">Build the docker image (optional)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pull-the-docker-image">Pull the docker image</a></li>

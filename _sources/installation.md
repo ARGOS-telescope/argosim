@@ -2,6 +2,13 @@
 
 ## Basic installation
 ```
+pip install argosim
+```
+
+## Local installation
+```
+git clone https://github.com/ARGOS-telescope/argosim.git
+cd argosim
 pip install .
 ```
 
@@ -9,9 +16,12 @@ pip install .
 
 ### Build the docker image (optional)
 ```
+cd argosim
 docker build -t ghcr.io/argos-telescope/argosim:main .
 ```
-Build the doker image from the argosim repository.
+Build the doker image from the argosim repository directory. The image will be tagged as `ghcr.io/argos-telescope/argosim:main`.
+This step is optional if you want to use the pre-built image from the GitHub container registry.
+You can skip this step and go directly to the next section to pull the image from the registry.
 
 ### Pull the docker image
 ```
