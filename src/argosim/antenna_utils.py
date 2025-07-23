@@ -193,7 +193,7 @@ def uni_antenna_array(
 ########################################
 
 def get_baselines(array):
-    """Get baselines. (JAX version)
+    """Get baselines (JAX version).
 
     Function to compute the baselines of an antenna array.
 
@@ -215,7 +215,7 @@ def get_baselines(array):
 
 @jit
 def ENU_to_XYZ(b_ENU, lat=35.0 / 180 * jnp.pi):
-    """ENU to XYZ. (JAX version)
+    """ENU to XYZ (JAX version).
 
     Function to convert the baselines from East-North-Up (ENU) to XYZ coordinates.
 
@@ -248,7 +248,7 @@ def ENU_to_XYZ(b_ENU, lat=35.0 / 180 * jnp.pi):
 
 @jit
 def XYZ_to_uvw(X, Y, Z, dec=30.0 / 180 * jnp.pi, ha=0.0, f=1420e6):
-    """XYZ to uvw. (JAX version)
+    """XYZ to uvw (JAX version).
 
     Get the uvw sampling points from the XYZ coordinates given a
     source declination, hour angle and frequency.
@@ -300,7 +300,7 @@ def uv_track_multiband(
     n_freqs=1,
     multi_band=False,
 ):
-    """Uv track multiband. (JAX version)
+    """Uv track multiband (JAX version).
 
     Function to compute the uv sampling baselines for a given observation time and frequency range.
 

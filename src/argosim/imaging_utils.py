@@ -103,7 +103,7 @@ from argosim.rand_utils import local_seed
 
 
 def sky2uv(sky):
-    """Sky to uv plane. (JAX version)
+    """Sky to uv plane (JAX version).
 
     Function to compute the Fourier transform of the sky.
 
@@ -121,7 +121,7 @@ def sky2uv(sky):
     return jnp.fft.fftshift(jnp.fft.fft2(jnp.fft.ifftshift(sky)))
 
 def scale_uv_samples(uv_samples, sky_uv_shape, fov_size):
-    """Scale uv samples. (JAX version)
+    """Scale uv samples (JAX version).
 
     Function to scale the uv samples to pixel coordinates.
 
@@ -139,7 +139,6 @@ def scale_uv_samples(uv_samples, sky_uv_shape, fov_size):
     uv_samples_indices : np.ndarray
         The indices of the uv samples in pixel coordinates.
     """
-
     max_u = (180 / jnp.pi) * sky_uv_shape[0] / (2 * fov_size[0])
     max_v = (180 / jnp.pi) * sky_uv_shape[1] / (2 * fov_size[1])
     uv_samples_indices = (
@@ -151,7 +150,7 @@ def scale_uv_samples(uv_samples, sky_uv_shape, fov_size):
     return uv_samples_indices
 
 def check_uv_samples_range(uv_samples_indices, uv_samples, sky_uv_shape, fov_size):
-    """Check uv samples range. (JAX version)
+    """Check uv samples range (JAX version).
 
     Function to check if the uv samples are within the uv-plane range.
 
@@ -177,7 +176,7 @@ def check_uv_samples_range(uv_samples_indices, uv_samples, sky_uv_shape, fov_siz
 def grid_uv_samples(
     uv_samples, sky_uv_shape, fov_size, mask_type="binary", weights=None
 ):
-    """Grid uv samples. (JAX version)
+    """Grid uv samples (JAX version).
 
     Compute the uv sampling mask from the uv samples.
 
@@ -268,7 +267,7 @@ def grid_uv_samples(
 
 
 def uv2sky(uv):
-    """Uv to sky. (JAX version)
+    """Uv to sky (JAX version).
 
     Function to compute the inverse Fourier transform of the uv plane.
 

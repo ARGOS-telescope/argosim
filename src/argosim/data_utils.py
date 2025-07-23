@@ -14,7 +14,7 @@ from argosim.rand_utils import local_seed
 
 
 def gauss_source(nx=512, ny=512, mu=np.array([0, 0]), sigma=np.eye(2), fwhm_pix=64):
-    """Gauss source. (JAX version)
+    """Gauss source (JAX version).
 
     Function to generate a 2D Gaussian source.
 
