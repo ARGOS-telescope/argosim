@@ -15,6 +15,7 @@ dependencies = [
     "numpy>=1.26",
     "matplotlib>=3.8",
     "scikit-image>=0.22",
+    "jax>=0.4"
 ]
 version = "0.0.3"
 

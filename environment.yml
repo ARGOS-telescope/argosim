@@ -7,3 +7,4 @@ dependencies:
   - matplotlib>=3.8
   - notebook>=7.0.6
   - scikit-image>=0.22
+  - jax>=0.4
