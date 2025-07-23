@@ -14,8 +14,9 @@ description = 'Radio interferometric simulations package for the ARGOS radio tel
 dependencies = [
     "numpy>=1.26",
     "matplotlib>=3.8",
+    "scikit-image>=0.22",
 ]
-version = "0.0.2"
+version = "0.0.3"
 
 [project.optional-dependencies]
 doc = [
