@@ -119,7 +119,7 @@ def grid_uv_samples(
     # Check if the uv samples are within the uv-plane range
     check_uv_samples_range(uv_samples_indices, uv_samples, sky_uv_shape, fov_size)
 
-    uv_mask = jnp.zeros(sky_uv_shape, dtype=jnp.complex64)
+    uv_mask = jnp.zeros(sky_uv_shape, dtype=jnp.complex128)
 
     # Convert uv_samples_indices to integer indices
     indices = jnp.array(uv_samples_indices, dtype=jnp.int32)
