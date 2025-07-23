@@ -38,7 +38,10 @@ test = [
   "pytest-cov",
   "pytest-pydocstyle",
 ]
-dev = ["argosim[doc,lint,release,test]"]
+gui = [
+    "pyQt6"
+]
+dev = ["argosim[doc,lint,release,test,gui]"]
 
 [tool.pytest.ini_options]
 addopts = "--verbose --pydocstyle --cov=argosim"
