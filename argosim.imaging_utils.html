@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>argosim.imaging_utils module &#8212; Argosim 0.0.1 documentation</title>
+    <title>argosim.imaging_utils module &#8212; Argosim 0.0.3 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=e645c8fa"></script>
+    <script src="_static/documentation_options.js?v=4acdca81"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -133,7 +133,7 @@
   
   
   
-    <p class="title logo__title">Argosim 0.0.1 documentation</p>
+    <p class="title logo__title">Argosim 0.0.3 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -224,6 +224,70 @@
         <div class="header-article-item">
 
 <div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ARGOS-telescope/argosim" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ARGOS-telescope/argosim/edit/main/argosim.imaging_utils.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ARGOS-telescope/argosim/issues/new?title=Issue%20on%20page%20%2Fargosim.imaging_utils.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
 
 
 
@@ -368,8 +432,8 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>vis</strong> (<em>np.ndarray</em>) – The visibilities.</p></li>
 <li><p><strong>mask</strong> (<em>np.ndarray</em>) – The uv sampling mask.</p></li>
-<li><p><strong>sigma</strong> (<em>float</em>) – The standard deviation of the noise.</p></li>
-<li><p><strong>seed</strong> (<em>int</em>) – Optional seed to set.</p></li>
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The standard deviation of the noise.</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Optional seed to set.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -411,9 +475,9 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>uv_samples</strong> (<em>np.ndarray</em>) – The uv samples coordinates in meters.</p></li>
-<li><p><strong>sky_uv_shape</strong> (<em>tuple</em>) – The shape of the sky model in pixels.</p></li>
-<li><p><strong>fov_size</strong> (<em>tuple</em>) – The field of view size in degrees.</p></li>
-<li><p><strong>mask_type</strong> (<em>str</em>) – The type of mask to use. Choose between ‘binary’, ‘histogram’ and ‘weighted’.</p></li>
+<li><p><strong>sky_uv_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a>) – The shape of the sky model in pixels.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a>) – The field of view size in degrees.</p></li>
+<li><p><strong>mask_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The type of mask to use. Choose between ‘binary’, ‘histogram’ and ‘weighted’.</p></li>
 <li><p><strong>weights</strong> (<em>np.ndarray</em>) – The weights to use for the mask type ‘weighted’.</p></li>
 </ul>
 </dd>
@@ -437,12 +501,12 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sky</strong> (<em>np.ndarray</em>) – The sky model image.</p></li>
 <li><p><strong>track</strong> (<em>np.ndarray</em>) – The uv sampling points.</p></li>
-<li><p><strong>fov_size</strong> (<em>float</em>) – The field of view size in degrees.</p></li>
-<li><p><strong>multi_band</strong> (<em>bool</em>) – If True, simulate a multi-band observation.</p></li>
-<li><p><strong>freqs</strong> (<em>list</em>) – The frequency list for the multi-band simulation.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The field of view size in degrees.</p></li>
+<li><p><strong>multi_band</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, simulate a multi-band observation.</p></li>
+<li><p><strong>freqs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – The frequency list for the multi-band simulation.</p></li>
 <li><p><strong>beam</strong> (<em>Beam</em>) – The beam object to apply to the sky, only used in multi-band simulations.</p></li>
-<li><p><strong>sigma</strong> (<em>float</em>) – The standard deviation of the noise.</p></li>
-<li><p><strong>seed</strong> (<em>int</em>) – Optional seed to set for reproducibility in noise realisation.</p></li>
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The standard deviation of the noise.</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Optional seed to set for reproducibility in noise realisation.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

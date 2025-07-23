@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>argosim.antenna_utils module &#8212; Argosim 0.0.1 documentation</title>
+    <title>argosim.antenna_utils module &#8212; Argosim 0.0.3 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=e645c8fa"></script>
+    <script src="_static/documentation_options.js?v=4acdca81"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -133,7 +133,7 @@
   
   
   
-    <p class="title logo__title">Argosim 0.0.1 documentation</p>
+    <p class="title logo__title">Argosim 0.0.3 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -224,6 +224,70 @@
         <div class="header-article-item">
 
 <div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ARGOS-telescope/argosim" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ARGOS-telescope/argosim/edit/main/argosim.antenna_utils.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ARGOS-telescope/argosim/issues/new?title=Issue%20on%20page%20%2Fargosim.antenna_utils.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
 
 
 
@@ -375,7 +439,7 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>b_ENU</strong> (<em>np.ndarray</em>) – The baselines in ENU coordinates.</p></li>
-<li><p><strong>lat</strong> (<em>float</em>) – The latitude of the antenna array in radians.</p></li>
+<li><p><strong>lat</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The latitude of the antenna array in radians.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -401,9 +465,9 @@ source declination, hour angle and frequency.</p>
 <li><p><strong>X</strong> (<em>np.ndarray</em>) – The X coordinate of the baselines in XYZ coordinates.</p></li>
 <li><p><strong>Y</strong> (<em>np.ndarray</em>) – The Y coordinate of the baselines in XYZ coordinates.</p></li>
 <li><p><strong>Z</strong> (<em>np.ndarray</em>) – The Z coordinate of the baselines in XYZ coordinates.</p></li>
-<li><p><strong>dec</strong> (<em>float</em>) – The declination of the source in radians.</p></li>
-<li><p><strong>ha</strong> (<em>float</em>) – The hour angle of the source in radians.</p></li>
-<li><p><strong>f</strong> (<em>float</em>) – The frequency of the observation in Hz.</p></li>
+<li><p><strong>dec</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The declination of the source in radians.</p></li>
+<li><p><strong>ha</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The hour angle of the source in radians.</p></li>
+<li><p><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The frequency of the observation in Hz.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -426,8 +490,8 @@ of radius ‘r’ from the center [0,0] and are equally spaced.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n_antenna</strong> (<em>int</em>) – The number of antennas in the array.</p></li>
-<li><p><strong>r</strong> (<em>float</em>) – The radius of the antenna array in meters.</p></li>
+<li><p><strong>n_antenna</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The number of antennas in the array.</p></li>
+<li><p><strong>r</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The radius of the antenna array in meters.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -486,8 +550,8 @@ of radius ‘r’ from the center [0,0] and are equally spaced.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – The path to the txt file.</p></li>
-<li><p><strong>noise</strong> (<em>bool</em>) – Specify if the file contain the noise level of each antenna.</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The path to the txt file.</p></li>
+<li><p><strong>noise</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Specify if the file contain the noise level of each antenna.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -511,8 +575,8 @@ Waring: the computation of the upp coordinate is valid for antennas that are clo
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – The path to the txt file.</p></li>
-<li><p><strong>noise</strong> (<em>bool</em>) – Specify if the file contain the noise level of each antenna.</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The path to the txt file.</p></li>
+<li><p><strong>noise</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Specify if the file contain the noise level of each antenna.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -534,11 +598,11 @@ in the range: [-E_lims/2, E_lims/2]x[-N_lims/2, N_lims/2]x[0, U_lims].</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n_antenna</strong> (<em>int</em>) – The number of antennas in the array.</p></li>
-<li><p><strong>E_lim</strong> (<em>float</em>) – The east coordinate span width of the antenna positions in meters.</p></li>
-<li><p><strong>N_lim</strong> (<em>float</em>) – The north coordinate span width of the antenna positions in meters.</p></li>
-<li><p><strong>U_lim</strong> (<em>float</em>) – The up coordinate span width of the antenna positions in meters.</p></li>
-<li><p><strong>seed</strong> (<em>int</em>) – Optional seed to set.</p></li>
+<li><p><strong>n_antenna</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The number of antennas in the array.</p></li>
+<li><p><strong>E_lim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The east coordinate span width of the antenna positions in meters.</p></li>
+<li><p><strong>N_lim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The north coordinate span width of the antenna positions in meters.</p></li>
+<li><p><strong>U_lim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The up coordinate span width of the antenna positions in meters.</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Optional seed to set.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -559,10 +623,10 @@ Antenna lies in the range: [-E_lims/2, E_lims/2]x[-N_lims/2, N_lims/2]x[0, U_lim
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>E_lim</strong> (<em>float</em>) – The east coordinate span width of the antenna position in meters.</p></li>
-<li><p><strong>N_lim</strong> (<em>float</em>) – The north coordinate span width of the antenna position in meters.</p></li>
-<li><p><strong>U_lim</strong> (<em>float</em>) – The up coordinate span width of the antenna position in meters.</p></li>
-<li><p><strong>seed</strong> (<em>int</em>) – Optional seed to set.</p></li>
+<li><p><strong>E_lim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The east coordinate span width of the antenna position in meters.</p></li>
+<li><p><strong>N_lim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The north coordinate span width of the antenna position in meters.</p></li>
+<li><p><strong>U_lim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The up coordinate span width of the antenna position in meters.</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Optional seed to set.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -583,7 +647,7 @@ Antenna lies in the range: [-E_lims/2, E_lims/2]x[-N_lims/2, N_lims/2]x[0, U_lim
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>antenna</strong> (<em>np.ndarray</em>) – The numpy array which contain the antenna information.</p></li>
-<li><p><strong>path</strong> (<em>str</em>) – The path to the txt file.</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The path to the txt file.</p></li>
 <li><p><strong>np.ndarray</strong> (<em>noise</em>) – The numpy array which contain the noise information, if available.</p></li>
 </ul>
 </dd>
@@ -606,11 +670,11 @@ Only allow to generate a grid at a fixed height U_lim (fixed Up component).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n_antenna_E</strong> (<em>int</em>) – The number of antennas in the North direction (vertical).</p></li>
-<li><p><strong>n_antenna_N</strong> (<em>int</em>) – The number of antennas in the East direction (horizontal).</p></li>
-<li><p><strong>E_lim</strong> (<em>float</em>) – The east coordinate span width of the antenna positions in meters.</p></li>
-<li><p><strong>N_lim</strong> (<em>float</em>) – The north coordinate span width of the antenna positions in meters.</p></li>
-<li><p><strong>U_lim</strong> (<em>float</em>) – The up coordinate span width of the antenna positions in meters.</p></li>
+<li><p><strong>n_antenna_E</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The number of antennas in the North direction (vertical).</p></li>
+<li><p><strong>n_antenna_N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The number of antennas in the East direction (horizontal).</p></li>
+<li><p><strong>E_lim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The east coordinate span width of the antenna positions in meters.</p></li>
+<li><p><strong>N_lim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The north coordinate span width of the antenna positions in meters.</p></li>
+<li><p><strong>U_lim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The up coordinate span width of the antenna positions in meters.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -631,15 +695,15 @@ Only allow to generate a grid at a fixed height U_lim (fixed Up component).</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>b_ENU</strong> (<em>np.ndarray</em>) – The baselines in ENU coordinates.</p></li>
-<li><p><strong>lat</strong> (<em>float</em>) – The latitude of the antenna array in radians.</p></li>
-<li><p><strong>dec</strong> (<em>float</em>) – The declination of the source in radians.</p></li>
-<li><p><strong>track_time</strong> (<em>float</em>) – The duration of the tracking in hours.</p></li>
-<li><p><strong>t_0</strong> (<em>float</em>) – The initial tracking time in hours.</p></li>
-<li><p><strong>n_times</strong> (<em>int</em>) – The number of time steps.</p></li>
-<li><p><strong>f</strong> (<em>float</em>) – The central frequency of the observation in Hz.</p></li>
-<li><p><strong>df</strong> (<em>float</em>) – The frequency range of the observation in Hz.</p></li>
-<li><p><strong>n_freqs</strong> (<em>int</em>) – The number of frequency samples.</p></li>
-<li><p><strong>multi_band</strong> (<em>bool</em>) – If True separate the uv samples per frequency bands.</p></li>
+<li><p><strong>lat</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The latitude of the antenna array in radians.</p></li>
+<li><p><strong>dec</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The declination of the source in radians.</p></li>
+<li><p><strong>track_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The duration of the tracking in hours.</p></li>
+<li><p><strong>t_0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The initial tracking time in hours.</p></li>
+<li><p><strong>n_times</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The number of time steps.</p></li>
+<li><p><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The central frequency of the observation in Hz.</p></li>
+<li><p><strong>df</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The frequency range of the observation in Hz.</p></li>
+<li><p><strong>n_freqs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The number of frequency samples.</p></li>
+<li><p><strong>multi_band</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True separate the uv samples per frequency bands.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -661,9 +725,9 @@ of 120 degrees each.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n_antenna</strong> (<em>int</em>) – The number of antennas per arm.</p></li>
-<li><p><strong>r</strong> (<em>float</em>) – The radius of the antenna array in meters.</p></li>
-<li><p><strong>alpha</strong> (<em>float</em>) – The angle of the first arm.</p></li>
+<li><p><strong>n_antenna</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The number of antennas per arm.</p></li>
+<li><p><strong>r</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The radius of the antenna array in meters.</p></li>
+<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The angle of the first arm.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

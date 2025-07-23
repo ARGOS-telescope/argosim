@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>argosim.clean module &#8212; Argosim 0.0.1 documentation</title>
+    <title>argosim.clean module &#8212; Argosim 0.0.3 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=e645c8fa"></script>
+    <script src="_static/documentation_options.js?v=4acdca81"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -133,7 +133,7 @@
   
   
   
-    <p class="title logo__title">Argosim 0.0.1 documentation</p>
+    <p class="title logo__title">Argosim 0.0.3 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -224,6 +224,70 @@
         <div class="header-article-item">
 
 <div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ARGOS-telescope/argosim" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ARGOS-telescope/argosim/edit/main/argosim.clean.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ARGOS-telescope/argosim/issues/new?title=Issue%20on%20page%20%2Fargosim.clean.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
 
 
 
@@ -366,11 +430,11 @@ the Hogbom’s clean algorithm on dirty observations.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>I_obs</strong> (<em>np.ndarray</em>) – The dirty image.</p></li>
 <li><p><strong>B</strong> (<em>np.ndarray</em>) – The beam image (fft shifted).</p></li>
-<li><p><strong>gamma</strong> (<em>float</em>) – The clean gain.</p></li>
-<li><p><strong>max_iter</strong> (<em>int</em>) – The maximum number of iterations.</p></li>
-<li><p><strong>threshold</strong> (<em>float</em>) – The threshold to stop the cleaning process.</p></li>
-<li><p><strong>clean_beam_size_px</strong> (<em>int</em>) – The size (FWHM) of the clean beam in pixels.</p></li>
-<li><p><strong>res</strong> (<em>bool</em>) – Add residual signal to clean image.</p></li>
+<li><p><strong>gamma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The clean gain.</p></li>
+<li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The maximum number of iterations.</p></li>
+<li><p><strong>threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The threshold to stop the cleaning process.</p></li>
+<li><p><strong>clean_beam_size_px</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The size (FWHM) of the clean beam in pixels.</p></li>
+<li><p><strong>res</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Add residual signal to clean image.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -433,8 +497,8 @@ x and y directions.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>beam</strong> (<em>np.ndarray</em>) – The beam image.</p></li>
-<li><p><strong>shift_x</strong> (<em>int</em>) – The shift in the x direction.</p></li>
-<li><p><strong>shift_y</strong> (<em>int</em>) – The shift in the y direction.</p></li>
+<li><p><strong>shift_x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The shift in the x direction.</p></li>
+<li><p><strong>shift_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The shift in the y direction.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

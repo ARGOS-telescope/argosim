@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>argosim.data_utils module &#8212; Argosim 0.0.1 documentation</title>
+    <title>argosim.data_utils module &#8212; Argosim 0.0.3 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=e645c8fa"></script>
+    <script src="_static/documentation_options.js?v=4acdca81"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -133,7 +133,7 @@
   
   
   
-    <p class="title logo__title">Argosim 0.0.1 documentation</p>
+    <p class="title logo__title">Argosim 0.0.3 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -224,6 +224,70 @@
         <div class="header-article-item">
 
 <div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ARGOS-telescope/argosim" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ARGOS-telescope/argosim/edit/main/argosim.data_utils.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ARGOS-telescope/argosim/issues/new?title=Issue%20on%20page%20%2Fargosim.data_utils.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
 
 
 
@@ -365,11 +429,11 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>nx</strong> (<em>int</em>) – The output image first dimension.</p></li>
-<li><p><strong>ny</strong> (<em>int</em>) – The output image second dimension.</p></li>
+<li><p><strong>nx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The output image first dimension.</p></li>
+<li><p><strong>ny</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The output image second dimension.</p></li>
 <li><p><strong>mu</strong> (<em>np.ndarray</em>) – The mean of the Gaussian source in the [-1,1]x[-1,1] range.</p></li>
 <li><p><strong>sigma</strong> (<em>np.ndarray</em>) – The covariance matrix of the Gaussian source.</p></li>
-<li><p><strong>fwhm_pix</strong> (<em>float</em>) – The FWHM of the Gaussian source in pixels.</p></li>
+<li><p><strong>fwhm_pix</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The FWHM of the Gaussian source in pixels.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -388,7 +452,7 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <p>Function to generate a random 2D mean vector in the range [-1,1]x[-1,1].</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>seed</strong> (<em>int</em>) – Optional seed to set</p>
+<dd class="field-odd"><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Optional seed to set</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>mu</strong> – The 2D mean vector.</p>
@@ -407,14 +471,14 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>shape_px</strong> (<em>tuple</em>) – The image size in pixels (Nx, Ny).</p></li>
-<li><p><strong>fov</strong> (<em>float</em>) – the Image size in degrees. Is used with the first dimension of shape to
+<li><p><strong>shape_px</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a>) – The image size in pixels (Nx, Ny).</p></li>
+<li><p><strong>fov</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – the Image size in degrees. Is used with the first dimension of shape to
 calculate the source sizes.</p></li>
-<li><p><strong>deg_size_list</strong> (<em>list</em>) – The size in degrees of the Gaussian sources.</p></li>
-<li><p><strong>source_intensity_list</strong> (<em>list</em>) – The intensity of each Gaussian source in the final image.
+<li><p><strong>deg_size_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – The size in degrees of the Gaussian sources.</p></li>
+<li><p><strong>source_intensity_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – The intensity of each Gaussian source in the final image.
 The sum of all the sources should be equal to 1 to have a normalized image.</p></li>
-<li><p><strong>seed</strong> (<em>int</em>) – Optional seed to set</p></li>
-<li><p><strong>norm</strong> (<em>str</em>) – The normalization method. Options are ‘none’, ‘flux’ and ‘max’. Default is ‘none’.</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Optional seed to set</p></li>
+<li><p><strong>norm</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The normalization method. Options are ‘none’, ‘flux’ and ‘max’. Default is ‘none’.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -434,9 +498,9 @@ The sum of all the sources should be equal to 1 to have a normalized image.</p><
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>shape</strong> (<em>tuple</em>) – The output image shape.</p></li>
-<li><p><strong>pix_size</strong> (<em>float</em>) – The size in pixels of the Gaussian source.</p></li>
-<li><p><strong>seed</strong> (<em>int</em>) – Optional seed to set</p></li>
+<li><p><strong>shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a>) – The output image shape.</p></li>
+<li><p><strong>pix_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The size in pixels of the Gaussian source.</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Optional seed to set</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -456,9 +520,9 @@ The sum of all the sources should be equal to 1 to have a normalized image.</p><
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>min_var</strong> (<em>float</em>) – The minimum variance of both gaussian components.</p></li>
-<li><p><strong>cov_lim</strong> (<em>float</em>) – The limit of the covariance between gaussian components.</p></li>
-<li><p><strong>seed</strong> (<em>int</em>) – Optional seed to set.</p></li>
+<li><p><strong>min_var</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The minimum variance of both gaussian components.</p></li>
+<li><p><strong>cov_lim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The limit of the covariance between gaussian components.</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Optional seed to set.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
