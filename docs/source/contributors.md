@@ -11,5 +11,5 @@ Argosim is an open-source project and we welcome contributions from the communit
 - [Emma Aycoberry](https://github.com/Emmaaycoberry)
 
 ## Contributors
-- 
--
+- [Samuel Gullin](https://github.com/SGullin)
+- [Manal Bensahli](https://github.com/mb-manal)
