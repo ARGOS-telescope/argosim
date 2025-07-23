@@ -9,4 +9,7 @@ automatically (see [Installation](installation.md)). Below we list the main pack
 |--------------|---------------------------------------------------|
 | **Matplotlib** | [https://matplotlib.org/](https://matplotlib.org/) |
 | **Numpy** | [https://numpy.org/](https://numpy.org/) |
+| **Scikit-image** | [https://scikit-image.org/](https://scikit-image.org/) |
+| **Jax** | [https://jax.readthedocs.io/](https://jax.readthedocs.io/) |
+
 

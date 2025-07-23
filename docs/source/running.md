@@ -4,7 +4,7 @@
 ```
 (argosim) root@container_id:/workdir# python /home/scripts/test.py
 ```
-The output images are saved to `/workdir` inside the container and will be available in the host machine at `$PWD`.
+The output images are saved to `/workdir` inside the container and will be available in the host machine at `$PWD` (the directory from where the container was run).
 
 ## Launch a jupyter notebook server
 ```
