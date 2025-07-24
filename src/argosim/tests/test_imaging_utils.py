@@ -47,6 +47,7 @@ class TestImagingUtils:
         "seed": 717,
         "freqs": [1.5e9],
     }
+    decimal_uv = 4
 
     def test_sky2uv(self):
         sky = np.load(self.sky_model_expected_path)
@@ -55,6 +56,7 @@ class TestImagingUtils:
         npt.assert_array_almost_equal(
             sky_uv,
             sky_uv_expected,
+            decimal=self.decimal_uv,
             err_msg="Sky to UV conversion failed. The resulting UV image does not match the expected output.",
         )
 
@@ -151,6 +153,7 @@ class TestImagingUtils:
         npt.assert_array_almost_equal(
             sky_uv_masked_noisy_out,
             sky_uv_masked_noisy_exp,
+            decimal=self.decimal_uv,
             err_msg="Adding noise to UV samples did not produce the expected output.",
         )
 

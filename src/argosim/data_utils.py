@@ -7,13 +7,14 @@ This module contains functions to generate synthetic observations for the Argosi
 
 """
 
+import jax.numpy as jnp
 import numpy as np
 
 from argosim.rand_utils import local_seed
 
 
 def gauss_source(nx=512, ny=512, mu=np.array([0, 0]), sigma=np.eye(2), fwhm_pix=64):
-    """Gauss source.
+    """Gauss source (JAX version).
 
     Function to generate a 2D Gaussian source.
 
@@ -36,19 +37,19 @@ def gauss_source(nx=512, ny=512, mu=np.array([0, 0]), sigma=np.eye(2), fwhm_pix=
         Image of size (nx,ny) containing the 2D Gaussian source.
     """
     fwhm = 2.355
-    x, y = np.meshgrid(
-        np.linspace(-fwhm / 2, fwhm / 2, nx), np.linspace(-fwhm / 2, fwhm / 2, ny)
+    x, y = jnp.meshgrid(
+        jnp.linspace(-fwhm / 2, fwhm / 2, nx), jnp.linspace(-fwhm / 2, fwhm / 2, ny)
     )
 
-    sigma = sigma / (nx * ny) * fwhm_pix**2 / np.sqrt(np.linalg.det(sigma))
+    sigma = sigma / (nx * ny) * fwhm_pix**2 / jnp.sqrt(jnp.linalg.det(sigma))
 
-    X_unroll = np.array(
+    X_unroll = jnp.array(
         [x.reshape(-1) - mu[0] * fwhm / 2, y.reshape(-1) - mu[1] * fwhm / 2]
     )
-    sigminv = np.linalg.inv(sigma)
+    sigminv = jnp.linalg.inv(sigma)
     sigminv.dot(X_unroll).shape
-    Q = np.sum(np.multiply(X_unroll, sigminv.dot(X_unroll)), axis=0).reshape(ny, nx)
-    return np.exp(-Q / 2)  # /(np.sqrt(2*np.pi*np.abs(np.linalg.det(sigma))))
+    Q = jnp.sum(jnp.multiply(X_unroll, sigminv.dot(X_unroll)), axis=0).reshape(ny, nx)
+    return jnp.exp(-Q / 2)  # /(np.sqrt(2*np.pi*np.abs(np.linalg.det(sigma))))
 
 
 def sigma2d(min_var=5, cov_lim=0.5, seed=None):

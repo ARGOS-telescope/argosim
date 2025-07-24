@@ -8,8 +8,10 @@ perform aperture synthesis, obtain uv-coverage and get observations from sky mod
 
 """
 
+import jax.numpy as jnp
 import numpy as np
 import numpy.random as rnd
+from jax import jit, vmap
 
 from argosim.rand_utils import local_seed
 
@@ -191,7 +193,7 @@ def uni_antenna_array(
 
 
 def get_baselines(array):
-    """Get baselines.
+    """Get baselines (JAX version).
 
     Function to compute the baselines of an antenna array.
 
@@ -205,17 +207,16 @@ def get_baselines(array):
     baselines : np.ndarray
         The baselines of the antenna array.
     """
-    # Get the baseline for every combination of antennas i-j.
-    # Remove the i=j baselines: np.delete(array, list, axis=0) -> delete the rows listed on 'list' from array 'array'.
-    return np.delete(
-        np.array([antenna_i - antenna_j for antenna_i in array for antenna_j in array]),
-        [(len(array) + 1) * n for n in range(len(array))],
-        0,
-    )
+    # Get the baseline for every combination of antennas except for i=j baselines.
+    array = jnp.asarray(array)
+    diffs = array[:, None, :] - array[None, :, :]  # Shape: (n, n, 3)
+    mask = ~jnp.eye(array.shape[0], dtype=bool)  # Shape: (n, n), True where i ≠ j
+    return diffs[mask].reshape(-1, 3)
 
 
-def ENU_to_XYZ(b_ENU, lat=35.0 / 180 * np.pi):
-    """ENU to XYZ.
+@jit
+def ENU_to_XYZ(b_ENU, lat=35.0 / 180 * jnp.pi):
+    """ENU to XYZ (JAX version).
 
     Function to convert the baselines from East-North-Up (ENU) to XYZ coordinates.
 
@@ -228,27 +229,28 @@ def ENU_to_XYZ(b_ENU, lat=35.0 / 180 * np.pi):
 
     Returns
     -------
-    X : np.ndarray
+    X : jnp.ndarray
         The X coordinate of the baselines in XYZ coordinates.
-    Y : np.ndarray
+    Y : jnp.ndarray
         The Y coordinate of the baselines in XYZ coordinates.
-    Z : np.ndarray
+    Z : jnp.ndarray
         The Z coordinate of the baselines in XYZ coordinates.
     """
     # Compute baseline length, Azimuth and Elevation angles
-    D = np.sqrt(np.sum(b_ENU**2, axis=1))
-    A = np.arctan2(b_ENU[:, 0], b_ENU[:, 1])
-    E = np.arcsin(b_ENU[:, 2] / D)
+    D = jnp.sqrt(jnp.sum(b_ENU**2, axis=1))
+    A = jnp.arctan2(b_ENU[:, 0], b_ENU[:, 1])
+    E = jnp.arcsin(b_ENU[:, 2] / D)
     # Compute the baseline in XYZ coordinates
-    X = D * (np.cos(lat) * np.sin(E) - np.sin(lat) * np.cos(E) * np.cos(A))
-    Y = D * np.cos(E) * np.sin(A)
-    Z = D * (np.sin(lat) * np.sin(E) + np.cos(lat) * np.cos(E) * np.cos(A))
+    X = D * (jnp.cos(lat) * jnp.sin(E) - jnp.sin(lat) * jnp.cos(E) * jnp.cos(A))
+    Y = D * jnp.cos(E) * jnp.sin(A)
+    Z = D * (jnp.sin(lat) * jnp.sin(E) + jnp.cos(lat) * jnp.cos(E) * jnp.cos(A))
 
     return X, Y, Z
 
 
-def XYZ_to_uvw(X, Y, Z, dec=30.0 / 180 * np.pi, ha=0.0, f=1420e6):
-    """XYZ to uvw.
+@jit
+def XYZ_to_uvw(X, Y, Z, dec=30.0 / 180 * jnp.pi, ha=0.0, f=1420e6):
+    """XYZ to uvw (JAX version).
 
     Get the uvw sampling points from the XYZ coordinates given a
     source declination, hour angle and frequency.
@@ -277,82 +279,26 @@ def XYZ_to_uvw(X, Y, Z, dec=30.0 / 180 * np.pi, ha=0.0, f=1420e6):
     w : np.ndarray
         The w coordinate of the baselines in uvw coordinates.
     """
-    c = 299792458
+    c = 299792458.0
     lam_inv = f / c
-    u = lam_inv * (np.sin(ha) * X + np.cos(ha) * Y)
+    u = lam_inv * (jnp.sin(ha) * X + jnp.cos(ha) * Y)
     v = lam_inv * (
-        -np.sin(dec) * np.cos(ha) * X + np.sin(dec) * np.sin(ha) * Y + np.cos(dec) * Z
+        -jnp.sin(dec) * jnp.cos(ha) * X
+        + jnp.sin(dec) * jnp.sin(ha) * Y
+        + jnp.cos(dec) * Z
     )
     w = lam_inv * (
-        np.cos(dec) * np.cos(ha) * X - np.cos(dec) * np.sin(ha) * Y + np.sin(dec) * Z
+        jnp.cos(dec) * jnp.cos(ha) * X
+        - jnp.cos(dec) * jnp.sin(ha) * Y
+        + jnp.sin(dec) * Z
     )
     return u, v, w
 
 
-# def uv_track_multiband(
-#     b_ENU,
-#     lat=35.0 / 180 * np.pi,
-#     dec=35.0 / 180 * np.pi,
-#     track_time=0.0,
-#     t_0=0.0,
-#     n_times=1,
-#     f=1420e6,
-#     df=0.0,
-#     n_freqs=1,
-# ):
-#     """Uv track multiband.
-
-#     Function to compute the uv sampling baselines for a given observation time and frequency range.
-
-#     Parameters
-#     ----------
-#     b_ENU : np.ndarray
-#         The baselines in ENU coordinates.
-#     lat : float
-#         The latitude of the antenna array in radians.
-#     dec : float
-#         The declination of the source in radians.
-#     track_time : float
-#         The duration of the tracking in hours.
-#     t_0 : float
-#         The initial tracking time in hours.
-#     n_times : int
-#         The number of time steps.
-#     f : float
-#         The central frequency of the observation in Hz.
-#     df : float
-#         The frequency range of the observation in Hz.
-#     n_freqs : int
-#         The number of frequency samples.
-
-#     Returns
-#     -------
-#     track : np.ndarray
-#         The uv sampling baselines listed for each time step and frequency.
-#     """
-#     # Compute the baselines in XYZ coordinates
-#     X, Y, Z = ENU_to_XYZ(b_ENU, lat)
-#     # Compute the time steps
-#     h = np.linspace(t_0, t_0 + track_time, n_times) * np.pi / 12
-#     # Compute the frequency range
-#     f_range = np.linspace(f - df / 2, f + df / 2, n_freqs)
-
-#     track = []
-#     for t in h:
-#         multi_band = []
-#         for f_ in f_range:
-#             u, v, w = XYZ_to_uvw(X, Y, Z, dec, t, f_)
-#             multi_band.append(np.array([u, v, w]))
-#         track.append(multi_band)
-#     track = np.array(track).swapaxes(-1, -2).reshape(-1, 3)
-
-#     return track
-
-
 def uv_track_multiband(
     b_ENU,
-    lat=35.0 / 180 * np.pi,
-    dec=35.0 / 180 * np.pi,
+    lat=35.0 / 180 * jnp.pi,
+    dec=35.0 / 180 * jnp.pi,
     track_time=0.0,
     t_0=0.0,
     n_times=1,
@@ -361,7 +307,7 @@ def uv_track_multiband(
     n_freqs=1,
     multi_band=False,
 ):
-    """Uv track multiband.
+    """Uv track multiband (JAX version).
 
     Function to compute the uv sampling baselines for a given observation time and frequency range.
 
@@ -390,30 +336,36 @@ def uv_track_multiband(
 
     Returns
     -------
-    track : np.ndarray
+    track : jnp.ndarray
         The uv sampling baselines listed for each time step and frequency.
-    f_range : np.ndarray
+    f_range : jnp.ndarray
         The list of frequency bands used in the simulation.
     """
     # Compute the baselines in XYZ coordinates
     X, Y, Z = ENU_to_XYZ(b_ENU, lat)
     # Compute the time steps
-    h = np.linspace(t_0, t_0 + track_time, n_times) * np.pi / 12
+    h = jnp.linspace(t_0, t_0 + track_time, n_times) * jnp.pi / 12
     # Compute the frequency range
-    f_range = np.linspace(f - df / 2, f + df / 2, n_freqs)
+    f_range = jnp.linspace(f - df / 2, f + df / 2, n_freqs)
 
-    track_f = []
-    for f_ in f_range:
-        track_t = []
-        for t in h:
-            u, v, w = XYZ_to_uvw(X, Y, Z, dec, t, f_)
-            track_t.append(np.array([u, v, w]))
-        track_f.append(track_t)
+    # Vectorise the function XYZ_to_uvw over the time steps h (5th argument of XYZ_to_uvw)
+    vmap_ha = vmap(XYZ_to_uvw, in_axes=(None, None, None, None, 0, None))
+
+    # Vectorise the function vmap_ha over the frequency bands f_range (6th argument of vmap_ha)
+    vmap_f = vmap(vmap_ha, in_axes=(None, None, None, None, None, 0))
+
+    # Compute the uvw coordinates for all baselines, time steps and frequency bands
+    u, v, w = vmap_f(X, Y, Z, dec, h, f_range)
+
+    # Stack the uvw coordinates in a single array
+    track_f = jnp.stack([u, v, w], axis=-1)
 
     if multi_band:
-        track = np.array(track_f).swapaxes(-1, -2).reshape(n_freqs, -1, 3)
+        # Separate the uv samples per frequency bands
+        track = track_f.reshape(n_freqs, -1, 3)
     else:
-        track = np.array(track_f).swapaxes(-1, -2).reshape(-1, 3)
+        # Concatenate all uv samples in a single array
+        track = track_f.reshape(-1, 3)
     return track, f_range
 
 

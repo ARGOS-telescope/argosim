@@ -51,8 +51,8 @@ class TestAntennaUtils:
 
     ENU_antenna_in = np.array([[101.0, 200.5, -33.0]])
     XYZ_antenna_exp = {"X": -142.03409295, "Y": 101.0, "Z": 145.31196248}
-    ENU_to_XYZ_decimal_tol = 7
-    XYZ_to_uvw_decimal_tol = 7
+    ENU_to_XYZ_decimal_tol = 4
+    XYZ_to_uvw_decimal_tol = 4
     uvw_exp = {"u": 478.39762533, "v": 932.45332539, "w": -238.48430193}
 
     enu_txt_arr_path = "configs/arrays/argos_pathfinder.enu.txt"
@@ -144,7 +144,7 @@ class TestAntennaUtils:
     )
     multiband_track_shape_exp = (2, 18, 3)
 
-    track_atol = 1e-7
+    uv_atol = 1e-3
 
     def test_random_antenna_pos_default(self):
 
@@ -287,6 +287,7 @@ class TestAntennaUtils:
         npt.assert_allclose(
             baselines_out,
             self.random_antenna_baselines_exp,
+            atol=self.uv_atol,
             err_msg="Baselines computed from random antenna array do not match expected output.",
         )
 
@@ -295,7 +296,7 @@ class TestAntennaUtils:
         npt.assert_allclose(
             track,
             self.uv_track_default_exp,
-            atol=self.track_atol,
+            atol=self.uv_atol,
             err_msg="UV track computed from random antenna baselines does not match expected output.",
         )
 
@@ -306,7 +307,7 @@ class TestAntennaUtils:
         npt.assert_allclose(
             track,
             self.uv_track_exp,
-            atol=self.track_atol,
+            atol=self.uv_atol,
             err_msg="UV track computed from random antenna baselines does not match expected output.",
         )
 

@@ -7,7 +7,7 @@ import argosim.data_utils as adu
 class TestDataUtils:
 
     gauss_source_path = "src/argosim/tests/data/test_gauss_source.npy"
-    gauss_source_decimal = 10
+    gauss_source_decimal = 6
 
     seed = 24
     cov_expected = np.array([[5.9600173, 2.91338124], [2.91338124, 5.69951205]])
@@ -17,10 +17,10 @@ class TestDataUtils:
     mu_decimal = 6
 
     random_source_path = "src/argosim/tests/data/test_random_source.npy"
-    random_source_decimal = 10
+    random_source_decimal = 5
 
     sky_model_path = "src/argosim/tests/data/sky_model_exp.npy"
-    sky_model_decimal = 10
+    sky_model_decimal = 5
 
     def test_gauss_source(self):
         gauss_source_expected = np.load(self.gauss_source_path)

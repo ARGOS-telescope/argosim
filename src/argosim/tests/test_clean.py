@@ -32,7 +32,7 @@ class TestClean:
     clean_obs_res_exp_path = "src/argosim/tests/data/clean_observation_res.npy"
     sky_model_clean_exp_path = "src/argosim/tests/data/sky_model_clean.npy"
     sky_model_clean_res_exp_path = "src/argosim/tests/data/sky_model_clean_res.npy"
-    clean_decimal = 10
+    clean_decimal = 7
 
     def test_shift_beam(self):
         shifted_beams = np.load(self.shifted_beams_path, allow_pickle=True).item()
