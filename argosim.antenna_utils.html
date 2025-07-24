@@ -433,7 +433,7 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <dl class="py function">
 <dt class="sig sig-object py" id="argosim.antenna_utils.ENU_to_XYZ">
 <span class="sig-prename descclassname"><span class="pre">argosim.antenna_utils.</span></span><span class="sig-name descname"><span class="pre">ENU_to_XYZ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b_ENU</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.6108652381980153</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/antenna_utils.html#ENU_to_XYZ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.antenna_utils.ENU_to_XYZ" title="Link to this definition">#</a></dt>
-<dd><p>ENU to XYZ.</p>
+<dd><p>ENU to XYZ (JAX version).</p>
 <p>Function to convert the baselines from East-North-Up (ENU) to XYZ coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -444,9 +444,9 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
-<li><p><strong>X</strong> (<em>np.ndarray</em>) – The X coordinate of the baselines in XYZ coordinates.</p></li>
-<li><p><strong>Y</strong> (<em>np.ndarray</em>) – The Y coordinate of the baselines in XYZ coordinates.</p></li>
-<li><p><strong>Z</strong> (<em>np.ndarray</em>) – The Z coordinate of the baselines in XYZ coordinates.</p></li>
+<li><p><strong>X</strong> (<em>jnp.ndarray</em>) – The X coordinate of the baselines in XYZ coordinates.</p></li>
+<li><p><strong>Y</strong> (<em>jnp.ndarray</em>) – The Y coordinate of the baselines in XYZ coordinates.</p></li>
+<li><p><strong>Z</strong> (<em>jnp.ndarray</em>) – The Z coordinate of the baselines in XYZ coordinates.</p></li>
 </ul>
 </p>
 </dd>
@@ -456,7 +456,7 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <dl class="py function">
 <dt class="sig sig-object py" id="argosim.antenna_utils.XYZ_to_uvw">
 <span class="sig-prename descclassname"><span class="pre">argosim.antenna_utils.</span></span><span class="sig-name descname"><span class="pre">XYZ_to_uvw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5235987755982988</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1420000000.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/antenna_utils.html#XYZ_to_uvw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.antenna_utils.XYZ_to_uvw" title="Link to this definition">#</a></dt>
-<dd><p>XYZ to uvw.</p>
+<dd><p>XYZ to uvw (JAX version).</p>
 <p>Get the uvw sampling points from the XYZ coordinates given a
 source declination, hour angle and frequency.</p>
 <dl class="field-list simple">
@@ -527,7 +527,7 @@ of radius ‘r’ from the center [0,0] and are equally spaced.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="argosim.antenna_utils.get_baselines">
 <span class="sig-prename descclassname"><span class="pre">argosim.antenna_utils.</span></span><span class="sig-name descname"><span class="pre">get_baselines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/antenna_utils.html#get_baselines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.antenna_utils.get_baselines" title="Link to this definition">#</a></dt>
-<dd><p>Get baselines.</p>
+<dd><p>Get baselines (JAX version).</p>
 <p>Function to compute the baselines of an antenna array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -689,7 +689,7 @@ Only allow to generate a grid at a fixed height U_lim (fixed Up component).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="argosim.antenna_utils.uv_track_multiband">
 <span class="sig-prename descclassname"><span class="pre">argosim.antenna_utils.</span></span><span class="sig-name descname"><span class="pre">uv_track_multiband</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b_ENU</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.6108652381980153</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.6108652381980153</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1420000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_freqs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_band</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/antenna_utils.html#uv_track_multiband"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.antenna_utils.uv_track_multiband" title="Link to this definition">#</a></dt>
-<dd><p>Uv track multiband.</p>
+<dd><p>Uv track multiband (JAX version).</p>
 <p>Function to compute the uv sampling baselines for a given observation time and frequency range.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -708,8 +708,8 @@ Only allow to generate a grid at a fixed height U_lim (fixed Up component).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
-<li><p><strong>track</strong> (<em>np.ndarray</em>) – The uv sampling baselines listed for each time step and frequency.</p></li>
-<li><p><strong>f_range</strong> (<em>np.ndarray</em>) – The list of frequency bands used in the simulation.</p></li>
+<li><p><strong>track</strong> (<em>jnp.ndarray</em>) – The uv sampling baselines listed for each time step and frequency.</p></li>
+<li><p><strong>f_range</strong> (<em>jnp.ndarray</em>) – The list of frequency bands used in the simulation.</p></li>
 </ul>
 </p>
 </dd>

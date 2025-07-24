@@ -396,8 +396,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.add_noise_uv"><code class="docutils literal notranslate"><span class="pre">add_noise_uv()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.check_uv_samples_range"><code class="docutils literal notranslate"><span class="pre">check_uv_samples_range()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.compute_visibilities_grid"><code class="docutils literal notranslate"><span class="pre">compute_visibilities_grid()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.grid_uv_samples"><code class="docutils literal notranslate"><span class="pre">grid_uv_samples()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.scale_uv_samples"><code class="docutils literal notranslate"><span class="pre">scale_uv_samples()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.simulate_dirty_observation"><code class="docutils literal notranslate"><span class="pre">simulate_dirty_observation()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.sky2uv"><code class="docutils literal notranslate"><span class="pre">sky2uv()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.uv2sky"><code class="docutils literal notranslate"><span class="pre">uv2sky()</span></code></a></li>
@@ -446,6 +448,23 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="argosim.imaging_utils.check_uv_samples_range">
+<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">check_uv_samples_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uv_samples_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uv_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sky_uv_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#check_uv_samples_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.check_uv_samples_range" title="Link to this definition">#</a></dt>
+<dd><p>Check uv samples range (JAX version).</p>
+<p>Function to check if the uv samples are within the uv-plane range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uv_samples_indices</strong> (<em>np.ndarray</em>) – The indices of the uv samples in pixel coordinates.</p></li>
+<li><p><strong>sky_uv_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a>) – The shape of the sky model in pixels.</p></li>
+<li><p><strong>uv_samples</strong> (<em>np.ndarray</em>) – The uv samples coordinates in meters.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a>) – The field of view size in degrees.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="argosim.imaging_utils.compute_visibilities_grid">
 <span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">compute_visibilities_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sky_uv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uv_mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#compute_visibilities_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.compute_visibilities_grid" title="Link to this definition">#</a></dt>
 <dd><p>Compute visibilities gridded.</p>
@@ -469,7 +488,7 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <dl class="py function">
 <dt class="sig sig-object py" id="argosim.imaging_utils.grid_uv_samples">
 <span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">grid_uv_samples</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uv_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sky_uv_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'binary'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#grid_uv_samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.grid_uv_samples" title="Link to this definition">#</a></dt>
-<dd><p>Grid uv samples.</p>
+<dd><p>Grid uv samples (JAX version).</p>
 <p>Compute the uv sampling mask from the uv samples.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -487,6 +506,28 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <li><p><strong>uv_samples_indices</strong> (<em>np.ndarray</em>) – The indices of the uv samples in pixel coordinates.</p></li>
 </ul>
 </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.imaging_utils.scale_uv_samples">
+<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">scale_uv_samples</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uv_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sky_uv_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#scale_uv_samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.scale_uv_samples" title="Link to this definition">#</a></dt>
+<dd><p>Scale uv samples (JAX version).</p>
+<p>Function to scale the uv samples to pixel coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uv_samples</strong> (<em>np.ndarray</em>) – The uv samples coordinates in meters.</p></li>
+<li><p><strong>sky_uv_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a>) – The shape of the sky model in pixels.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a>) – The field of view size in degrees.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>uv_samples_indices</strong> – The indices of the uv samples in pixel coordinates.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -522,7 +563,7 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <dl class="py function">
 <dt class="sig sig-object py" id="argosim.imaging_utils.sky2uv">
 <span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">sky2uv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sky</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#sky2uv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.sky2uv" title="Link to this definition">#</a></dt>
-<dd><p>Sky to uv plane.</p>
+<dd><p>Sky to uv plane (JAX version).</p>
 <p>Function to compute the Fourier transform of the sky.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -540,7 +581,7 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <dl class="py function">
 <dt class="sig sig-object py" id="argosim.imaging_utils.uv2sky">
 <span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">uv2sky</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uv</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#uv2sky"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.uv2sky" title="Link to this definition">#</a></dt>
-<dd><p>Uv to sky.</p>
+<dd><p>Uv to sky (JAX version).</p>
 <p>Function to compute the inverse Fourier transform of the uv plane.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -603,8 +644,10 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.add_noise_uv"><code class="docutils literal notranslate"><span class="pre">add_noise_uv()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.check_uv_samples_range"><code class="docutils literal notranslate"><span class="pre">check_uv_samples_range()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.compute_visibilities_grid"><code class="docutils literal notranslate"><span class="pre">compute_visibilities_grid()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.grid_uv_samples"><code class="docutils literal notranslate"><span class="pre">grid_uv_samples()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.scale_uv_samples"><code class="docutils literal notranslate"><span class="pre">scale_uv_samples()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.simulate_dirty_observation"><code class="docutils literal notranslate"><span class="pre">simulate_dirty_observation()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.sky2uv"><code class="docutils literal notranslate"><span class="pre">sky2uv()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.uv2sky"><code class="docutils literal notranslate"><span class="pre">uv2sky()</span></code></a></li>

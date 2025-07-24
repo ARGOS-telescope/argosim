@@ -341,104 +341,17 @@ document.write(`
 
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy.random</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rnd</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">argosim.rand_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">local_seed</span>
 
-<span class="c1"># from PIL import Image</span>
-
-<span class="c1">########################################</span>
-<span class="c1">#           Grid uv samples            #</span>
-<span class="c1">########################################</span>
-
-<span class="c1"># def get_uv_plane(baseline, uv_dim=128):</span>
-<span class="c1">#     &quot;&quot;&quot;Get uv plane.</span>
-
-<span class="c1">#     Function to compute the uv sampling mask from the baselines list.</span>
-<span class="c1">#     Perform a 2D histogram of the baselines list with uv_dim bins.</span>
-
-<span class="c1">#     Parameters</span>
-<span class="c1">#     ----------</span>
-<span class="c1">#     baseline : np.ndarray</span>
-<span class="c1">#         The baselines list.</span>
-<span class="c1">#     uv_dim : int</span>
-<span class="c1">#         The uv-plane sampling mask size.</span>
-
-<span class="c1">#     Returns</span>
-<span class="c1">#     -------</span>
-<span class="c1">#     uv_plane : np.ndarray</span>
-<span class="c1">#         The uv sampling mask of the antenna array. The dimensions are (uv_dim, uv_dim).</span>
-<span class="c1">#         The value of each pixel is the number of uv samples in that pixel.</span>
-
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     # Count number of samples per uv grid</span>
-<span class="c1">#     x_lim=np.max(np.absolute(baseline))#*1.1</span>
-<span class="c1">#     y_lim=x_lim</span>
-<span class="c1">#     uv_plane, _, _ = np.histogram2d(baseline[:,0],baseline[:,1],bins=uv_dim, range=[[-x_lim,x_lim],[-y_lim,y_lim]])</span>
-<span class="c1">#     return np.fliplr(uv_plane.T)#/np.sum(uv_plane, axis=(0,1))</span>
-
-<span class="c1"># def get_uv_mask(uv_plane):</span>
-<span class="c1">#     &quot;&quot;&quot;Get uv mask.</span>
-
-<span class="c1">#     Function to compute the binary mask from the uv sampling grid.</span>
-
-<span class="c1">#     Parameters</span>
-<span class="c1">#     ----------</span>
-<span class="c1">#     uv_plane : np.ndarray</span>
-<span class="c1">#         The uv sampling mask.</span>
-
-<span class="c1">#     Returns</span>
-<span class="c1">#     -------</span>
-<span class="c1">#     uv_plane_mask : np.ndarray</span>
-<span class="c1">#         The binary mask of the uv sampling mask.</span>
-<span class="c1">#         The value of each pixel is 1 if the pixel is sampled, 0 otherwise.</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     # Get binary mask from the uv sampled grid</span>
-<span class="c1">#     uv_plane_mask = uv_plane.copy()</span>
-<span class="c1">#     uv_plane_mask[np.where(uv_plane&gt;0)] = 1</span>
-<span class="c1">#     return uv_plane_mask</span>
-
-<span class="c1"># def get_beam(uv_mask):</span>
-<span class="c1">#     &quot;&quot;&quot;Get beam.</span>
-
-<span class="c1">#     Function to compute the telescope beam from the uv sampling mask.</span>
-
-<span class="c1">#     Parameters</span>
-<span class="c1">#     ----------</span>
-<span class="c1">#     uv_mask : np.ndarray</span>
-<span class="c1">#         The uv sampling mask.</span>
-
-<span class="c1">#     Returns</span>
-<span class="c1">#     -------</span>
-<span class="c1">#     beam : np.ndarray</span>
-<span class="c1">#         The beam image of the antenna array. The beam is fftshifted (non centered).</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     return np.abs(np.fft.ifft2(uv_mask))</span>
-
-
-<span class="c1"># def load_sky_model(path):</span>
-<span class="c1">#     &quot;&quot;&quot;Load sky model.</span>
-
-<span class="c1">#     Function to load a sky model image.</span>
-
-<span class="c1">#     Parameters</span>
-<span class="c1">#     ----------</span>
-<span class="c1">#     path : str</span>
-<span class="c1">#         The path to the sky model image.</span>
-
-<span class="c1">#     Returns</span>
-<span class="c1">#     -------</span>
-<span class="c1">#     sky : np.ndarray</span>
-<span class="c1">#         The sky model image.</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     return np.array(Image.open(path).convert(&quot;L&quot;))</span>
-
 
 <div class="viewcode-block" id="sky2uv">
 <a class="viewcode-back" href="../../argosim.imaging_utils.html#argosim.imaging_utils.sky2uv">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">sky2uv</span><span class="p">(</span><span class="n">sky</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sky to uv plane.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sky to uv plane (JAX version).</span>
 
 <span class="sd">    Function to compute the Fourier transform of the sky.</span>
 
@@ -453,7 +366,68 @@ document.write(`
 <span class="sd">        The Fourier transform of the sky.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># return np.fft.fft2(sky)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft2</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">sky</span><span class="p">)))</span></div>
+    <span class="k">return</span> <span class="n">jnp</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft2</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">sky</span><span class="p">)))</span></div>
+
+
+
+<div class="viewcode-block" id="scale_uv_samples">
+<a class="viewcode-back" href="../../argosim.imaging_utils.html#argosim.imaging_utils.scale_uv_samples">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">scale_uv_samples</span><span class="p">(</span><span class="n">uv_samples</span><span class="p">,</span> <span class="n">sky_uv_shape</span><span class="p">,</span> <span class="n">fov_size</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Scale uv samples (JAX version).</span>
+
+<span class="sd">    Function to scale the uv samples to pixel coordinates.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    uv_samples : np.ndarray</span>
+<span class="sd">        The uv samples coordinates in meters.</span>
+<span class="sd">    sky_uv_shape : tuple</span>
+<span class="sd">        The shape of the sky model in pixels.</span>
+<span class="sd">    fov_size : tuple</span>
+<span class="sd">        The field of view size in degrees.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    uv_samples_indices : np.ndarray</span>
+<span class="sd">        The indices of the uv samples in pixel coordinates.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">max_u</span> <span class="o">=</span> <span class="p">(</span><span class="mi">180</span> <span class="o">/</span> <span class="n">jnp</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">sky_uv_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">fov_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">max_v</span> <span class="o">=</span> <span class="p">(</span><span class="mi">180</span> <span class="o">/</span> <span class="n">jnp</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">sky_uv_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">fov_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">uv_samples_indices</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">jnp</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span>
+            <span class="n">uv_samples</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">max_u</span><span class="p">,</span> <span class="n">max_v</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sky_uv_shape</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="o">+</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sky_uv_shape</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">uv_samples_indices</span></div>
+
+
+
+<div class="viewcode-block" id="check_uv_samples_range">
+<a class="viewcode-back" href="../../argosim.imaging_utils.html#argosim.imaging_utils.check_uv_samples_range">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">check_uv_samples_range</span><span class="p">(</span><span class="n">uv_samples_indices</span><span class="p">,</span> <span class="n">uv_samples</span><span class="p">,</span> <span class="n">sky_uv_shape</span><span class="p">,</span> <span class="n">fov_size</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check uv samples range (JAX version).</span>
+
+<span class="sd">    Function to check if the uv samples are within the uv-plane range.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    uv_samples_indices : np.ndarray</span>
+<span class="sd">        The indices of the uv samples in pixel coordinates.</span>
+<span class="sd">    sky_uv_shape : tuple</span>
+<span class="sd">        The shape of the sky model in pixels.</span>
+<span class="sd">    uv_samples : np.ndarray</span>
+<span class="sd">        The uv samples coordinates in meters.</span>
+<span class="sd">    fov_size : tuple</span>
+<span class="sd">        The field of view size in degrees.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sky_uv_shape_array</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sky_uv_shape</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">jnp</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">sky_uv_shape_array</span> <span class="o">&lt;=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">uv_samples_indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)):</span>
+        <span class="n">max_uv</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">uv_samples</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">required_npix</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">max_uv</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">fov_size</span><span class="p">)</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;uv samples lie out of the uv-plane. Required Npix &gt; </span><span class="si">{</span><span class="n">required_npix</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span></div>
 
 
 
@@ -462,7 +436,7 @@ document.write(`
 <span class="k">def</span><span class="w"> </span><span class="nf">grid_uv_samples</span><span class="p">(</span>
     <span class="n">uv_samples</span><span class="p">,</span> <span class="n">sky_uv_shape</span><span class="p">,</span> <span class="n">fov_size</span><span class="p">,</span> <span class="n">mask_type</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Grid uv samples.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Grid uv samples (JAX version).</span>
 
 <span class="sd">    Compute the uv sampling mask from the uv samples.</span>
 
@@ -486,47 +460,28 @@ document.write(`
 <span class="sd">    uv_samples_indices : np.ndarray</span>
 <span class="sd">        The indices of the uv samples in pixel coordinates.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">max_u</span> <span class="o">=</span> <span class="p">(</span><span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">sky_uv_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">fov_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">max_v</span> <span class="o">=</span> <span class="p">(</span><span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">sky_uv_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">fov_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">uv_samples_indices</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span>
-            <span class="n">uv_samples</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">max_u</span><span class="p">,</span> <span class="n">max_v</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sky_uv_shape</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sky_uv_shape</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
-    <span class="p">)</span>
+    <span class="n">uv_samples_indices</span> <span class="o">=</span> <span class="n">scale_uv_samples</span><span class="p">(</span><span class="n">uv_samples</span><span class="p">,</span> <span class="n">sky_uv_shape</span><span class="p">,</span> <span class="n">fov_size</span><span class="p">)</span>
+    <span class="c1"># Check if the uv samples are within the uv-plane range</span>
+    <span class="n">check_uv_samples_range</span><span class="p">(</span><span class="n">uv_samples_indices</span><span class="p">,</span> <span class="n">uv_samples</span><span class="p">,</span> <span class="n">sky_uv_shape</span><span class="p">,</span> <span class="n">fov_size</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sky_uv_shape</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">uv_samples_indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)):</span>
+    <span class="n">uv_mask</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">sky_uv_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">jnp</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+
+    <span class="c1"># Convert uv_samples_indices to integer indices</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">uv_samples_indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">jnp</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">mask_type</span> <span class="o">==</span> <span class="s2">&quot;binary&quot;</span><span class="p">:</span>
+        <span class="n">uv_mask</span> <span class="o">=</span> <span class="n">uv_mask</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">indices</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">indices</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">mask_type</span> <span class="o">==</span> <span class="s2">&quot;histogram&quot;</span><span class="p">:</span>
+        <span class="n">uv_mask</span> <span class="o">=</span> <span class="n">uv_mask</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">indices</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">indices</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">mask_type</span> <span class="o">==</span> <span class="s2">&quot;weighted&quot;</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">weights</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Weights must be provided for mask type &#39;weighted&#39;.&quot;</span>
+        <span class="n">uv_mask</span> <span class="o">=</span> <span class="n">uv_mask</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">indices</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">indices</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">weights</span><span class="p">[</span><span class="n">indices</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">indices</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]]</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;uv samples are out of the uv-plane range. Required Npix &gt; </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="c1"># np.max(uv_samples_indices, axis=0)</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">uv_samples</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-                    <span class="o">*</span> <span class="mi">2</span>
-                    <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
-                    <span class="o">*</span> <span class="n">fov_size</span>
-                    <span class="o">/</span> <span class="mi">180</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+            <span class="s2">&quot;Invalid mask type. Choose between &#39;binary&#39;, &#39;histogram&#39; and &#39;weighted&#39;.&quot;</span>
         <span class="p">)</span>
-
-    <span class="n">uv_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">sky_uv_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">uv_samples_indices</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">mask_type</span> <span class="o">==</span> <span class="s2">&quot;binary&quot;</span><span class="p">:</span>
-            <span class="n">uv_mask</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span>
-        <span class="k">elif</span> <span class="n">mask_type</span> <span class="o">==</span> <span class="s2">&quot;histogram&quot;</span><span class="p">:</span>
-            <span class="n">uv_mask</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">+=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span>
-        <span class="k">elif</span> <span class="n">mask_type</span> <span class="o">==</span> <span class="s2">&quot;weighted&quot;</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="p">(</span>
-                <span class="n">weights</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="p">),</span> <span class="s2">&quot;Weights must be provided for mask type &#39;weighted&#39;.&quot;</span>
-            <span class="n">uv_mask</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span>
-                <span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-            <span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Invalid mask type. Choose between &#39;binary&#39;, &#39;histogram&#39; and &#39;weighted&#39;.&quot;</span>
-            <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">uv_mask</span><span class="p">,</span> <span class="n">uv_samples_indices</span></div>
 
@@ -535,7 +490,7 @@ document.write(`
 <div class="viewcode-block" id="uv2sky">
 <a class="viewcode-back" href="../../argosim.imaging_utils.html#argosim.imaging_utils.uv2sky">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">uv2sky</span><span class="p">(</span><span class="n">uv</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Uv to sky.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Uv to sky (JAX version).</span>
 
 <span class="sd">    Function to compute the inverse Fourier transform of the uv plane.</span>
 
@@ -549,7 +504,7 @@ document.write(`
 <span class="sd">    sky : np.ndarray</span>
 <span class="sd">        The image in the sky domain.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft2</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">uv</span><span class="p">)))</span><span class="o">.</span><span class="n">real</span></div>
+    <span class="k">return</span> <span class="n">jnp</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft2</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">uv</span><span class="p">)))</span><span class="o">.</span><span class="n">real</span></div>
 
 
 
@@ -599,6 +554,9 @@ document.write(`
 <span class="sd">    vis : np.ndarray</span>
 <span class="sd">        The visibilities with added noise.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">sigma</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">vis</span>
+
     <span class="k">with</span> <span class="n">local_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">):</span>
         <span class="n">noise_sky</span> <span class="o">=</span> <span class="n">rnd</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">vis</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
     <span class="n">noise_uv</span> <span class="o">=</span> <span class="n">sky2uv</span><span class="p">(</span><span class="n">noise_sky</span><span class="p">)</span>

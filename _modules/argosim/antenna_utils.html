@@ -342,8 +342,10 @@ document.write(`
 
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy.random</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rnd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jax</span><span class="w"> </span><span class="kn">import</span> <span class="n">jit</span><span class="p">,</span> <span class="n">vmap</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">argosim.rand_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">local_seed</span>
 
@@ -542,7 +544,7 @@ document.write(`
 <div class="viewcode-block" id="get_baselines">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.get_baselines">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_baselines</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get baselines.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get baselines (JAX version).</span>
 
 <span class="sd">    Function to compute the baselines of an antenna array.</span>
 
@@ -556,20 +558,19 @@ document.write(`
 <span class="sd">    baselines : np.ndarray</span>
 <span class="sd">        The baselines of the antenna array.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Get the baseline for every combination of antennas i-j.</span>
-    <span class="c1"># Remove the i=j baselines: np.delete(array, list, axis=0) -&gt; delete the rows listed on &#39;list&#39; from array &#39;array&#39;.</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">antenna_i</span> <span class="o">-</span> <span class="n">antenna_j</span> <span class="k">for</span> <span class="n">antenna_i</span> <span class="ow">in</span> <span class="n">array</span> <span class="k">for</span> <span class="n">antenna_j</span> <span class="ow">in</span> <span class="n">array</span><span class="p">]),</span>
-        <span class="p">[(</span><span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="p">))],</span>
-        <span class="mi">0</span><span class="p">,</span>
-    <span class="p">)</span></div>
+    <span class="c1"># Get the baseline for every combination of antennas except for i=j baselines.</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+    <span class="n">diffs</span> <span class="o">=</span> <span class="n">array</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">array</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>  <span class="c1"># Shape: (n, n, 3)</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="o">~</span><span class="n">jnp</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Shape: (n, n), True where i ≠ j</span>
+    <span class="k">return</span> <span class="n">diffs</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="ENU_to_XYZ">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.ENU_to_XYZ">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">ENU_to_XYZ</span><span class="p">(</span><span class="n">b_ENU</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="mf">35.0</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;ENU to XYZ.</span>
+<span class="nd">@jit</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ENU_to_XYZ</span><span class="p">(</span><span class="n">b_ENU</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="mf">35.0</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">pi</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;ENU to XYZ (JAX version).</span>
 
 <span class="sd">    Function to convert the baselines from East-North-Up (ENU) to XYZ coordinates.</span>
 
@@ -582,21 +583,21 @@ document.write(`
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    X : np.ndarray</span>
+<span class="sd">    X : jnp.ndarray</span>
 <span class="sd">        The X coordinate of the baselines in XYZ coordinates.</span>
-<span class="sd">    Y : np.ndarray</span>
+<span class="sd">    Y : jnp.ndarray</span>
 <span class="sd">        The Y coordinate of the baselines in XYZ coordinates.</span>
-<span class="sd">    Z : np.ndarray</span>
+<span class="sd">    Z : jnp.ndarray</span>
 <span class="sd">        The Z coordinate of the baselines in XYZ coordinates.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Compute baseline length, Azimuth and Elevation angles</span>
-    <span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">b_ENU</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">b_ENU</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">b_ENU</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
-    <span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">b_ENU</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="n">D</span><span class="p">)</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">b_ENU</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">b_ENU</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">b_ENU</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">b_ENU</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="n">D</span><span class="p">)</span>
     <span class="c1"># Compute the baseline in XYZ coordinates</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="n">D</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
-    <span class="n">Y</span> <span class="o">=</span> <span class="n">D</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-    <span class="n">Z</span> <span class="o">=</span> <span class="n">D</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">D</span> <span class="o">*</span> <span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="o">-</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
+    <span class="n">Y</span> <span class="o">=</span> <span class="n">D</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">D</span> <span class="o">*</span> <span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="o">+</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span></div>
 
@@ -604,8 +605,9 @@ document.write(`
 
 <div class="viewcode-block" id="XYZ_to_uvw">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.XYZ_to_uvw">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">XYZ_to_uvw</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="mf">30.0</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mf">1420e6</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;XYZ to uvw.</span>
+<span class="nd">@jit</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">XYZ_to_uvw</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="mf">30.0</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mf">1420e6</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;XYZ to uvw (JAX version).</span>
 
 <span class="sd">    Get the uvw sampling points from the XYZ coordinates given a</span>
 <span class="sd">    source declination, hour angle and frequency.</span>
@@ -634,85 +636,29 @@ document.write(`
 <span class="sd">    w : np.ndarray</span>
 <span class="sd">        The w coordinate of the baselines in uvw coordinates.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="mi">299792458</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="mf">299792458.0</span>
     <span class="n">lam_inv</span> <span class="o">=</span> <span class="n">f</span> <span class="o">/</span> <span class="n">c</span>
-    <span class="n">u</span> <span class="o">=</span> <span class="n">lam_inv</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">ha</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">ha</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y</span><span class="p">)</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">lam_inv</span> <span class="o">*</span> <span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">ha</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">ha</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y</span><span class="p">)</span>
     <span class="n">v</span> <span class="o">=</span> <span class="n">lam_inv</span> <span class="o">*</span> <span class="p">(</span>
-        <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">ha</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">ha</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span> <span class="o">*</span> <span class="n">Z</span>
+        <span class="o">-</span><span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">ha</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span>
+        <span class="o">+</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">ha</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y</span>
+        <span class="o">+</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span> <span class="o">*</span> <span class="n">Z</span>
     <span class="p">)</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">lam_inv</span> <span class="o">*</span> <span class="p">(</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">ha</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">ha</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span> <span class="o">*</span> <span class="n">Z</span>
+        <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">ha</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span>
+        <span class="o">-</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">ha</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y</span>
+        <span class="o">+</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span> <span class="o">*</span> <span class="n">Z</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span></div>
 
-
-
-<span class="c1"># def uv_track_multiband(</span>
-<span class="c1">#     b_ENU,</span>
-<span class="c1">#     lat=35.0 / 180 * np.pi,</span>
-<span class="c1">#     dec=35.0 / 180 * np.pi,</span>
-<span class="c1">#     track_time=0.0,</span>
-<span class="c1">#     t_0=0.0,</span>
-<span class="c1">#     n_times=1,</span>
-<span class="c1">#     f=1420e6,</span>
-<span class="c1">#     df=0.0,</span>
-<span class="c1">#     n_freqs=1,</span>
-<span class="c1"># ):</span>
-<span class="c1">#     &quot;&quot;&quot;Uv track multiband.</span>
-
-<span class="c1">#     Function to compute the uv sampling baselines for a given observation time and frequency range.</span>
-
-<span class="c1">#     Parameters</span>
-<span class="c1">#     ----------</span>
-<span class="c1">#     b_ENU : np.ndarray</span>
-<span class="c1">#         The baselines in ENU coordinates.</span>
-<span class="c1">#     lat : float</span>
-<span class="c1">#         The latitude of the antenna array in radians.</span>
-<span class="c1">#     dec : float</span>
-<span class="c1">#         The declination of the source in radians.</span>
-<span class="c1">#     track_time : float</span>
-<span class="c1">#         The duration of the tracking in hours.</span>
-<span class="c1">#     t_0 : float</span>
-<span class="c1">#         The initial tracking time in hours.</span>
-<span class="c1">#     n_times : int</span>
-<span class="c1">#         The number of time steps.</span>
-<span class="c1">#     f : float</span>
-<span class="c1">#         The central frequency of the observation in Hz.</span>
-<span class="c1">#     df : float</span>
-<span class="c1">#         The frequency range of the observation in Hz.</span>
-<span class="c1">#     n_freqs : int</span>
-<span class="c1">#         The number of frequency samples.</span>
-
-<span class="c1">#     Returns</span>
-<span class="c1">#     -------</span>
-<span class="c1">#     track : np.ndarray</span>
-<span class="c1">#         The uv sampling baselines listed for each time step and frequency.</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     # Compute the baselines in XYZ coordinates</span>
-<span class="c1">#     X, Y, Z = ENU_to_XYZ(b_ENU, lat)</span>
-<span class="c1">#     # Compute the time steps</span>
-<span class="c1">#     h = np.linspace(t_0, t_0 + track_time, n_times) * np.pi / 12</span>
-<span class="c1">#     # Compute the frequency range</span>
-<span class="c1">#     f_range = np.linspace(f - df / 2, f + df / 2, n_freqs)</span>
-
-<span class="c1">#     track = []</span>
-<span class="c1">#     for t in h:</span>
-<span class="c1">#         multi_band = []</span>
-<span class="c1">#         for f_ in f_range:</span>
-<span class="c1">#             u, v, w = XYZ_to_uvw(X, Y, Z, dec, t, f_)</span>
-<span class="c1">#             multi_band.append(np.array([u, v, w]))</span>
-<span class="c1">#         track.append(multi_band)</span>
-<span class="c1">#     track = np.array(track).swapaxes(-1, -2).reshape(-1, 3)</span>
-
-<span class="c1">#     return track</span>
 
 
 <div class="viewcode-block" id="uv_track_multiband">
 <a class="viewcode-back" href="../../argosim.antenna_utils.html#argosim.antenna_utils.uv_track_multiband">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">uv_track_multiband</span><span class="p">(</span>
     <span class="n">b_ENU</span><span class="p">,</span>
-    <span class="n">lat</span><span class="o">=</span><span class="mf">35.0</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>
-    <span class="n">dec</span><span class="o">=</span><span class="mf">35.0</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>
+    <span class="n">lat</span><span class="o">=</span><span class="mf">35.0</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>
+    <span class="n">dec</span><span class="o">=</span><span class="mf">35.0</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>
     <span class="n">track_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
     <span class="n">t_0</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
     <span class="n">n_times</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -721,7 +667,7 @@ document.write(`
     <span class="n">n_freqs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">multi_band</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Uv track multiband.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Uv track multiband (JAX version).</span>
 
 <span class="sd">    Function to compute the uv sampling baselines for a given observation time and frequency range.</span>
 
@@ -750,30 +696,36 @@ document.write(`
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    track : np.ndarray</span>
+<span class="sd">    track : jnp.ndarray</span>
 <span class="sd">        The uv sampling baselines listed for each time step and frequency.</span>
-<span class="sd">    f_range : np.ndarray</span>
+<span class="sd">    f_range : jnp.ndarray</span>
 <span class="sd">        The list of frequency bands used in the simulation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Compute the baselines in XYZ coordinates</span>
     <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">ENU_to_XYZ</span><span class="p">(</span><span class="n">b_ENU</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
     <span class="c1"># Compute the time steps</span>
-    <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">t_0</span><span class="p">,</span> <span class="n">t_0</span> <span class="o">+</span> <span class="n">track_time</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">12</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">t_0</span><span class="p">,</span> <span class="n">t_0</span> <span class="o">+</span> <span class="n">track_time</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">12</span>
     <span class="c1"># Compute the frequency range</span>
-    <span class="n">f_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">f</span> <span class="o">-</span> <span class="n">df</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">f</span> <span class="o">+</span> <span class="n">df</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n_freqs</span><span class="p">)</span>
+    <span class="n">f_range</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">f</span> <span class="o">-</span> <span class="n">df</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">f</span> <span class="o">+</span> <span class="n">df</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n_freqs</span><span class="p">)</span>
 
-    <span class="n">track_f</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">f_</span> <span class="ow">in</span> <span class="n">f_range</span><span class="p">:</span>
-        <span class="n">track_t</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">h</span><span class="p">:</span>
-            <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">XYZ_to_uvw</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">f_</span><span class="p">)</span>
-            <span class="n">track_t</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">]))</span>
-        <span class="n">track_f</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track_t</span><span class="p">)</span>
+    <span class="c1"># Vectorise the function XYZ_to_uvw over the time steps h (5th argument of XYZ_to_uvw)</span>
+    <span class="n">vmap_ha</span> <span class="o">=</span> <span class="n">vmap</span><span class="p">(</span><span class="n">XYZ_to_uvw</span><span class="p">,</span> <span class="n">in_axes</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+
+    <span class="c1"># Vectorise the function vmap_ha over the frequency bands f_range (6th argument of vmap_ha)</span>
+    <span class="n">vmap_f</span> <span class="o">=</span> <span class="n">vmap</span><span class="p">(</span><span class="n">vmap_ha</span><span class="p">,</span> <span class="n">in_axes</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+    <span class="c1"># Compute the uvw coordinates for all baselines, time steps and frequency bands</span>
+    <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">vmap_f</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">f_range</span><span class="p">)</span>
+
+    <span class="c1"># Stack the uvw coordinates in a single array</span>
+    <span class="n">track_f</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">multi_band</span><span class="p">:</span>
-        <span class="n">track</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track_f</span><span class="p">)</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_freqs</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="c1"># Separate the uv samples per frequency bands</span>
+        <span class="n">track</span> <span class="o">=</span> <span class="n">track_f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_freqs</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">track</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track_f</span><span class="p">)</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="c1"># Concatenate all uv samples in a single array</span>
+        <span class="n">track</span> <span class="o">=</span> <span class="n">track_f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">track</span><span class="p">,</span> <span class="n">f_range</span></div>
 
 
