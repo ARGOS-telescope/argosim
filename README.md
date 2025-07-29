@@ -79,12 +79,13 @@ If you use `argosim` in your research, please cite it as follows:
 ```bibtex
 @software{argosim,
   author = {Ezequiel Centofanti and Emma Ayçoberry and Samuel Farrens and Samuel Gullin and Manal Bensahli and Jean-Luc Starck and John Antoniadis},
-  title = {argosim: A Python package for radio interferometric simulations},
-  version = {0.0.3},
+  title = {argosim: a Python package for radio interferometric simulations},
+  version = {x.y.z},
   year = {2025},
   url = {https://github.com/ARGOS-telescope/argosim}
 }
 ```
+fill in the version number with the current version of `argosim`.
 
 This software is developed at the [CosmoStat](https://www.cosmostat.org/) laboratory, CEA, Paris-Saclay, in collaboration with the [ARGOS](https://argos-telescope.eu) project.
 
