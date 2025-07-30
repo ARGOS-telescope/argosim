@@ -8,7 +8,8 @@ Argosim
 
 `argosim` is a lightweight, modular, and open-source Python package for simulating radio interferometric observations. 
 
-## ✨ Key Features
+✨ Key Features
+---------------
 
 * 📡 Antenna array simulation - Generate custom arrays or load predefined layouts.
 * 🔭 Aperture synthesis - Compute baseline distributions and uv-sampling masks.
