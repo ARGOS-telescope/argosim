@@ -14,7 +14,7 @@ Argosim
 * 📡 Antenna array simulation - Generate custom arrays or load predefined layouts.
 * 🔭 Aperture synthesis - Compute baseline distributions and uv-sampling masks.
 * 🌀 Sky model generation - Create or load input sky models.
-* 🧼 Dirty beam and image reconstruction - Simulate dirty observations and reconstruct images using CLEAN.
+* 🧼 Dirty beam and image reconstruction - Simulate observations and reconstruct images using CLEAN.
 * 📊 Beam and image quality metrics - Evaluate beam shape, sidelobe level, and image fidelity.
 * ⚡ JAX backend - Accelerated, differentiable computations for high-performance and ML applications.
 * 🐳 Docker support - Easy reproducibility and cross-platform compatibility.
