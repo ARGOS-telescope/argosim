@@ -1,4 +1,4 @@
-# Contributors
+# Development team 
 Argosim is an open-source project and we welcome contributions from the community. If you would like to contribute, please read the [Contributing Guidelines]().
 
 ## Core Team

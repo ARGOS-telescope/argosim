@@ -6,20 +6,19 @@
 Argosim
 =======
 
-This is the first page of the Argosim documentation.Argosim is a modular and lightweight package for radio interferometric simulations. 
-It is coded in Python and has a JAX computational backend.
+`argosim` is a lightweight, modular, and open-source Python package for simulating radio interferometric observations. 
 
-This software was developed at the [CosmoStat](https://www.cosmostat.org/) laboratory, CEA, Paris-Saclay, in the context of the [ARGOS](https://argos-telescope.eu) telescope.
+## ✨ Key Features
 
-Argosim provides a graphical user interface (GUI) for easy interaction and visualization of simulations. 
-The GUI is mainly intended for educational purposes and to facilitate the understanding of radio interferometric simulations, along with the use of Argosim.
-
-.. figure:: img/GUI-Example.png
-  :alt: Argosim GUI screenshot
-  :align: center
-  :width: 80%
-
-  Argosim graphical user interface (GUI) for radio interferometric simulations.
+* 📡 Antenna array simulation - Generate custom arrays or load predefined layouts.
+* 🔭 Aperture synthesis - Compute baseline distributions and uv-sampling masks.
+* 🌀 Sky model generation - Create or load input sky models.
+* 🧼 Dirty beam and image reconstruction - Simulate dirty observations and reconstruct images using CLEAN.
+* 📊 Beam and image quality metrics - Evaluate beam shape, sidelobe level, and image fidelity.
+* ⚡ JAX backend - Accelerated, differentiable computations for high-performance and ML applications.
+* 🐳 Docker support - Easy reproducibility and cross-platform compatibility.
+* 📖 Tutorials - Interactive Jupyter notebooks to help you get started with the main functionalities.
+* 🖥️ Graphical User Interface - Ideal for education, outreach, and rapid prototyping.
 
 .. toctree::
   :hidden:
@@ -43,6 +42,7 @@ The GUI is mainly intended for educational purposes and to facilitate the unders
   :caption: Running Argosim
 
   running
+  gui
 
 .. toctree::
   :hidden:
@@ -50,6 +50,7 @@ The GUI is mainly intended for educational purposes and to facilitate the unders
   :caption: Example
 
   example
+  tutorials
 
 .. toctree::
   :hidden:
