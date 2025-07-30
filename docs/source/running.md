@@ -1,17 +1,18 @@
 # Execution
 
 ## Graphical User Interface (GUI)
-Argosim provides a graphical user interface (GUI) for simulating radio interferometric observations.
-Running the GUI requires the `pyQt6` package, which can be installed with the following command:
-```
-pip install argosim[gui]
-```
 For opening the GUI, run the following command:
 ```
 python app/argosim-gui.py
 ```
+Check the [GUI documentation](gui.md) for installing the GUI dependencies and more details on how to use it.
 
 ## Test example on the container
+Launch the `argosim` Docker container:
+```
+docker run -itv $PWD:/workdir --rm ghcr.io/argos-telescope/argosim:main
+```
+Then run the example script:
 ```
 (argosim) root@container_id:/workdir# python /home/scripts/test.py
 ```

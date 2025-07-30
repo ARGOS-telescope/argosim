@@ -5,11 +5,32 @@
 pip install argosim
 ```
 
+### Optional dependencies
+
+```
+pip install argosim[gui]
+```
+> This will install `PyQt6` along with the main package.
+
+```
+pip install argosim[lint]
+```
+> This will install `black` and `isort` along with the main package.
+
+```
+pip install argosim[test]
+```
+> This will install `pytest` along with the main package.
+
+```
+pip install argosim[dev]
+```
+
 ## Local installation
 ```
 git clone https://github.com/ARGOS-telescope/argosim.git
 cd argosim
-pip install .
+pip install -e .
 ```
 
 ## Docker installation
