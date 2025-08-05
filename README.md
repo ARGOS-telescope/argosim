@@ -41,8 +41,15 @@ pip install -e .
 
 Running the GUI requires `PyQt6` which can be installed as follows:
 ```bash
-pip install argosim[gui]
+pip install "argosim[gui]"
 ```
+
+To launch the GUI and have access to the custom templates you need to clone the `argosim` repository:
+```bash
+git clone https://github.com/ARGOS-telescope/argosim.git
+cd argosim
+```
+
 Launch the GUI with:
 ```bash
 python app/argosim-gui.py
