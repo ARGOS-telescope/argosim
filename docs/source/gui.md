@@ -4,10 +4,16 @@
 
 > Ideal for education, outreach, and rapid prototyping.
 
+To launch the GUI and have access to the custom templates you need to clone the `argosim` repository:
+```bash
+git clone https://github.com/ARGOS-telescope/argosim.git
+cd argosim
+```
+
 ## Installation
 Running the GUI requires the `pyQt6` package, which can be installed with the following command:
 ```
-pip install argosim[gui]
+pip install "argosim[gui]"
 ```
 
 ## Launching the GUI
