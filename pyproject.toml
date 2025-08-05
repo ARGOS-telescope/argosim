@@ -17,7 +17,7 @@ dependencies = [
     "scikit-image>=0.22",
     "jax>=0.4"
 ]
-version = "0.0.4"
+version = "1.0.0"
 
 [project.optional-dependencies]
 doc = [
