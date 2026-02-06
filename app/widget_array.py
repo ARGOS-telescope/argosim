@@ -17,7 +17,7 @@ class InterferometricArrayWidget(QWidget):
         layout = QVBoxLayout()
         title = QLabel("Interferometric Array")
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        title.setStyleSheet("font-weight: bold; font-size: 16px;")
+        title.setObjectName("section-title")
         layout.addWidget(title)
 
         # Array type selection
@@ -91,8 +91,9 @@ class InterferometricArrayWidget(QWidget):
         layout.addWidget(self.canvas, stretch=1)
 
         self.setLayout(layout)
-        self._on_type_changed(self.type_combo.currentText())
         self.current_antenna = None
+        self.scatter_colors = {"antenna": "mediumblue", "baseline": "darkred"}
+        self._on_type_changed(self.type_combo.currentText())
         self._plot_array_and_baselines()
 
     def _on_type_changed(self, text):
@@ -161,9 +162,9 @@ class InterferometricArrayWidget(QWidget):
 
         self.fig.clear()
         ax1 = self.fig.add_subplot(1, 2, 1)
-        argosim.plot_utils.plot_antenna_arr(antenna, fig=self.fig, ax=ax1)
+        argosim.plot_utils.plot_antenna_arr(antenna, fig=self.fig, ax=ax1, c=self.scatter_colors["antenna"])
         ax2 = self.fig.add_subplot(1, 2, 2)
-        argosim.plot_utils.plot_baselines(baselines, fig=self.fig, ax=ax2)
+        argosim.plot_utils.plot_baselines(baselines, fig=self.fig, ax=ax2, c=self.scatter_colors["baseline"])
         self.canvas.draw()
 
     def get_current_antenna(self):

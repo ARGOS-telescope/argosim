@@ -21,7 +21,7 @@ class ImagingWidget(QWidget):
         layout = QVBoxLayout()
         title = QLabel("Imaging")
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        title.setStyleSheet("font-weight: bold; font-size: 16px;")
+        title.setObjectName("section-title")
         layout.addWidget(title)
 
         # Image simulation parameters

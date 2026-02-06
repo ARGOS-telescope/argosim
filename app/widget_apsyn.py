@@ -22,7 +22,7 @@ class ApertureSynthesisWidget(QWidget):
         layout = QVBoxLayout()
         title = QLabel("Aperture Synthesis")
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        title.setStyleSheet("font-weight: bold; font-size: 16px;")
+        title.setObjectName("section-title")
         layout.addWidget(title)
 
         self.param_widgets = {}
@@ -109,6 +109,7 @@ class ApertureSynthesisWidget(QWidget):
 
         self.setLayout(layout)
         self.current_uv_points = None
+        self.scatter_color = "darkred"
 
     def _reset_defaults(self):
         self.param_widgets['latitude'].setText("35")
@@ -179,7 +180,7 @@ class ApertureSynthesisWidget(QWidget):
         ax1 = self.fig.add_subplot(1, 2, 1)
         # ax1.imshow(np.abs(uv_mask), origin='lower', cmap='viridis')
         # argosim.plot_utils.plot_sky_uv(np.abs(uv_mask), fov_size=(0.1,0.1), )
-        argosim.plot_utils.plot_baselines(uv_points, ax=ax1, fig=self.fig)
+        argosim.plot_utils.plot_baselines(uv_points, ax=ax1, fig=self.fig, c=self.scatter_color)
         max_uv = (180/np.pi) * Npx / (2*fov_size) / 1e3
         ax1.set_xlim((-max_uv, max_uv))
         ax1.set_ylim((-max_uv, max_uv))
