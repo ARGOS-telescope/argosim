@@ -16,6 +16,13 @@
 * ⚡ JAX backend – Accelerated, differentiable computations for high-performance and ML applications.
 * 🐳 Docker support – Easy reproducibility and cross-platform compatibility.
 
+## ⚡ JAX & differentiability
+The imaging forward model — baselines, UV-track generation, Kaiser–Bessel convolutional gridding, FFT — is implemented end-to-end in JAX, so the path from **antenna positions** all the way to the **dirty image** is differentiable. Combined with an `optax` optimiser, this turns array layout design into a gradient-based problem: you can directly minimise a loss on the dirty beam (or any downstream observable) with respect to the antenna coordinates.
+
+The animation below shows 20 antennas being optimised with Adam to match a Gaussian target beam, under multiple physical constraints (minimum spacing, maximum site radius). The reusable building blocks live in `argosim.optim_utils`; see [`notebooks/array_optim/test_array_optim.ipynb`](notebooks/array_optim/test_array_optim.ipynb) for the full example.
+
+![Differentiable antenna array optimisation](notebooks/array_optim/antenna_evolution.gif)
+
 ## 🚀 Getting Started
 ### Installation
 You can install the latest version of `argosim` via pip:
