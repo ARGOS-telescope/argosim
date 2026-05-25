@@ -21,7 +21,7 @@ The imaging forward model — baselines, UV-track generation, Kaiser–Bessel co
 
 The animation below shows 20 antennas being optimised with Adam to match a Gaussian target beam, under multiple physical constraints (minimum spacing, maximum site radius). The reusable building blocks live in `argosim.optim_utils`; see [`notebooks/array_optim/test_array_optim.ipynb`](notebooks/array_optim/test_array_optim.ipynb) for the full example.
 
-![Differentiable antenna array optimisation](notebooks/array_optim/antenna_evolution.gif)
+![Differentiable antenna array optimisation](figures/antenna_evolution.gif)
 
 ## 🚀 Getting Started
 ### Installation
