@@ -72,6 +72,13 @@ class ObservationConfig:
         Initial hour-angle in hours.
     kernel_W : int
         KB gridding kernel support width in pixels (odd integer).
+    oversampling : int
+        UV-grid oversampling factor. The PSF is gridded onto an
+        ``oversampling * npx`` grid (finer UV cells, FoV scaled by
+        ``oversampling``) and the dirty beam is cropped back to
+        ``npx x npx``, discarding the borders where the KB correction
+        amplifies noise/aliasing. Default is 2; set to 1 for the
+        un-padded native-resolution behaviour.
     """
 
     npx: int = 256
@@ -85,6 +92,7 @@ class ObservationConfig:
     track_h: float = 0.5
     t_0: float = 1.0
     kernel_W: int = 7
+    oversampling: int = 2
 
     @property
     def kernel_beta(self) -> float:
@@ -95,6 +103,12 @@ class ObservationConfig:
     def grid_shape(self) -> Tuple[int, int]:
         """Image grid shape ``(npx, npx)``."""
         return (self.npx, self.npx)
+
+    @property
+    def grid_shape_os(self) -> Tuple[int, int]:
+        """Oversampled UV-grid shape ``(oversampling * npx,) * 2``."""
+        n = int(round(self.oversampling * self.npx))
+        return (n, n)
 
 
 ########################################
@@ -121,9 +135,12 @@ def antenna_to_beam(antenna, config: ObservationConfig):
     beam : jnp.ndarray
         Peak-normalised dirty beam, shape ``config.grid_shape``.
     """
-    gs = config.grid_shape
+    npx = config.npx
+    gs_os = config.grid_shape_os
     W = config.kernel_W
     beta = config.kernel_beta
+    # Oversampled grid -> FoV scaled by the same factor (keeps the pixel scale).
+    fov_os = config.fov * gs_os[0] / npx
 
     b_enu = aat.get_baselines(antenna)
     track, _ = aat.uv_track_multiband(
@@ -138,12 +155,17 @@ def antenna_to_beam(antenna, config: ObservationConfig):
         n_freqs=config.n_freqs,
         multi_band=False,
     )
-    uv_px = aiu.scale_uv_samples_continuous(track, gs, (config.fov, config.fov))
+    uv_px = aiu.scale_uv_samples_continuous(track, gs_os, (fov_os, fov_os))
     psf_grid = aiu.grid_visibilities_conv(
-        jnp.ones(uv_px.shape[0], dtype=jnp.complex128), uv_px, gs, W, beta,
+        jnp.ones(uv_px.shape[0], dtype=jnp.complex128), uv_px, gs_os, W, beta,
     )
-    corr = aiu.kb_correction(gs, W, beta)
-    beam = aiu.uv2sky(psf_grid) * corr
+    corr = aiu.kb_correction(gs_os, W, beta)
+    beam_os = aiu.uv2sky(psf_grid) * corr
+
+    # Crop the central npx x npx (static slice -> differentiable wrt antenna),
+    # discarding the amplified border region of the KB correction.
+    p0 = (gs_os[0] - npx) // 2
+    beam = beam_os[p0 : p0 + npx, p0 : p0 + npx]
 
     peak = jax.lax.stop_gradient(jnp.max(jnp.abs(beam)) + 1e-12)
     return jnp.abs(beam) / peak

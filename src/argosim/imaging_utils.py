@@ -448,6 +448,8 @@ def simulate_dirty_observation(
     sigma=0.2,
     seed=None,
     kernel_support=7,
+    beta=None,
+    oversampling=2,
 ):
     """Simulate dirty observation.
 
@@ -478,6 +480,18 @@ def simulate_dirty_observation(
     kernel_support : int
         KB kernel support width in pixels (odd). Default is 7. Larger values
         give better anti-aliasing at the cost of more compute.
+    beta : float, optional
+        KB kernel shape parameter. If ``None`` (default), uses the standard
+        heuristic ``beta = 2.34 * kernel_support``. Expose it to experiment
+        with different main-lobe/side-lobe trade-offs.
+    oversampling : float
+        UV-grid oversampling factor. The sky is zero-padded to
+        ``oversampling * N`` pixels before gridding (finer UV cells, same
+        angular pixel scale, FoV scaled by ``oversampling``), and the dirty
+        image/beam are cropped back to the original ``N x N`` afterwards. This
+        discards the image borders where the KB correction amplifies noise and
+        aliasing. Default is 2, matching the ``beta = 2.34 * W`` heuristic. Set
+        to 1 to recover the un-padded native-resolution behaviour.
 
     Returns
     -------
@@ -487,7 +501,45 @@ def simulate_dirty_observation(
         The dirty beam(s).
     """
     W = kernel_support
-    beta = 2.34 * W
+    beta = 2.34 * W if beta is None else beta
+    factor = oversampling
+
+    def _simulate_single(sky_obs, track_f):
+        """Pad -> grid -> correct -> crop for a single sky/track pair."""
+        ny, nx = sky_obs.shape
+        ny_p = int(round(factor * ny))
+        nx_p = int(round(factor * nx))
+        py0 = (ny_p - ny) // 2
+        px0 = (nx_p - nx) // 2
+        # Zero-pad the sky in image space: yields a finer (oversampled) UV grid
+        # at the same angular pixel scale, with the FoV scaled by the padding.
+        sky_pad = jnp.zeros((ny_p, nx_p), dtype=jnp.asarray(sky_obs).dtype)
+        sky_pad = sky_pad.at[py0 : py0 + ny, px0 : px0 + nx].set(jnp.asarray(sky_obs))
+        grid_shape = (ny_p, nx_p)
+        fov_os = (fov_size * ny_p / ny, fov_size * nx_p / nx)
+        corr = kb_correction(grid_shape, W, beta)
+
+        # Transform to uv domain. Pre-multiply the model by the KB correction:
+        # degridding convolves by the kernel (it is the adjoint of gridding) and
+        # so imprints the kernel-FT taper once. Without this pre-correction the
+        # recovered sky would be tapered by that factor everywhere off-centre
+        # (off-axis sources suppressed); pre-distorting cancels it, leaving only
+        # the single gridding taper that the final correction removes.
+        sky_uv = sky2uv(sky_pad * corr)
+        uv_px = scale_uv_samples_continuous(track_f, grid_shape, fov_os)
+        # Degrid true visibilities, add noise, re-grid
+        vis = degrid_visibilities_conv(sky_uv, uv_px, grid_shape, W, beta)
+        vis = add_noise_vis(np.array(vis), sigma, seed=seed)
+        gridded = grid_visibilities_conv(jnp.asarray(vis), uv_px, grid_shape, W, beta)
+        psf_grid = grid_visibilities_conv(
+            jnp.ones(uv_px.shape[0], dtype=jnp.complex128), uv_px, grid_shape, W, beta
+        )
+        # Image-domain KB correction, then crop away the amplified border region
+        obs_os = uv2sky(gridded) * corr
+        beam_os = uv2sky(psf_grid) * corr
+        obs_c = obs_os[py0 : py0 + ny, px0 : px0 + nx]
+        beam_c = beam_os[py0 : py0 + ny, px0 : px0 + nx]
+        return obs_c, beam_c
 
     if multi_band:
         assert freqs is not None, "Frequency list is required for multiband simulation"
@@ -501,40 +553,13 @@ def simulate_dirty_observation(
                 sky_obs = sky * beam.get_beam()
             else:
                 sky_obs = sky
-            # Transform to uv domain
-            sky_uv = sky2uv(sky_obs)
-            grid_shape = sky_uv.shape
-            uv_px = scale_uv_samples_continuous(track_f, grid_shape, (fov_size, fov_size))
-            # Degrid true visibilities, add noise, re-grid
-            vis_f = degrid_visibilities_conv(sky_uv, uv_px, grid_shape, W, beta)
-            vis_f = add_noise_vis(np.array(vis_f), sigma, seed=seed)
-            gridded = grid_visibilities_conv(
-                jnp.asarray(vis_f), uv_px, grid_shape, W, beta
-            )
-            psf_grid = grid_visibilities_conv(
-                jnp.ones(uv_px.shape[0], dtype=jnp.complex128), uv_px, grid_shape, W, beta
-            )
-            # Apply image-domain correction
-            corr = kb_correction(grid_shape, W, beta)
-            obs_multiband.append(uv2sky(gridded) * corr)
-            beam_multiband.append(uv2sky(psf_grid) * corr)
+            obs_c, beam_c = _simulate_single(sky_obs, track_f)
+            obs_multiband.append(obs_c)
+            beam_multiband.append(beam_c)
 
         obs = np.array(obs_multiband)
         dirty_beam = np.array(beam_multiband)
     else:
-        sky_uv = sky2uv(sky)
-        grid_shape = sky_uv.shape
-        uv_px = scale_uv_samples_continuous(track, grid_shape, (fov_size, fov_size))
-        # Degrid true visibilities, add noise, re-grid
-        vis = degrid_visibilities_conv(sky_uv, uv_px, grid_shape, W, beta)
-        vis = add_noise_vis(np.array(vis), sigma, seed=seed)
-        gridded = grid_visibilities_conv(jnp.asarray(vis), uv_px, grid_shape, W, beta)
-        psf_grid = grid_visibilities_conv(
-            jnp.ones(uv_px.shape[0], dtype=jnp.complex128), uv_px, grid_shape, W, beta
-        )
-        # Apply image-domain correction
-        corr = kb_correction(grid_shape, W, beta)
-        obs = uv2sky(gridded) * corr
-        dirty_beam = uv2sky(psf_grid) * corr
+        obs, dirty_beam = _simulate_single(sky, track)
 
     return obs, dirty_beam
