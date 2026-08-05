@@ -7,6 +7,10 @@ This module contains utility functions to compute metrics between images.
 """
 
 import numpy as np
+import jax
+import jax.numpy as jnp
+from skimage.feature import peak_local_max
+from skimage.segmentation import watershed
 from skimage.metrics import structural_similarity as ssim_skimage
 
 
@@ -217,6 +221,90 @@ def compute_sll(beam, fit_result=None, scale=3.0):
     beam_masked = mask_main_lobe_elliptical(np.abs(beam), fit_result, scale=scale)
     side_lobe_peak = np.max(beam_masked)
     sll_db = 10 * np.log10(side_lobe_peak / main_lobe_peak + 1e-12)
+    return sll_db
+
+def _main_lobe_mask_np(beam_np):
+    """Compute main lobe mask.
+    
+    Compute a binary mask of the main lobe of a beam using watershed segmentation.
+    
+    Parameters
+    ----------
+    beam_np : np.ndarray
+        The beam image (2D).    
+        
+    Returns
+    -------
+    np.ndarray
+        Binary mask of the main lobe.
+        """
+    beam_np = np.asarray(beam_np)
+    peak_idx = np.unravel_index(np.argmax(beam_np), beam_np.shape)
+
+    # One marker per local maximum -> each lobe gets its own catchment basin
+    coords = peak_local_max(beam_np, min_distance=1)
+    markers = np.zeros(beam_np.shape, dtype=np.int32)
+    for i, c in enumerate(coords, start=1):
+        markers[tuple(c)] = i
+
+    labels = watershed(-beam_np, markers=markers)  # flood "downhill" from each peak
+    main_label = labels[peak_idx]
+    return (labels == main_label).astype(np.float32)
+
+def beam_isl(beam):
+    """Compute ISL.
+
+    Compute the integrated Sidelobe level (ISL) of a beam using watershed segmentation.
+    
+    Parameters
+    ----------
+    beam : np.ndarray
+        The beam image (2D).
+        
+    Returns
+    -------
+    float
+        Side-lobe level in dB.
+    """
+    # Non-differentiable segmentation step, wrapped for use inside jit/grad
+    mask = jax.pure_callback(
+        _main_lobe_mask_np,
+        jax.ShapeDtypeStruct(beam.shape, jnp.float32),
+        beam,
+    )
+    mask = jax.lax.stop_gradient(mask)
+
+    main_lobe_power = jnp.sum((beam * mask) ** 2)
+    side_lobe_power = jnp.sum((beam * (1 - mask)) ** 2)
+    sll_db = 10 * jnp.log10(side_lobe_power / main_lobe_power + 1e-12)
+    return sll_db
+
+def beam_psl(beam):
+    """Compute PSL.
+
+    Compute the peak sidelobe level (PSL) of a beam using watershed segmentation.
+
+    Parameters
+    ----------
+    beam : np.ndarray
+        The beam image (2D).
+
+    Returns
+    -------
+    float
+        Side-lobe level in dB.
+    """
+    # Non-differentiable segmentation step, wrapped for use inside jit/grad
+    mask = jax.pure_callback(
+        _main_lobe_mask_np,
+        jax.ShapeDtypeStruct(beam.shape, jnp.float32),
+        beam,
+    )
+    mask = jax.lax.stop_gradient(mask)
+
+    main_lobe_peak_power = jnp.max((beam * mask)**2)
+    side_lobe_peak_power = jnp.max((beam * (1 - mask))**2)
+    sll_db = 10 * jnp.log10(side_lobe_peak_power / main_lobe_peak_power + 1e-12)
     return sll_db
 
 

@@ -483,3 +483,30 @@ def plot_beam_and_fit(beam, fov_size, fit_result=None):  # pragma: no cover
 
     plt.tight_layout()
     plt.show()
+
+def plot_sidelobes(beam, fov_size):
+    """Plot sidelobes.
+    
+    Plot the main lobe and sidelobes segmentation of the beam using the watershed algorithm.
+    
+    Parameters
+    ----------
+    beam : np.ndarray
+        2D beam image.
+    fov_size : float
+        The field of view size in degrees.
+        
+    Returns
+    -------
+    None
+    """
+    main_lobe_mask = metrics_utils._main_lobe_mask_np(beam)
+    fig, ax = plt.subplots(1, 3, figsize=(20, 5))
+    plot_sky(main_lobe_mask, fig=fig, ax=ax[0], fov_size=(fov_size, fov_size), title="Main Lobe Mask")
+    plot_sky(beam * main_lobe_mask, fig=fig, ax=ax[1], fov_size=(fov_size, fov_size), title="Main Lobe")
+    plot_sky(beam * (1 - main_lobe_mask), fig=fig, ax=ax[2], fov_size=(fov_size, fov_size), title="Side Lobes")
+    sidelobe_peak_px = np.array(np.unravel_index(np.argmax(beam * (1 - main_lobe_mask)), beam.shape))
+    sidelobe_peak_lm = sidelobe_peak_px/beam.shape[0]*fov_size - fov_size/2
+    ax[2].scatter(sidelobe_peak_lm[1], sidelobe_peak_lm[0], color='red', s=100, marker='x', label='Side Lobe Peak')
+    plt.legend()
+    plt.show()
