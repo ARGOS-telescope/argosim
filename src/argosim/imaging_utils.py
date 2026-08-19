@@ -7,6 +7,7 @@ This module contains functions to perform radio interferometric imaging.
 
 """
 
+import warnings
 from functools import partial
 
 import jax
@@ -121,6 +122,80 @@ def scale_uv_samples_continuous(uv_samples, sky_uv_shape, fov_size):
         + jnp.array(sky_uv_shape) // 2
     )
     return uv_px
+
+
+def check_uv_in_grid(uv_px, grid_shape, fov_size, on_out_of_bounds="warn"):
+    """Check that UV samples fall inside the uv grid.
+
+    Convolutional gridding silently drops any visibility whose target pixel
+    falls outside the grid (``grid_visibilities_conv`` uses ``mode="drop"``),
+    so a grid too small for the longest baselines quietly loses data. This
+    function flags that case, using the continuous pixel coordinates returned by
+    ``scale_uv_samples_continuous``: a sample is out of the grid when its pixel
+    coordinate is ``< 0`` or ``> grid_shape`` along either axis.
+
+    The message therefore reports the largest field of view that keeps every 
+    sample on the grid for the chosen ``Npix`` and uv coverage.
+
+    Parameters
+    ----------
+    uv_px : jnp.ndarray
+        Continuous pixel coordinates ``(u, v)`` for each visibility,
+        shape ``(n_vis, 2)``, as returned by ``scale_uv_samples_continuous``.
+    grid_shape : tuple
+        Shape of the uv grid ``(ny, nx)``.
+    fov_size : float or tuple
+        Field of view in degrees corresponding to ``uv_px`` / ``grid_shape``.
+        A scalar is applied to both axes; a tuple is read as ``(fov_y, fov_x)``.
+        Used to report the maximum field of view that keeps all samples on-grid.
+    on_out_of_bounds : {"warn", "error", "ignore"}
+        Action when one or more samples fall outside the grid:
+        ``"warn"`` (default) emits a ``UserWarning`` reporting the proportion of
+        dropped samples, ``"error"`` raises a ``ValueError``, and ``"ignore"``
+        returns silently (samples are still dropped downstream).
+
+    Raises
+    ------
+    ValueError
+        If ``on_out_of_bounds`` is not one of the accepted options, or if it is
+        ``"error"`` and any sample falls outside the grid.
+    """
+    if on_out_of_bounds == "ignore":
+        return
+    if on_out_of_bounds not in ("error", "warn"):
+        raise ValueError(
+            "on_out_of_bounds must be one of 'error', 'warn' or 'ignore', "
+            f"got {on_out_of_bounds!r}."
+        )
+
+    ny, nx = grid_shape
+    u = np.asarray(uv_px[:, 0])
+    v = np.asarray(uv_px[:, 1])
+    out_of_bounds = (u < 0) | (u > nx) | (v < 0) | (v > ny)
+    n_oob = int(np.count_nonzero(out_of_bounds))
+    if n_oob == 0:
+        return
+
+    # Largest FoV keeping all samples on-grid: deviation scales linearly with
+    # FoV, so fov_max = fov * (grid half-width / max sample deviation), per axis.
+    fov_y, fov_x = (fov_size, fov_size) if np.isscalar(fov_size) else fov_size
+    du_max = np.max(np.abs(u - nx // 2))
+    dv_max = np.max(np.abs(v - ny // 2))
+    fov_max = min(
+        fov_x * (nx / 2) / max(du_max, 1e-12),
+        fov_y * (ny / 2) / max(dv_max, 1e-12),
+    )
+
+    fraction = n_oob / u.size
+    msg = (
+        f"{n_oob}/{u.size} ({100 * fraction:.1f}%) visibilities fall outside "
+        f"the uv grid of shape {tuple(grid_shape)} and will be dropped. The "
+        f"maximum field of view for this Npix and uv coverage is "
+        f"{fov_max:.4g} deg; reduce the field of view or increase Npix."
+    )
+    if on_out_of_bounds == "error":
+        raise ValueError(msg)
+    warnings.warn(msg, stacklevel=2)
 
 
 def kb_correction(grid_shape, W, beta):
@@ -450,6 +525,7 @@ def simulate_dirty_observation(
     kernel_support=7,
     beta=None,
     oversampling=2,
+    on_out_of_bounds="warn",
 ):
     """Simulate dirty observation.
 
@@ -492,6 +568,12 @@ def simulate_dirty_observation(
         discards the image borders where the KB correction amplifies noise and
         aliasing. Default is 2, matching the ``beta = 2.34 * W`` heuristic. Set
         to 1 to recover the un-padded native-resolution behaviour.
+    on_out_of_bounds : {"warn", "error", "ignore"}
+        Behaviour when UV samples fall outside the (oversampled) uv grid and
+        would be silently dropped by the convolutional gridding. ``"warn"``
+        (default) emits a ``UserWarning`` reporting the proportion of dropped
+        samples, ``"error"`` raises a ``ValueError``, and ``"ignore"`` disables
+        the check. See :func:`check_uv_in_grid`.
 
     Returns
     -------
@@ -527,6 +609,13 @@ def simulate_dirty_observation(
         # the single gridding taper that the final correction removes.
         sky_uv = sky2uv(sky_pad * corr)
         uv_px = scale_uv_samples_continuous(track_f, grid_shape, fov_os)
+        # Bounds check at native resolution: oversampling scales the grid and
+        # the sample deviations together, so it never changes the coverage. This
+        # keeps the reported Npix / max-FoV in the user's (un-padded) terms.
+        uv_px_native = scale_uv_samples_continuous(
+            track_f, (ny, nx), (fov_size, fov_size)
+        )
+        check_uv_in_grid(uv_px_native, (ny, nx), fov_size, on_out_of_bounds)
         # Degrid true visibilities, add noise, re-grid
         vis = degrid_visibilities_conv(sky_uv, uv_px, grid_shape, W, beta)
         vis = add_noise_vis(np.array(vis), sigma, seed=seed)
