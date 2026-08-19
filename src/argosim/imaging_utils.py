@@ -7,11 +7,12 @@ This module contains functions to perform radio interferometric imaging.
 
 """
 
+from functools import partial
+
 import jax
 import jax.numpy as jnp
 import numpy as np
 import numpy.random as rnd
-from functools import partial
 from jax import jit
 
 from argosim.rand_utils import local_seed
@@ -145,15 +146,14 @@ def kb_correction(grid_shape, W, beta):
     correction : jnp.ndarray
         2D image-domain correction array, shape ``grid_shape``.
     """
+
     def correction_1d(n):
         kernel_1d = jnp.zeros(n)
         x = jnp.arange(-(W // 2), W // 2 + 1, dtype=float)
         kb_vals = kaiser_bessel(x, W, beta)
         center = n // 2
         kernel_1d = kernel_1d.at[center - W // 2 : center + W // 2 + 1].set(kb_vals)
-        kernel_ft = jnp.abs(
-            jnp.fft.fftshift(jnp.fft.fft(jnp.fft.ifftshift(kernel_1d)))
-        )
+        kernel_ft = jnp.abs(jnp.fft.fftshift(jnp.fft.fft(jnp.fft.ifftshift(kernel_1d))))
         # Guard against near-zero values at the grid edges
         kernel_ft = jnp.where(kernel_ft < 1e-10, jnp.ones_like(kernel_ft), kernel_ft)
         return 1.0 / kernel_ft
@@ -203,10 +203,10 @@ def grid_visibilities_conv(vis, uv_px, grid_shape, W, beta):
 
     for du in range(-half_W, half_W + 1):
         ku = kaiser_bessel(u_px - (u0 + du), W, beta)  # (n_vis,)
-        iu = u0 + du                                    # (n_vis,)
+        iu = u0 + du  # (n_vis,)
         for dv in range(-half_W, half_W + 1):
             kv = kaiser_bessel(v_px - (v0 + dv), W, beta)  # (n_vis,)
-            iv = v0 + dv                                    # (n_vis,)
+            iv = v0 + dv  # (n_vis,)
             grid = grid.at[iv, iu].add(
                 (ku * kv).astype(jnp.complex128) * vis, mode="drop"
             )

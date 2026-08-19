@@ -6,12 +6,12 @@ This module contains utility functions to compute metrics between images.
 
 """
 
-import numpy as np
 import jax
 import jax.numpy as jnp
+import numpy as np
 from skimage.feature import peak_local_max
-from skimage.segmentation import watershed
 from skimage.metrics import structural_similarity as ssim_skimage
+from skimage.segmentation import watershed
 
 
 def mse(img1, img2):
@@ -72,7 +72,9 @@ def ssim(img1, img2):
     ssim : float
         The structural similarity index between the two images.
     """
-    return ssim_skimage(np.array(img1), np.array(img2), data_range=np.max(img1) - np.min(img1))
+    return ssim_skimage(
+        np.array(img1), np.array(img2), data_range=np.max(img1) - np.min(img1)
+    )
 
 
 def compute_metrics(img1, img2):
@@ -223,21 +225,22 @@ def compute_sll(beam, fit_result=None, scale=3.0):
     sll_db = 10 * np.log10(side_lobe_peak / main_lobe_peak + 1e-12)
     return sll_db
 
+
 def _main_lobe_mask_np(beam_np):
     """Compute main lobe mask.
-    
+
     Compute a binary mask of the main lobe of a beam using watershed segmentation.
-    
+
     Parameters
     ----------
     beam_np : np.ndarray
-        The beam image (2D).    
-        
+        The beam image (2D).
+
     Returns
     -------
     np.ndarray
         Binary mask of the main lobe.
-        """
+    """
     beam_np = np.asarray(beam_np)
     peak_idx = np.unravel_index(np.argmax(beam_np), beam_np.shape)
 
@@ -251,16 +254,17 @@ def _main_lobe_mask_np(beam_np):
     main_label = labels[peak_idx]
     return (labels == main_label).astype(np.float32)
 
+
 def beam_isl(beam):
     """Compute ISL.
 
     Compute the integrated Sidelobe level (ISL) of a beam using watershed segmentation.
-    
+
     Parameters
     ----------
     beam : np.ndarray
         The beam image (2D).
-        
+
     Returns
     -------
     float
@@ -278,6 +282,7 @@ def beam_isl(beam):
     side_lobe_power = jnp.sum((beam * (1 - mask)) ** 2)
     sll_db = 10 * jnp.log10(side_lobe_power / main_lobe_power + 1e-12)
     return sll_db
+
 
 def beam_psl(beam):
     """Compute PSL.
@@ -302,8 +307,8 @@ def beam_psl(beam):
     )
     mask = jax.lax.stop_gradient(mask)
 
-    main_lobe_peak_power = jnp.max((beam * mask)**2)
-    side_lobe_peak_power = jnp.max((beam * (1 - mask))**2)
+    main_lobe_peak_power = jnp.max((beam * mask) ** 2)
+    side_lobe_peak_power = jnp.max((beam * (1 - mask)) ** 2)
     sll_db = 10 * jnp.log10(side_lobe_peak_power / main_lobe_peak_power + 1e-12)
     return sll_db
 

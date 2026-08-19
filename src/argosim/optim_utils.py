@@ -34,7 +34,6 @@ import optax
 from argosim import antenna_utils as aat
 from argosim import imaging_utils as aiu
 
-
 ########################################
 #  Observation configuration           #
 ########################################
@@ -157,7 +156,11 @@ def antenna_to_beam(antenna, config: ObservationConfig):
     )
     uv_px = aiu.scale_uv_samples_continuous(track, gs_os, (fov_os, fov_os))
     psf_grid = aiu.grid_visibilities_conv(
-        jnp.ones(uv_px.shape[0], dtype=jnp.complex128), uv_px, gs_os, W, beta,
+        jnp.ones(uv_px.shape[0], dtype=jnp.complex128),
+        uv_px,
+        gs_os,
+        W,
+        beta,
     )
     corr = aiu.kb_correction(gs_os, W, beta)
     beam_os = aiu.uv2sky(psf_grid) * corr
@@ -222,9 +225,7 @@ def spacing_penalty(antenna, d_min):
     """
     diffs = antenna[:, None, :2] - antenna[None, :, :2]
     # Diagonal masked with a large value so it never triggers the barrier.
-    dist = jnp.sqrt(
-        jnp.sum(diffs ** 2, axis=-1) + jnp.eye(antenna.shape[0]) * 1e12
-    )
+    dist = jnp.sqrt(jnp.sum(diffs**2, axis=-1) + jnp.eye(antenna.shape[0]) * 1e12)
     # Pairs counted twice (i<j and j<i) → divide by 2.
     return 0.5 * jnp.sum(jax.nn.relu(1.0 - dist / d_min) ** 2)
 
@@ -319,6 +320,7 @@ def make_loss_fn(forward_fn, target_loss_fn, constraints: Sequence[Constraint]):
     loss_fn : Callable
         ``(antenna,) -> scalar`` total loss.
     """
+
     def loss_fn(antenna):
         observable = forward_fn(antenna)
         L = target_loss_fn(observable)
@@ -334,9 +336,7 @@ def make_loss_fn(forward_fn, target_loss_fn, constraints: Sequence[Constraint]):
 ########################################
 
 
-def exp_decay_schedule(
-    init_lr=25.0, end_lr=2.0, transition_steps=200, decay_rate=0.5
-):
+def exp_decay_schedule(init_lr=25.0, end_lr=2.0, transition_steps=200, decay_rate=0.5):
     """Exp decay schedule.
 
     Exponential learning-rate decay from ``init_lr`` toward ``end_lr``.
@@ -453,12 +453,17 @@ def optimise_array(
     # Decide the snapshot policy
     if snapshot_steps is not None:
         snap_set = {int(s) for s in snapshot_steps if 0 < int(s) <= n_steps}
+
         def is_snapshot_step(k):
             return k in snap_set
+
     elif snapshot_every is not None:
+
         def is_snapshot_step(k):
             return k % snapshot_every == 0
+
     else:
+
         def is_snapshot_step(k):
             return False
 
