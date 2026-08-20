@@ -199,13 +199,32 @@ def plot_sky_uv(
 
     if ax is None or fig is None:
         fig, ax = plt.subplots(1, 1)
+    image_uv = np.abs(image_uv)
+    extent = [-max_u, max_u, -max_v, max_v]
     if scale == "log":
-        image_uv = np.log10(np.abs(image_uv) + 1e-10)
-    elif scale == "linear":
-        image_uv = np.abs(image_uv)
-    im = ax.imshow(image_uv, extent=[-max_u, max_u, -max_v, max_v], origin="lower")
-    if cbar:
-        fig.colorbar(im, ax=ax)
+        # Plot log10 of the amplitude (so low/mid values stay visible), but label
+        # the colorbar with the true (non-log) amplitudes. Empty and near-zero
+        # cells are clamped to a floor a few decades below the peak, so they all
+        # render as the lowest colour -- no white gaps and no isolated dots from
+        # the numerical KB kernel tails.
+        vmax = float(np.max(image_uv))
+        vmax = vmax if vmax > 0 else 1.0
+        floor = vmax * 1e-4
+        data = np.log10(np.maximum(image_uv, floor))
+        lo, hi = float(np.log10(floor)), float(np.log10(vmax))
+        im = ax.imshow(data, extent=extent, origin="lower", vmin=lo, vmax=hi)
+        if cbar:
+            # Ticks: zero (the floor) at the bottom, the peak at the top, and 3
+            # in between; labelled with the actual amplitudes.
+            ticks = np.linspace(lo, hi, 5)
+            cb = fig.colorbar(im, ax=ax, ticks=ticks)
+            labels = [f"{10 ** t:.2g}" for t in ticks]
+            labels[0] = "0"
+            cb.ax.set_yticklabels(labels)
+    else:
+        im = ax.imshow(image_uv, extent=extent, origin="lower")
+        if cbar:
+            fig.colorbar(im, ax=ax)
     ax.set_xlabel(r"$u$(k$\lambda$)")
     ax.set_ylabel(r"$v$(k$\lambda$)")
     ax.set_title("Amplitude")
