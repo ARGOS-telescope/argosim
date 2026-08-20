@@ -156,7 +156,7 @@ def antenna_to_beam(antenna, config: ObservationConfig):
     )
     uv_px = aiu.scale_uv_samples_continuous(track, gs_os, (fov_os, fov_os))
     psf_grid = aiu.grid_visibilities_conv(
-        jnp.ones(uv_px.shape[0], dtype=jnp.complex128),
+        jnp.ones(uv_px.shape[0], dtype=complex),
         uv_px,
         gs_os,
         W,
