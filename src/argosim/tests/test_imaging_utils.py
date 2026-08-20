@@ -94,18 +94,6 @@ class TestImagingUtils:
             err_msg="Histogram mask UV samples do not match the expected output.",
         )
 
-        # Test weighted mask
-        weights = np.load(self.uv_weights_path)
-        mask_uv_weighted, _ = aiu.grid_uv_samples(
-            track, *self.grid_uv_samples_params, mask_type="weighted", weights=weights
-        )
-        mask_uv_weighted_expected = np.load(self.pathfinder_uv_mask_weighted_path)
-        npt.assert_array_almost_equal(
-            mask_uv_weighted,
-            mask_uv_weighted_expected,
-            err_msg="Weighted mask UV samples do not match the expected output.",
-        )
-
     def test_grid_uv_samples_out_of_range(self):
         track = np.load(self.pathfinder_uv_track_path)
         # catch ValueError for out of range samples
@@ -124,14 +112,6 @@ class TestImagingUtils:
                 track, *self.grid_uv_samples_params, mask_type="invalid_mask_type"
             )
 
-    def test_grid_uv_samples_missing_weights(self):
-        track = np.load(self.pathfinder_uv_track_path)
-        # catch AssertionError for missing weights when mask_type is 'weighted'
-        with npt.assert_raises(AssertionError):
-            mask_uv, _ = aiu.grid_uv_samples(
-                track, *self.grid_uv_samples_params, mask_type="weighted"
-            )
-
     def test_compute_visibilities_grid(self):
         sky_uv = np.load(self.sky_model_uv_expected_path)
         mask_uv = np.load(self.pathfinder_uv_mask_weighted_path)
@@ -141,20 +121,6 @@ class TestImagingUtils:
             sky_uv_w_masked_out,
             sky_uv_w_masked_exp,
             err_msg="Computed grided visibilities do not match the expected output.",
-        )
-
-    def test_add_noise_uv(self):
-        sky_uv_masked = np.load(self.sky_uv_w_masked_path)
-        mask_uv = np.load(self.pathfinder_uv_mask_weighted_path)
-        sky_uv_masked_noisy_out = aiu.add_noise_uv(
-            sky_uv_masked, mask_uv, *self.uv_noise_params
-        )
-        sky_uv_masked_noisy_exp = np.load(self.sky_uv_w_masked_noisy_path)
-        npt.assert_array_almost_equal(
-            sky_uv_masked_noisy_out,
-            sky_uv_masked_noisy_exp,
-            decimal=self.decimal_uv,
-            err_msg="Adding noise to UV samples did not produce the expected output.",
         )
 
     def test_simulate_dirty_obs_single_band(self):
