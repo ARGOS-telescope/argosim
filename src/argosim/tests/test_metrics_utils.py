@@ -25,8 +25,8 @@ class TestMetricsUtils:
     beam_path = "src/argosim/tests/data/dirty_beam_sim_single_band.npy"
     fit_beam_expect = {
         "center": (128.0, 128.0),
-        "width": 8.542189128808278,
-        "height": 2.774467796593848,
+        "width": 17.084378257616556,
+        "height": 5.548935593187696,
         "angle_deg": -14.678876771395638,
         "eccentricity": 0.9457841398924928,
     }
@@ -38,7 +38,7 @@ class TestMetricsUtils:
 
     beam_metrics_expect = {
         "sll_db": -4.127083541527568,
-        "fwhm": (8.542189128808278, 2.774467796593848),
+        "fwhm": (17.084378257616556, 5.548935593187696),
         "eccentricity": 0.9457841398924928,
     }
     beam_metrics_decimal = 10

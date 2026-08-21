@@ -121,6 +121,8 @@ def fit_elliptical_beam(beam, threshold_ratio=0.5):
     -------
     dict : dictionary
         Ellipse parameters: center, width, height, angle_deg, eccentricity.
+        ``width`` and ``height`` are the full widths at half maximum (FWHM), in
+        pixels, along the semi-major and semi-minor axes respectively.
     """
     max_val = np.max(np.abs(beam))
     threshold = threshold_ratio * max_val
@@ -141,9 +143,11 @@ def fit_elliptical_beam(beam, threshold_ratio=0.5):
     angle_rad = np.arctan2(major_axis[0], major_axis[1])
     angle_deg = np.degrees(angle_rad)
 
-    # Axes
-    width = 2 * np.sqrt(eigvals[0])
-    height = 2 * np.sqrt(eigvals[1])
+    # Axes (FWHM). For the half-max region, 2*sqrt(eigval) is the semi-axis
+    # (~HWHM, the radius of the region); multiply by 2 to report the full width
+    # at half maximum.
+    width = 4 * np.sqrt(eigvals[0])
+    height = 4 * np.sqrt(eigvals[1])
 
     # Eccentricity
     a, b = max(width, height), min(width, height)
@@ -158,7 +162,7 @@ def fit_elliptical_beam(beam, threshold_ratio=0.5):
     }
 
 
-def mask_main_lobe_elliptical(beam, fit_result, scale=3.0):
+def mask_main_lobe_elliptical(beam, fit_result, scale=1.5):
     """Mask main lobe elliptical.
 
     Apply an elliptical mask to suppress the main lobe from a beam image.
@@ -170,7 +174,8 @@ def mask_main_lobe_elliptical(beam, fit_result, scale=3.0):
     fit_result : dict
         Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity).
     scale : float
-        Scale factor to enlarge or shrink the elliptical mask (default is 3).
+        Scale factor to enlarge or shrink the elliptical mask, relative to the
+        fitted FWHM (default is 1.5).
 
     Returns
     -------
@@ -198,7 +203,7 @@ def mask_main_lobe_elliptical(beam, fit_result, scale=3.0):
     return beam_masked
 
 
-def compute_sll(beam, fit_result=None, scale=3.0):
+def compute_sll(beam, fit_result=None, scale=1.5):
     """Compute sll.
 
     Compute the Side-lobe level (SLL) of a beam using an elliptical mask.

@@ -227,7 +227,7 @@ def plot_sky_uv(
             fig.colorbar(im, ax=ax)
     ax.set_xlabel(r"$u$(k$\lambda$)")
     ax.set_ylabel(r"$v$(k$\lambda$)")
-    ax.set_title("Amplitude")
+    ax.set_title(title)
     if ax is None or fig is None:
         plt.show()
 
@@ -452,7 +452,10 @@ def plot_beam_and_fit(beam, fov_size, fit_result=None):  # pragma: no cover
     )
     ax[1].set_xlabel("(deg)")
     ax[1].plot(
-        [int(Npx // 2 - fit_result["width"]), int(Npx // 2 + fit_result["width"])],
+        [
+            int(Npx // 2 - fit_result["width"] / 2),
+            int(Npx // 2 + fit_result["width"] / 2),
+        ],
         [np.max(semi_major_beam) / 2, np.max(semi_major_beam) / 2],
         color="black",
         linestyle="--",
@@ -461,8 +464,8 @@ def plot_beam_and_fit(beam, fov_size, fit_result=None):  # pragma: no cover
     )
     ax[1].scatter(
         [
-            int(Npx // 2 - fit_result["width"] + 1),
-            int(Npx // 2 + fit_result["width"] + 1),
+            int(Npx // 2 - fit_result["width"] / 2 + 1),
+            int(Npx // 2 + fit_result["width"] / 2 + 1),
         ],
         [np.max(semi_major_beam) / 2, np.max(semi_major_beam) / 2],
         color="black",
@@ -481,7 +484,10 @@ def plot_beam_and_fit(beam, fov_size, fit_result=None):  # pragma: no cover
     )
     ax[2].set_xlabel("(deg)")
     ax[2].plot(
-        [int(Npx // 2 - fit_result["height"]), int(Npx // 2 + fit_result["height"])],
+        [
+            int(Npx // 2 - fit_result["height"] / 2),
+            int(Npx // 2 + fit_result["height"] / 2),
+        ],
         [np.max(semi_minor_beam) / 2, np.max(semi_minor_beam) / 2],
         color="black",
         linestyle="--",
@@ -490,8 +496,8 @@ def plot_beam_and_fit(beam, fov_size, fit_result=None):  # pragma: no cover
     )
     ax[2].scatter(
         [
-            int(Npx // 2 - fit_result["height"] + 1),
-            int(Npx // 2 + fit_result["height"] + 1),
+            int(Npx // 2 - fit_result["height"] / 2 + 1),
+            int(Npx // 2 + fit_result["height"] / 2 + 1),
         ],
         [np.max(semi_minor_beam) / 2, np.max(semi_minor_beam) / 2],
         color="black",
