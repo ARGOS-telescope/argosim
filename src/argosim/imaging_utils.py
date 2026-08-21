@@ -24,6 +24,26 @@ from jax import jit
 from argosim.rand_utils import local_seed
 
 
+def _as_fov_tuple(fov_size):
+    """Normalise a field of view to a ``(fov_y, fov_x)`` tuple.
+
+    Accepts either a scalar (applied to both axes, square field) or a
+    ``(fov_y, fov_x)`` pair, so every field-of-view argument can be given in
+    either form.
+
+    Parameters
+    ----------
+    fov_size : float or tuple
+        Field of view in degrees, scalar or ``(fov_y, fov_x)``.
+
+    Returns
+    -------
+    tuple
+        ``(fov_y, fov_x)``.
+    """
+    return (fov_size, fov_size) if np.isscalar(fov_size) else tuple(fov_size)
+
+
 # ---------------------------------------------------------------------------
 # Fourier transforms
 # ---------------------------------------------------------------------------
@@ -143,8 +163,8 @@ def scale_uv_samples_continuous(uv_samples, sky_uv_shape, fov_size):
         UV samples in wavelengths, shape ``(n_vis, 3)``.
     sky_uv_shape : tuple
         Shape of the UV grid ``(ny, nx)``.
-    fov_size : tuple
-        Field of view in degrees ``(fov_y, fov_x)``.
+    fov_size : float or tuple
+        Field of view in degrees, scalar or ``(fov_y, fov_x)``.
 
     Returns
     -------
@@ -152,6 +172,7 @@ def scale_uv_samples_continuous(uv_samples, sky_uv_shape, fov_size):
         Continuous pixel coordinates ``(u, v)`` for each visibility,
         shape ``(n_vis, 2)``.
     """
+    fov_size = _as_fov_tuple(fov_size)
     max_u = (180 / jnp.pi) * sky_uv_shape[0] / (2 * fov_size[0])
     max_v = (180 / jnp.pi) * sky_uv_shape[1] / (2 * fov_size[1])
     uv_px = (
@@ -492,6 +513,7 @@ def simulate_dirty_observation(
     W = kernel_support
     beta = 2.34 * W if beta is None else beta
     factor = oversampling
+    fov_y, fov_x = _as_fov_tuple(fov_size)
 
     def _simulate_single(sky_obs, track_f):
         """Pad -> grid -> correct -> crop for a single sky/track pair."""
@@ -505,7 +527,7 @@ def simulate_dirty_observation(
         sky_pad = jnp.zeros((ny_p, nx_p), dtype=jnp.asarray(sky_obs).dtype)
         sky_pad = sky_pad.at[py0 : py0 + ny, px0 : px0 + nx].set(jnp.asarray(sky_obs))
         grid_shape = (ny_p, nx_p)
-        fov_os = (fov_size * ny_p / ny, fov_size * nx_p / nx)
+        fov_os = (fov_y * ny_p / ny, fov_x * nx_p / nx)
         corr = kb_correction(grid_shape, W, beta)
 
         # Transform to uv domain. Pre-multiply the model by the KB correction:
@@ -519,10 +541,8 @@ def simulate_dirty_observation(
         # Bounds check at native resolution: oversampling scales the grid and
         # the sample deviations together, so it never changes the coverage. This
         # keeps the reported Npix / max-FoV in the user's (un-padded) terms.
-        uv_px_native = scale_uv_samples_continuous(
-            track_f, (ny, nx), (fov_size, fov_size)
-        )
-        check_uv_in_grid(uv_px_native, (ny, nx), fov_size, on_out_of_bounds)
+        uv_px_native = scale_uv_samples_continuous(track_f, (ny, nx), (fov_y, fov_x))
+        check_uv_in_grid(uv_px_native, (ny, nx), (fov_y, fov_x), on_out_of_bounds)
         # Per-visibility weights from the native-grid sample counts (decoupled
         # from the KB kernel / oversampling).
         w_vis = _visibility_weights(uv_px_native, (ny, nx), weighting)
@@ -556,7 +576,7 @@ def simulate_dirty_observation(
         for f_, track_f in zip(freqs, track):
             # Apply beam to the sky
             if beam is not None:
-                beam.set_fov(fov_size)
+                beam.set_fov(fov_x)
                 beam.set_f(f_ / 1e9)
                 sky_obs = sky * beam.get_beam()
             else:
@@ -594,14 +614,15 @@ def scale_uv_samples(uv_samples, sky_uv_shape, fov_size):
         The uv samples coordinates in meters.
     sky_uv_shape : tuple
         The shape of the sky model in pixels.
-    fov_size : tuple
-        The field of view size in degrees.
+    fov_size : float or tuple
+        The field of view size in degrees, scalar or ``(fov_y, fov_x)``.
 
     Returns
     -------
     uv_samples_indices : np.ndarray
         The indices of the uv samples in pixel coordinates.
     """
+    fov_size = _as_fov_tuple(fov_size)
     max_u = (180 / jnp.pi) * sky_uv_shape[0] / (2 * fov_size[0])
     max_v = (180 / jnp.pi) * sky_uv_shape[1] / (2 * fov_size[1])
     uv_samples_indices = (
@@ -626,9 +647,10 @@ def check_uv_samples_range(uv_samples_indices, uv_samples, sky_uv_shape, fov_siz
         The shape of the sky model in pixels.
     uv_samples : np.ndarray
         The uv samples coordinates in meters.
-    fov_size : tuple
-        The field of view size in degrees.
+    fov_size : float or tuple
+        The field of view size in degrees, scalar or ``(fov_y, fov_x)``.
     """
+    fov_size = _as_fov_tuple(fov_size)
     sky_uv_shape_array = jnp.array(sky_uv_shape)
     if jnp.any(sky_uv_shape_array <= jnp.max(uv_samples_indices, axis=0)):
         max_uv = jnp.max(jnp.abs(uv_samples[:, :2]), axis=0)
@@ -762,8 +784,8 @@ def simulate_dirty_observation_nn(
         The sky model image.
     track : np.ndarray
         The uv sampling points.
-    fov_size : float
-        The field of view size in degrees.
+    fov_size : float or tuple
+        The field of view size in degrees, scalar or ``(fov_y, fov_x)``.
     multi_band : bool
         If True, simulate a multi-band observation.
     freqs : list
@@ -795,13 +817,14 @@ def simulate_dirty_observation_nn(
         raise ValueError(
             f"Invalid weighting {weighting!r}. Choose 'natural' or 'uniform'."
         )
+    fov_y, fov_x = _as_fov_tuple(fov_size)
 
     def _simulate_single(sky_obs, track_f):
         """Sample the sky FFT on the NN mask, add per-cell noise, invert."""
         ny, nx = sky_obs.shape
         sky_uv = sky2uv(jnp.asarray(sky_obs))
         uv_mask, _ = grid_uv_samples(
-            track_f, (ny, nx), (fov_size, fov_size), mask_type=mask_type
+            track_f, (ny, nx), (fov_y, fov_x), mask_type=mask_type
         )
         vis = compute_visibilities_grid(sky_uv, uv_mask)
         vis = _add_cell_noise(vis, uv_mask, sigma, seed=seed)
@@ -818,7 +841,7 @@ def simulate_dirty_observation_nn(
         for f_, track_f in zip(freqs, track):
             # Apply beam to the sky
             if beam is not None:
-                beam.set_fov(fov_size)
+                beam.set_fov(fov_x)
                 beam.set_f(f_ / 1e9)
                 sky_obs = sky * beam.get_beam()
             else:
@@ -861,8 +884,8 @@ def grid_sampling_function(
     ----------
     track : np.ndarray
         The uv sampling points, shape ``(n_vis, 3)``.
-    fov_size : float
-        Field of view in degrees.
+    fov_size : float or tuple
+        Field of view in degrees, scalar or ``(fov_y, fov_x)``.
     npix : int
         Number of pixels per side of the native image / uv grid.
     method : {"kb", "nn"}
@@ -885,6 +908,7 @@ def grid_sampling_function(
     dirty_beam : jnp.ndarray
         The dirty beam (impulse response), shape ``(npix, npix)``.
     """
+    fov_y, fov_x = _as_fov_tuple(fov_size)
     if method == "nn":
         mask_type = {"natural": "histogram", "uniform": "binary"}.get(weighting)
         if mask_type is None:
@@ -892,7 +916,7 @@ def grid_sampling_function(
                 f"Invalid weighting {weighting!r}. Choose 'natural' or 'uniform'."
             )
         uv_grid, _ = grid_uv_samples(
-            track, (npix, npix), (fov_size, fov_size), mask_type=mask_type
+            track, (npix, npix), (fov_y, fov_x), mask_type=mask_type
         )
         dirty_beam = uv2sky(uv_grid)
         return uv_grid, dirty_beam / dirty_beam[npix // 2, npix // 2]
@@ -902,11 +926,9 @@ def grid_sampling_function(
         n_os = int(round(oversampling * npix))
         p0 = (n_os - npix) // 2
         grid_shape = (n_os, n_os)
-        fov_os = (fov_size * n_os / npix, fov_size * n_os / npix)
+        fov_os = (fov_y * n_os / npix, fov_x * n_os / npix)
         uv_px = scale_uv_samples_continuous(track, grid_shape, fov_os)
-        uv_px_native = scale_uv_samples_continuous(
-            track, (npix, npix), (fov_size, fov_size)
-        )
+        uv_px_native = scale_uv_samples_continuous(track, (npix, npix), (fov_y, fov_x))
         w_vis = _visibility_weights(uv_px_native, (npix, npix), weighting)
         uv_grid = grid_visibilities_conv(
             w_vis * jnp.ones(uv_px.shape[0], dtype=complex),

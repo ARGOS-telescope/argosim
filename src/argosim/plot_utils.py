@@ -14,6 +14,7 @@ from matplotlib.patches import Ellipse
 from skimage.transform import rotate
 
 from argosim import metrics_utils
+from argosim.imaging_utils import _as_fov_tuple
 
 
 def plot_antenna_arr(
@@ -149,6 +150,7 @@ def plot_sky(
     """
     if ax == None or fig == None:
         fig, ax = plt.subplots(1, 1)
+    fov_size = _as_fov_tuple(fov_size)
     im = ax.imshow(
         image,
         extent=[-fov_size[0] / 2, fov_size[0] / 2, -fov_size[1] / 2, fov_size[1] / 2],
@@ -194,6 +196,7 @@ def plot_sky_uv(
     -------
     None
     """
+    fov_size = _as_fov_tuple(fov_size)
     max_u = (180 / np.pi) * image_uv.shape[0] / (2 * fov_size[0]) / 1000
     max_v = (180 / np.pi) * image_uv.shape[1] / (2 * fov_size[1]) / 1000
 
@@ -376,6 +379,7 @@ def plot_beam_and_fit(beam, fov_size, fit_result=None):  # pragma: no cover
     """
     if fit_result is None:
         fit_result = metrics_utils.fit_elliptical_beam(beam)
+    fov_size = _as_fov_tuple(fov_size)
     Npx = beam.shape[0]
     # Beam fit ellipse
     ellipse = Ellipse(
@@ -519,34 +523,35 @@ def plot_sidelobes(beam, fov_size):
     ----------
     beam : np.ndarray
         2D beam image.
-    fov_size : float
-        The field of view size in degrees.
+    fov_size : float or tuple
+        The field of view size in degrees, scalar or ``(fov_y, fov_x)``.
 
     Returns
     -------
     None
     """
+    fov_size = _as_fov_tuple(fov_size)
     main_lobe_mask = metrics_utils._main_lobe_mask_np(beam)
     fig, ax = plt.subplots(1, 3, figsize=(20, 5))
     plot_sky(
         main_lobe_mask,
         fig=fig,
         ax=ax[0],
-        fov_size=(fov_size, fov_size),
+        fov_size=fov_size,
         title="Main Lobe Mask",
     )
     plot_sky(
         beam * main_lobe_mask,
         fig=fig,
         ax=ax[1],
-        fov_size=(fov_size, fov_size),
+        fov_size=fov_size,
         title="Main Lobe",
     )
     plot_sky(
         beam * (1 - main_lobe_mask),
         fig=fig,
         ax=ax[2],
-        fov_size=(fov_size, fov_size),
+        fov_size=fov_size,
         title="Side Lobes",
     )
     sidelobe_peak_px = np.array(
