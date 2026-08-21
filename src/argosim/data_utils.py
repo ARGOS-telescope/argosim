@@ -126,7 +126,7 @@ def random_source(shape, pix_size, seed=None):
 
 
 def n_source_sky(
-    shape_px, fov, deg_size_list, source_intensity_list, seed=None, norm="none"
+    shape_px, fov, deg_size_list, source_intensity_list, seed=None, norm="flux"
 ):
     """N source sky.
 
