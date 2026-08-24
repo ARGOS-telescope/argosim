@@ -51,17 +51,10 @@ deg_size_list = np.array([0.1, 0.05, 0.05, 0.03, 0.03, 0.02, 0.02])
 source_intensity_list = [1] * len(deg_size_list)
 sky = n_source_sky((Npx, Npx), fov_size[0], deg_size_list, source_intensity_list)
 # plot_sky(sky, fov_size)
-sky_uv = sky2uv(sky)
-# plot_sky_uv(sky_uv, fov_size)
-uv_mask, uv_sample_indices = grid_uv_samples(track, sky_uv.shape, fov_size)
-# plot_sky_uv(uv_mask, fov_size)
-vis = compute_visibilities_grid(sky_uv, uv_mask)
-# Add noise
-vis = add_noise_uv(vis, uv_mask, sigma=0.2)
-# plot_sky_uv(vis, fov_size)
 
-obs = uv2sky(vis)
-beam = uv2sky(uv_mask)
+# Simulate the dirty observation with Kaiser-Bessel convolutional gridding.
+# sigma is the per-visibility noise std (in flux units).
+obs, beam = simulate_dirty_observation(sky, track, fov_size[0], sigma=0.2)
 
 fig, ax = plt.subplots(1, 3, figsize=(18, 5))
 plot_sky(sky, fov_size, ax[0], fig, "Sky")
