@@ -33,11 +33,7 @@ class TestMetricsUtils:
     fit_beam_decimal = 10
     fit_beam_decimal_center = 0
 
-    beam_mask_path = "src/argosim/tests/data/dirty_beam_masked.npy"
-    beam_mask_decimal = 10
-
     beam_metrics_expect = {
-        "sll_db": -4.127083541527568,
         "fwhm": (17.084378257616556, 5.548935593187696),
         "eccentricity": 0.9457841398924928,
     }
@@ -135,27 +131,17 @@ class TestMetricsUtils:
                 err_msg=f"{key} of fitted beam does not match expected value.",
             )
 
-    def test_mask_main_lobe_elliptical(self):
-        beam_mask_expect = np.load(self.beam_mask_path)
+    def test_beam_psl(self):
         beam = np.load(self.beam_path)
-        fit_beam_out = amu.fit_elliptical_beam(beam)
-        beam_mask_out = amu.mask_main_lobe_elliptical(beam, fit_beam_out)
-        npt.assert_almost_equal(
-            beam_mask_out,
-            beam_mask_expect,
-            decimal=self.beam_mask_decimal,
-            err_msg="Masked beam does not match expected value.",
-        )
+        psl_db = float(amu.beam_psl(beam))
+        # Main lobe holds the global peak, so the peak sidelobe level is <= 0 dB.
+        assert np.isfinite(psl_db), "PSL should be a finite value."
+        assert psl_db <= 0.0, "PSL should be non-positive (main lobe is the peak)."
 
-    def test_compute_sll(self):
+    def test_beam_isl(self):
         beam = np.load(self.beam_path)
-        beam_sll_out = amu.compute_sll(beam)
-        npt.assert_almost_equal(
-            beam_sll_out,
-            self.beam_metrics_expect["sll_db"],
-            decimal=self.beam_metrics_decimal,
-            err_msg="SLL of fitted beam does not match expected value.",
-        )
+        isl_db = float(amu.beam_isl(beam))
+        assert np.isfinite(isl_db), "ISL should be a finite value."
 
     def test_compute_fwhm(self):
         beam = np.load(self.beam_path)
@@ -181,10 +167,17 @@ class TestMetricsUtils:
         beam = np.load(self.beam_path)
         beam_metrics_out = amu.compute_beam_metrics(beam)
 
-        for key in ["sll_db", "fwhm", "eccentricity"]:
+        # FWHM and eccentricity come from the (deterministic) elliptical fit.
+        for key in ["fwhm", "eccentricity"]:
             npt.assert_almost_equal(
                 beam_metrics_out[key],
                 self.beam_metrics_expect[key],
                 decimal=self.beam_metrics_decimal,
                 err_msg=f"{key} of fitted beam does not match expected value.",
             )
+
+        # PSL / ISL validated by properties (the watershed metrics are compared
+        # against the stale .npy fixture only by property, not golden value).
+        assert np.isfinite(beam_metrics_out["psl_db"])
+        assert np.isfinite(beam_metrics_out["isl_db"])
+        assert beam_metrics_out["psl_db"] <= 0.0
