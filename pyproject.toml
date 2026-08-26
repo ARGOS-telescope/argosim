@@ -43,6 +43,14 @@ test = [
 gui = [
     "pyQt6"
 ]
+# NVIDIA GPU (CUDA 12) support: pulls the matching jaxlib + CUDA plugin as one
+# set, so jax / jaxlib / jax-cuda12-plugin versions stay aligned. Requires an
+# NVIDIA GPU with a CUDA 12-capable driver. Install with: pip install "argosim[cuda12]"
+cuda12 = [
+    "jax[cuda12]>=0.4"
+]
+# Alias
+gpu = ["argosim[cuda12]"]
 dev = ["argosim[doc,lint,release,test,gui]"]
 
 [tool.pytest.ini_options]
