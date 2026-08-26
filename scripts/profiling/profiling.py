@@ -35,13 +35,12 @@ import jax
 from io import StringIO
 import matplotlib.pyplot as plt
 
-# Import your radio interferometry package
+# Import argosim
 import argosim
 import argosim.antenna_utils
 import argosim.data_utils
 import argosim.imaging_utils
-import argosim.metrics_utils
-import argosim.plot_utils  # Replace with actual package name
+import argosim.plot_utils 
 
 # Pure-NumPy port of uv-tracking + KB imaging (only used for --backend numpy).
 import profiling_numpy as pnp
@@ -141,8 +140,6 @@ if __name__ == "__main__":
     track = profile_function(test_tracking, antenna=antenna, track_time=args.track_time, n_times=args.n_times, n_freqs=args.n_freqs, tag=run_tag)
     # KB-gridded uv coverage (native resolution for the plot: oversampling=1).
     uv_grid, _ = argosim.imaging_utils.grid_sampling_function(track, fov_deg, Npx, method='kb', oversampling=1)
-    # Log scale: the coverage occupies thin arcs among mostly-empty cells, so a
-    # linear image looks almost entirely black.
     fig, ax = plt.subplots()
     argosim.plot_utils.plot_sky_uv(uv_grid, (fov_deg, fov_deg), ax=ax, fig=fig, scale='log', cbar=True, title='uv coverage')
     # plt.show()
@@ -153,7 +150,7 @@ if __name__ == "__main__":
     sky, dirty_beam, obs = profile_function(test_vis_sampling, track=track, Npx=Npx, fov_deg=fov_deg, source_size_deg=source_size_deg, sigma=sigma, tag=run_tag)
 
     # Crop for plotting: n_source_sky places the source at a random position,
-    # so crop around the source (sky peak) rather than the image centre.
+    # crop around the source (sky peak) rather than the image centre.
     crop_scale = .1
     hw = int(Npx * crop_scale / 2)  # half-window in pixels
 
