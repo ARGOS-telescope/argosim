@@ -1,11 +1,10 @@
+import jax
+import jax.numpy as jnp
 import numpy as np
 import numpy.testing as npt
 
-import jax
-import jax.numpy as jnp
-
-import argosim.optim_utils as aou
 import argosim.antenna_utils as aau
+import argosim.optim_utils as aou
 
 
 class TestOptimUtils:
@@ -49,12 +48,12 @@ class TestOptimUtils:
             np.load(self.beam_expected_path),
             decimal=self.decimal_beam,
             err_msg="Antenna to beam conversion failed. The resulting beam does not match the expected output.",
-    )
+        )
 
     def test_beam_mse_loss(self):
         beam1 = np.load(self.beam_expected_path)
         beam2 = np.load(self.complementary_beam_path)
-        loss = aou.beam_mse_loss(beam1,beam2)
+        loss = aou.beam_mse_loss(beam1, beam2)
         npt.assert_almost_equal(
             loss,
             self.loss_expected,
@@ -93,25 +92,36 @@ class TestOptimUtils:
     def test_optimise_array(self):
         antenna_init = aau.y_antenna_arr(10, r=1.5e3)
         config = aou.ObservationConfig(
-            npx=256, fov=0.03,
-            lat=35.0/180*np.pi, dec=32.0/180*np.pi,
-            freq=2.0e9, bw=1.0e9, n_freqs=1, n_times=20,
-            track_h=1., t_0=1.0, kernel_W=7
+            npx=256,
+            fov=0.03,
+            lat=35.0 / 180 * np.pi,
+            dec=32.0 / 180 * np.pi,
+            freq=2.0e9,
+            bw=1.0e9,
+            n_freqs=1,
+            n_times=20,
+            track_h=1.0,
+            t_0=1.0,
+            kernel_W=7,
         )
         forward_fn = lambda antenna_: aou.antenna_to_beam(antenna_, config)
         target_beam = jnp.load(self.optim_target_beam_path)
         constraints = [
-            aou.Constraint('spacing',  lambda a: aou.spacing_penalty(a, 1), weight=1e-4),
-            aou.Constraint('radius',   lambda a: aou.radius_penalty(a, 10e3), weight=1e-6),
-            aou.Constraint('centroid', aou.centroid_penalty, weight=1e-7),
+            aou.Constraint("spacing", lambda a: aou.spacing_penalty(a, 1), weight=1e-4),
+            aou.Constraint(
+                "radius", lambda a: aou.radius_penalty(a, 10e3), weight=1e-6
+            ),
+            aou.Constraint("centroid", aou.centroid_penalty, weight=1e-7),
         ]
         loss_fn = aou.make_loss_fn(
             forward_fn=forward_fn,
             target_loss_fn=lambda beam_: aou.beam_mse_loss(beam_, target_beam),
             constraints=constraints,
         )
-        schedule = aou.exp_decay_schedule(init_lr=8.0, end_lr=4.0, transition_steps=500, decay_rate=0.7)
-        optimizer = aou.make_optimizer('adam', lr=schedule)
+        schedule = aou.exp_decay_schedule(
+            init_lr=8.0, end_lr=4.0, transition_steps=500, decay_rate=0.7
+        )
+        optimizer = aou.make_optimizer("adam", lr=schedule)
         n_steps = 1000
         snapshot_steps = [5, 10, 20, 50, 100, 200, 500, 990]
 
@@ -128,8 +138,8 @@ class TestOptimUtils:
         result_expected = np.load(self.optim_result_path, allow_pickle=True).item()
 
         npt.assert_array_almost_equal(
-            result['antenna'],
-            result_expected['antenna'],
+            result["antenna"],
+            result_expected["antenna"],
             decimal=5,
             err_msg="Optimisation result does not match the expected output.",
         )

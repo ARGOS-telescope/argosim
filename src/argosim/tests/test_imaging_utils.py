@@ -47,11 +47,17 @@ class TestImagingUtils:
     KB_correction_shape = (128, 128)
     KB_correction_result_path = "src/argosim/tests/data/kb_correction_result.npy"
 
-    continuous_scaling_result_path = "src/argosim/tests/data/continuous_scaling_result.npy"
+    continuous_scaling_result_path = (
+        "src/argosim/tests/data/continuous_scaling_result.npy"
+    )
 
-    gridded_visibilities_conv_result_path = "src/argosim/tests/data/conv_gridded_result.npy"
+    gridded_visibilities_conv_result_path = (
+        "src/argosim/tests/data/conv_gridded_result.npy"
+    )
 
-    degridded_visibilities_conv_result_path = "src/argosim/tests/data/conv_degridded_result.npy"
+    degridded_visibilities_conv_result_path = (
+        "src/argosim/tests/data/conv_degridded_result.npy"
+    )
 
     uniform_w_expected_path = "src/argosim/tests/data/conv_vis_weights_uniform.npy"
 
@@ -235,7 +241,9 @@ class TestImagingUtils:
     def test_grid_visibilities_conv(self):
         uv_px = np.load(self.continuous_scaling_result_path)
         vis = np.ones(uv_px.shape[0], dtype=np.complex64)
-        result_grid = aiu.grid_visibilities_conv(vis, uv_px, (128, 128), self.KB_W, self.KB_beta)
+        result_grid = aiu.grid_visibilities_conv(
+            vis, uv_px, (128, 128), self.KB_W, self.KB_beta
+        )
         result_expected = np.load(self.gridded_visibilities_conv_result_path)
         npt.assert_array_almost_equal(
             result_grid,
@@ -247,7 +255,9 @@ class TestImagingUtils:
     def test_degrid_visibilities_conv(self):
         sky_uv = np.load(self.gridded_visibilities_conv_result_path)
         scaling_result = np.load(self.continuous_scaling_result_path)
-        result_degridded = aiu.degrid_visibilities_conv(sky_uv, scaling_result, (128, 128), self.KB_W, self.KB_beta)
+        result_degridded = aiu.degrid_visibilities_conv(
+            sky_uv, scaling_result, (128, 128), self.KB_W, self.KB_beta
+        )
         result_expected = np.load(self.degridded_visibilities_conv_result_path)
         npt.assert_array_almost_equal(
             result_degridded,
@@ -260,7 +270,9 @@ class TestImagingUtils:
 
         scaling_result = np.load(self.continuous_scaling_result_path)
 
-        uniform_w_result = aiu._visibility_weights(scaling_result, (128, 128), "uniform")
+        uniform_w_result = aiu._visibility_weights(
+            scaling_result, (128, 128), "uniform"
+        )
         uniform_w_expected = np.load(self.uniform_w_expected_path)
         npt.assert_array_almost_equal(
             uniform_w_result,
@@ -270,7 +282,9 @@ class TestImagingUtils:
         )
 
         # Under natural weighting, all weights should be 1.0
-        natural_w_result_true =(aiu._visibility_weights(scaling_result, (128, 128), "natural") == 1.).all()
+        natural_w_result_true = (
+            aiu._visibility_weights(scaling_result, (128, 128), "natural") == 1.0
+        ).all()
         npt.assert_equal(
             natural_w_result_true,
             np.array(True),
