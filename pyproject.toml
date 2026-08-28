@@ -36,7 +36,7 @@ release = [
     "twine",
 ]
 test = [
-  "pytest",
+  "pytest<8.1",
   "pytest-cov",
   "pytest-pydocstyle",
 ]
