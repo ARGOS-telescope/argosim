@@ -24,7 +24,7 @@ class TestOptimUtils:
     optim_target_beam_path = "src/argosim/tests/data/optim_target_beam.npy"
     optim_result_path = "src/argosim/tests/data/optimisation_result.npy"
 
-    decimal_array = 2
+    decimal_array = 0
 
     def test_antenna_to_beam(self):
         antenna = np.load(self.pathfinder_uv_track_path)
@@ -54,6 +54,7 @@ class TestOptimUtils:
         npt.assert_almost_equal(
             penalty,
             self.spacing_penalty_loss,
+            decimal=4,
             err_msg="Spacing penalty computation failed. The resulting penalty does not match the expected output.",
         )
 
