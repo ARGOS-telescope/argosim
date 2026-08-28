@@ -514,7 +514,7 @@ def plot_beam_and_fit(beam, fov_size, fit_result=None):  # pragma: no cover
     plt.show()
 
 
-def plot_sidelobes(beam, fov_size):
+def plot_sidelobes(beam, fov_size): # pragma: no cover
     """Plot sidelobes.
 
     Plot the main lobe and sidelobes segmentation of the beam using the watershed algorithm.
