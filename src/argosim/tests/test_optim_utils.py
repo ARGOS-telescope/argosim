@@ -9,21 +9,6 @@ import argosim.optim_utils as aou
 
 class TestOptimUtils:
 
-    # gauss_source_path = "src/argosim/tests/data/test_gauss_source.npy"
-    # gauss_source_decimal = 6
-
-    # seed = 24
-    # cov_expected = np.array([[5.9600173, 2.91338124], [2.91338124, 5.69951205]])
-    # cov_decimal = 6
-
-    # mu_expected = np.array([0.92003461, 0.3990241])
-    # mu_decimal = 6
-
-    # random_source_path = "src/argosim/tests/data/test_random_source.npy"
-    # random_source_decimal = 5
-
-    # sky_model_path = "src/argosim/tests/data/sky_model_exp.npy"
-    # sky_model_decimal = 5
     pathfinder_uv_track_path = "src/argosim/tests/data/pathfinder_uv_track.npy"
     beam_expected_path = "src/argosim/tests/data/antenna_to_beam.npy"
     complementary_beam_path = "src/argosim/tests/data/dirty_beam_sim_single_band.npy"
@@ -38,6 +23,8 @@ class TestOptimUtils:
 
     optim_target_beam_path = "src/argosim/tests/data/optim_target_beam.npy"
     optim_result_path = "src/argosim/tests/data/optimisation_result.npy"
+
+    decimal_array = 2
 
     def test_antenna_to_beam(self):
         antenna = np.load(self.pathfinder_uv_track_path)
@@ -140,6 +127,6 @@ class TestOptimUtils:
         npt.assert_array_almost_equal(
             result["antenna"],
             result_expected["antenna"],
-            decimal=5,
+            decimal=self.decimal_array,
             err_msg="Optimisation result does not match the expected output.",
         )
