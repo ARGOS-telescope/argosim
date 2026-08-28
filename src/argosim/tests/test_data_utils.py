@@ -63,7 +63,7 @@ class TestDataUtils:
     def test_n_source_sky(self):
         sky_model_expected = np.load(self.sky_model_path)
         sky_model_out = adu.n_source_sky(
-            (256, 256), 1.0, [0.01, 0.02, 0.03], [0.4, 0.3, 0.3], seed=332, norm="none"
+            (256, 256), 1.0, [0.01, 0.02, 0.03], [0.4, 0.3, 0.3], seed=332
         )
         npt.assert_almost_equal(
             sky_model_out,

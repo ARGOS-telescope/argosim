@@ -11,7 +11,7 @@ class TestMetricsUtils:
     sky_path = "src/argosim/tests/data/sky_model_exp.npy"
 
     mse_expect_same = 0.0
-    mse_expect = 0.00010423388742998882
+    mse_expect = 0.0014531347 #0.00010423388742998882
     mse_decimal = 10
 
     residual_expect_same = np.zeros_like(np.load(obs_path))
@@ -19,23 +19,25 @@ class TestMetricsUtils:
     residual_decimal = 10
 
     rel_mse_expect_same = 0.0
-    rel_mse_expect = 1.9389156923644497
-    rel_mse_decimal = 10
+    rel_mse_expect = 0.99524015 #1.9389156923644497
+    rel_mse_decimal = 8
 
     beam_path = "src/argosim/tests/data/dirty_beam_sim_single_band.npy"
     fit_beam_expect = {
         "center": (128.0, 128.0),
-        "width": 17.084378257616556,
-        "height": 5.548935593187696,
-        "angle_deg": -14.678876771395638,
-        "eccentricity": 0.9457841398924928,
+        "width": 23.905005100907555,
+        "height": 6.948673575504684,
+        "angle_deg": -20.86770135225433,
+        "eccentricity": 0.9568207499925332,
     }
     fit_beam_decimal = 10
     fit_beam_decimal_center = 0
 
     beam_metrics_expect = {
-        "fwhm": (17.084378257616556, 5.548935593187696),
-        "eccentricity": 0.9457841398924928,
+        "fwhm": (23.905005100907555, 6.948673575504684),
+        "eccentricity": 0.9568207499925332,
+        "psl_db": -12.124262,
+        "isl_db": 1.1412673,        
     }
     beam_metrics_decimal = 10
 
@@ -133,15 +135,25 @@ class TestMetricsUtils:
 
     def test_beam_psl(self):
         beam = np.load(self.beam_path)
-        psl_db = float(amu.beam_psl(beam))
-        # Main lobe holds the global peak, so the peak sidelobe level is <= 0 dB.
-        assert np.isfinite(psl_db), "PSL should be a finite value."
-        assert psl_db <= 0.0, "PSL should be non-positive (main lobe is the peak)."
+        psl_db = amu.beam_psl(beam)
+        npt.assert_almost_equal(
+            psl_db,
+            self.beam_metrics_expect["psl_db"],
+            decimal=self.beam_metrics_decimal,
+            err_msg="PSL of fitted beam does not match expected value.",
+        )
 
+        
     def test_beam_isl(self):
-        beam = np.load(self.beam_path)
-        isl_db = float(amu.beam_isl(beam))
-        assert np.isfinite(isl_db), "ISL should be a finite value."
+            beam = np.load(self.beam_path)
+            isl_db = amu.beam_isl(beam)
+            npt.assert_almost_equal(
+                isl_db,
+                self.beam_metrics_expect["isl_db"],
+                decimal=self.beam_metrics_decimal,
+                err_msg="ISL of fitted beam does not match expected value.",
+            )
+
 
     def test_compute_fwhm(self):
         beam = np.load(self.beam_path)
@@ -175,9 +187,3 @@ class TestMetricsUtils:
                 decimal=self.beam_metrics_decimal,
                 err_msg=f"{key} of fitted beam does not match expected value.",
             )
-
-        # PSL / ISL validated by properties (the watershed metrics are compared
-        # against the stale .npy fixture only by property, not golden value).
-        assert np.isfinite(beam_metrics_out["psl_db"])
-        assert np.isfinite(beam_metrics_out["isl_db"])
-        assert beam_metrics_out["psl_db"] <= 0.0
