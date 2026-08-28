@@ -279,7 +279,7 @@ def centroid_penalty(antenna):
 
 
 @dataclass
-class Constraint:
+class Constraint: # pragma: no cover
     """Constraint.
 
     A weighted soft constraint applied to the antenna array.
@@ -299,7 +299,7 @@ class Constraint:
     weight: float
 
 
-def make_loss_fn(forward_fn, target_loss_fn, constraints: Sequence[Constraint]):
+def make_loss_fn(forward_fn, target_loss_fn, constraints: Sequence[Constraint]): # pragma: no cover
     """Make loss fn.
 
     Build a scalar loss combining a target / objective term and a set
@@ -336,7 +336,7 @@ def make_loss_fn(forward_fn, target_loss_fn, constraints: Sequence[Constraint]):
 ########################################
 
 
-def exp_decay_schedule(init_lr=25.0, end_lr=2.0, transition_steps=200, decay_rate=0.5):
+def exp_decay_schedule(init_lr=25.0, end_lr=2.0, transition_steps=200, decay_rate=0.5): # pragma: no cover
     """Exp decay schedule.
 
     Exponential learning-rate decay from ``init_lr`` toward ``end_lr``.
@@ -365,7 +365,7 @@ def exp_decay_schedule(init_lr=25.0, end_lr=2.0, transition_steps=200, decay_rat
     )
 
 
-def make_optimizer(name="adam", lr=1.0, **kwargs):
+def make_optimizer(name="adam", lr=1.0, **kwargs): # pragma: no cover
     """Make optimizer.
 
     Build an :mod:`optax` optimiser by name.

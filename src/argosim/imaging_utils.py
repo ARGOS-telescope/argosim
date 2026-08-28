@@ -107,9 +107,16 @@ def kaiser_bessel(x, W, beta):
     jnp.ndarray
         Kaiser-Bessel kernel values at ``x``. Evaluates to zero outside
         ``[-W/2, W/2]`` by the clip operation on the argument.
+
+    Notes
+    -----
+    The epsilon inside the square root keeps its argument strictly positive.
+    Without it ``sqrt`` has an infinite derivative at ``arg == 0`` (the support
+    edge ``|x| = W/2``, always hit by the gridding stencil), giving a NaN
+    gradient in single precision. The value change is negligible (~1e-12).
     """
     arg = jnp.clip(1.0 - (2.0 * x / W) ** 2, 0.0, None)
-    return jax.scipy.special.i0(beta * jnp.sqrt(arg)) / jax.scipy.special.i0(beta)
+    return jax.scipy.special.i0(beta * jnp.sqrt(arg + 1e-12)) / jax.scipy.special.i0(beta)
 
 
 def kb_correction(grid_shape, W, beta):
