@@ -37,7 +37,7 @@ class TestImagingUtils:
         "seed": 717,
         "freqs": [1.5e9],
     }
-    decimal_uv = 4
+    decimal = 4
 
     KB_W = 7
     KB_beta = 2.0
@@ -72,7 +72,7 @@ class TestImagingUtils:
         npt.assert_array_almost_equal(
             sky_uv,
             sky_uv_expected,
-            decimal=self.decimal_uv,
+            decimal=self.decimal,
             err_msg="Sky to UV conversion failed. The resulting UV image does not match the expected output.",
         )
 
@@ -211,7 +211,7 @@ class TestImagingUtils:
         npt.assert_almost_equal(
             result,
             self.KB_result,
-            decimal=6,
+            decimal=self.decimal,
             err_msg="Kaiser-Bessel function computation failed. The resulting value does not match the expected output.",
         )
 
@@ -221,7 +221,7 @@ class TestImagingUtils:
         npt.assert_array_almost_equal(
             result,
             expected_result,
-            decimal=6,
+            decimal=self.decimal,
             err_msg="Kaiser-Bessel correction computation failed. The resulting array does not match the expected output.",
         )
 
@@ -234,7 +234,7 @@ class TestImagingUtils:
         npt.assert_array_almost_equal(
             result,
             result_expected,
-            decimal=6,
+            decimal=self.decimal,
             err_msg="Continuous scaling of UV samples failed. The resulting array does not match the expected output.",
         )
 
@@ -248,7 +248,7 @@ class TestImagingUtils:
         npt.assert_array_almost_equal(
             result_grid,
             result_expected,
-            decimal=6,
+            decimal=self.decimal,
             err_msg="Convolutional gridding of visibilities failed. The resulting grid does not match the expected output.",
         )
 
@@ -262,7 +262,7 @@ class TestImagingUtils:
         npt.assert_array_almost_equal(
             result_degridded,
             result_expected,
-            decimal=6,
+            decimal=self.decimal,
             err_msg="Convolutional degridding of visibilities failed. The resulting array does not match the expected output.",
         )
 
@@ -277,7 +277,7 @@ class TestImagingUtils:
         npt.assert_array_almost_equal(
             uniform_w_result,
             uniform_w_expected,
-            decimal=6,
+            decimal=self.decimal,
             err_msg="Uniform weighting of visibilities failed. The resulting weights do not match the expected output.",
         )
 
@@ -298,6 +298,6 @@ class TestImagingUtils:
         npt.assert_array_almost_equal(
             noisy_vis_out,
             noisy_vis_expected,
-            decimal=6,
+            decimal=self.decimal,
             err_msg="Adding noise to visibilities failed. The resulting noisy visibilities do not match the expected output.",
         )
