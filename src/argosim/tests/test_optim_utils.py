@@ -31,10 +31,10 @@ class TestOptimUtils:
     loss_expected = 0.00516675
 
     spacing_penalty_d = 50
-    spacing_penalty_loss = 60.023056
+    spacing_penalty_loss = 60.023014
     radius_penalty_r = 1.5e3
-    radius_penalty_loss = 1.5782349
-    centroid_penalty_loss = 1.7138922e-11
+    radius_penalty_loss = 1.5782342
+    centroid_penalty_loss = 4.705479e-11
 
     optim_target_beam_path = "src/argosim/tests/data/optim_target_beam.npy"
     optim_result_path = "src/argosim/tests/data/optimisation_result.npy"

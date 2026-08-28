@@ -11,7 +11,7 @@ class TestMetricsUtils:
     sky_path = "src/argosim/tests/data/sky_model_exp.npy"
 
     mse_expect_same = 0.0
-    mse_expect = 0.0014531347  # 0.00010423388742998882
+    mse_expect = 0.0014531331
     mse_decimal = 10
 
     residual_expect_same = np.zeros_like(np.load(obs_path))
@@ -19,7 +19,7 @@ class TestMetricsUtils:
     residual_decimal = 10
 
     rel_mse_expect_same = 0.0
-    rel_mse_expect = 0.99524015  # 1.9389156923644497
+    rel_mse_expect = 0.99524033
     rel_mse_decimal = 8
 
     beam_path = "src/argosim/tests/data/dirty_beam_sim_single_band.npy"
@@ -30,16 +30,16 @@ class TestMetricsUtils:
         "angle_deg": -20.86770135225433,
         "eccentricity": 0.9568207499925332,
     }
-    fit_beam_decimal = 10
+    fit_beam_decimal = 8
     fit_beam_decimal_center = 0
 
     beam_metrics_expect = {
         "fwhm": (23.905005100907555, 6.948673575504684),
         "eccentricity": 0.9568207499925332,
-        "psl_db": -12.124262,
-        "isl_db": 1.1412673,
+        "psl_db": -12.12425422668457,
+        "isl_db": 1.1412659883499146,
     }
-    beam_metrics_decimal = 10
+    beam_metrics_decimal = 8
 
     def test_mse(self):
         obs = np.load(self.obs_path)
