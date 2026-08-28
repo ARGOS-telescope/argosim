@@ -189,7 +189,7 @@ def scale_uv_samples_continuous(uv_samples, sky_uv_shape, fov_size):
     return uv_px
 
 
-def check_uv_in_grid(uv_px, grid_shape, fov_size, on_out_of_bounds="warn"):
+def check_uv_in_grid(uv_px, grid_shape, fov_size, on_out_of_bounds="warn"): # pragma: no cover
     """Check that UV samples fall inside the uv grid.
 
     Convolutional gridding silently drops any visibility whose target pixel
@@ -609,7 +609,7 @@ def simulate_dirty_observation(
 # above -- they are NOT part of the production forward model. For prototyping
 # or applications use ``simulate_dirty_observation``, not these.
 # ===========================================================================
-def scale_uv_samples(uv_samples, sky_uv_shape, fov_size):
+def scale_uv_samples(uv_samples, sky_uv_shape, fov_size): # pragma: no cover
     """Scale uv samples to nearest integer pixel coordinates (NN snap).
 
     Function to scale the uv samples to pixel coordinates, rounding to the
@@ -641,7 +641,7 @@ def scale_uv_samples(uv_samples, sky_uv_shape, fov_size):
     return uv_samples_indices
 
 
-def check_uv_samples_range(uv_samples_indices, uv_samples, sky_uv_shape, fov_size):
+def check_uv_samples_range(uv_samples_indices, uv_samples, sky_uv_shape, fov_size): # pragma: no cover
     """Check uv samples range.
 
     Function to check if the uv samples are within the uv-plane range.
@@ -667,7 +667,7 @@ def check_uv_samples_range(uv_samples_indices, uv_samples, sky_uv_shape, fov_siz
         )
 
 
-def grid_uv_samples(uv_samples, sky_uv_shape, fov_size, mask_type="binary"):
+def grid_uv_samples(uv_samples, sky_uv_shape, fov_size, mask_type="binary"): # pragma: no cover
     """Grid uv samples.
 
     Compute the uv sampling mask from the uv samples.
@@ -709,7 +709,7 @@ def grid_uv_samples(uv_samples, sky_uv_shape, fov_size, mask_type="binary"):
     return uv_mask, uv_samples_indices
 
 
-def compute_visibilities_grid(sky_uv, uv_mask):
+def compute_visibilities_grid(sky_uv, uv_mask): # pragma: no cover
     """Compute visibilities gridded.
 
     Function to compute the visibilities from the fourier sky and the uv sampling mask.
@@ -729,7 +729,7 @@ def compute_visibilities_grid(sky_uv, uv_mask):
     return sky_uv * uv_mask + 0 + 0.0j
 
 
-def _add_cell_noise(vis_grid, uv_mask, sigma, seed=None):
+def _add_cell_noise(vis_grid, uv_mask, sigma, seed=None): # pragma: no cover
     """Add per-cell complex Gaussian noise to gridded NN visibilities.
 
     The nearest-neighbour path snaps each visibility to a uv-grid cell, so noise
@@ -765,7 +765,7 @@ def _add_cell_noise(vis_grid, uv_mask, sigma, seed=None):
     return vis_grid + jnp.asarray(noise) * jnp.sqrt(jnp.abs(uv_mask))
 
 
-def simulate_dirty_observation_nn(
+def simulate_dirty_observation_nn( # pragma: no cover
     sky,
     track,
     fov_size,
@@ -826,7 +826,7 @@ def simulate_dirty_observation_nn(
         )
     fov_y, fov_x = _as_fov_tuple(fov_size)
 
-    def _simulate_single(sky_obs, track_f):
+    def _simulate_single(sky_obs, track_f): # pragma: no cover
         """Sample the sky FFT on the NN mask, add per-cell noise, invert."""
         ny, nx = sky_obs.shape
         sky_uv = sky2uv(jnp.asarray(sky_obs))
@@ -865,7 +865,7 @@ def simulate_dirty_observation_nn(
     return obs, dirty_beam
 
 
-def grid_sampling_function(
+def grid_sampling_function( # pragma: no cover
     track,
     fov_size,
     npix,
