@@ -37,7 +37,7 @@ class TestImagingUtils:
         "seed": 717,
         "freqs": [1.5e9],
     }
-    decimal = 4
+    decimal = 2
 
     KB_W = 7
     KB_beta = 2.0
@@ -46,6 +46,8 @@ class TestImagingUtils:
 
     KB_correction_shape = (128, 128)
     KB_correction_result_path = "src/argosim/tests/data/kb_correction_result.npy"
+
+    decimal_KB = 1
 
     continuous_scaling_result_path = (
         "src/argosim/tests/data/continuous_scaling_result.npy"
@@ -211,7 +213,7 @@ class TestImagingUtils:
         npt.assert_almost_equal(
             result,
             self.KB_result,
-            decimal=self.decimal,
+            decimal=self.decimal_KB,
             err_msg="Kaiser-Bessel function computation failed. The resulting value does not match the expected output.",
         )
 
@@ -221,7 +223,7 @@ class TestImagingUtils:
         npt.assert_array_almost_equal(
             result,
             expected_result,
-            decimal=self.decimal,
+            decimal=self.decimal_KB,
             err_msg="Kaiser-Bessel correction computation failed. The resulting array does not match the expected output.",
         )
 

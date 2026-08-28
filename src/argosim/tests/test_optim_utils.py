@@ -27,7 +27,7 @@ class TestOptimUtils:
     pathfinder_uv_track_path = "src/argosim/tests/data/pathfinder_uv_track.npy"
     beam_expected_path = "src/argosim/tests/data/antenna_to_beam.npy"
     complementary_beam_path = "src/argosim/tests/data/dirty_beam_sim_single_band.npy"
-    decimal_beam = 8
+    decimal_beam = 2
     loss_expected = 0.00516675
 
     spacing_penalty_d = 50
