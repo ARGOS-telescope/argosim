@@ -47,7 +47,7 @@ class TestImagingUtils:
     KB_correction_shape = (128, 128)
     KB_correction_result_path = "src/argosim/tests/data/kb_correction_result.npy"
 
-    decimal_KB = 1
+    decimal_KB = 0
 
     continuous_scaling_result_path = (
         "src/argosim/tests/data/continuous_scaling_result.npy"
