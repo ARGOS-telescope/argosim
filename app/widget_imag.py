@@ -41,9 +41,9 @@ class ImagingWidget(QWidget):
         self.max_size_input.setText("10")
         param_row.addWidget(self.max_size_label)
         param_row.addWidget(self.max_size_input)
-        self.noise_label = QLabel("Noise Level:")
+        self.noise_label = QLabel("Noise sigma:")
         self.noise_input = QLineEdit()
-        self.noise_input.setText("0.1")
+        self.noise_input.setText("1.0")
         param_row.addWidget(self.noise_label)
         param_row.addWidget(self.noise_input)
         self.seed_label = QLabel("Seed:")
@@ -72,7 +72,7 @@ class ImagingWidget(QWidget):
         self.setLayout(layout)
 
     def _reset_defaults(self):
-        self.noise_input.setText("0.1")
+        self.noise_input.setText("1.0")
         self.n_sources_input.setText("3")
         self.min_size_input.setText("5")
         self.max_size_input.setText("10")
@@ -80,14 +80,14 @@ class ImagingWidget(QWidget):
 
     def _simulate_imaging(self):
         try:
-            noise_level = float(self.noise_input.text())
+            sigma = float(self.noise_input.text())
             n_sources = int(self.n_sources_input.text())
             # Convert arcseconds to degrees
             min_source_size = float(self.min_size_input.text()) /3600
             max_source_size = float(self.max_size_input.text()) /3600
             # Assert valid values
-            if noise_level < 0.:
-                raise ValueError("Noise level can't be negative.")
+            if sigma < 0.:
+                raise ValueError("Noise sigma can't be negative.")
             if n_sources <= 0:
                 raise ValueError("Number of sources must be positive.")
             if n_sources > 50:
@@ -118,6 +118,11 @@ class ImagingWidget(QWidget):
                 uv_points = self.aperture_widget.get_current_uv_points()
                 fov_size = float(self.aperture_widget.get_current_fov_size())
                 Npx = int(self.aperture_widget.get_current_Npx())
+                method = self.aperture_widget.get_current_method()
+                weighting = self.aperture_widget.get_current_weighting()
+                kernel_support = int(self.aperture_widget.get_current_kernel_support())
+                beta = self.aperture_widget.get_current_beta()
+                oversampling = float(self.aperture_widget.get_current_oversampling())
             except Exception as e:
                 self.fig.clear()
                 ax = self.fig.add_subplot(1, 1, 1)
@@ -138,8 +143,29 @@ class ImagingWidget(QWidget):
             np.random.seed(seed)
         rand_sizes = np.random.rand(n_sources)
         source_sizes = rand_sizes * (max_source_size-min_source_size) + min_source_size
-        sky_model = argosim.data_utils.n_source_sky((Npx, Npx), fov_size, deg_size_list=source_sizes, source_intensity_list=[1.]*n_sources, seed=seed, norm='max')
-        obs, _ = argosim.imaging_utils.simulate_dirty_observation(sky_model, uv_points, fov_size, sigma=noise_level)
+        # Flux-normalised sky (total flux = 1) so the per-visibility noise sigma
+        # is on a natural O(1) scale (the dirty image is Jy/beam: point of flux
+        # S peaks at S).
+        sky_model = argosim.data_utils.n_source_sky((Npx, Npx), fov_size, deg_size_list=source_sizes, source_intensity_list=[1.]*n_sources, seed=seed, norm='flux')
+
+        # The chosen forward model, with per-visibility noise sigma.
+        try:
+            if method == "nn":
+                obs, _ = argosim.imaging_utils.simulate_dirty_observation_nn(
+                    sky_model, uv_points, fov_size, sigma=sigma, seed=seed,
+                    weighting=weighting)
+            else:
+                obs, _ = argosim.imaging_utils.simulate_dirty_observation(
+                    sky_model, uv_points, fov_size, sigma=sigma, seed=seed,
+                    kernel_support=kernel_support, beta=beta, oversampling=oversampling,
+                    weighting=weighting)
+        except ValueError as e:
+            self.fig.clear()
+            ax = self.fig.add_subplot(1, 1, 1)
+            ax.text(0.5, 0.5, f"Error:\n{str(e)}\nReduce FOV size.", ha='center', va='center', fontsize=12, color='red')
+            ax.axis('off')
+            self.canvas.draw()
+            return
 
         self.fig.clear()
         ax1 = self.fig.add_subplot(1, 2, 1)

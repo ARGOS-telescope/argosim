@@ -10,11 +10,11 @@ class TestClean:
     shifted_beams_path = "src/argosim/tests/data/shifted_beams.npy"
 
     peaks_exp = [
-        (0.00384521484375, 128, 128, 0, 0),
-        (0.00384521484375, 228, 238, 100, 110),
-        (0.00384521484375, 108, 208, -20, 80),
-        (0.00384521484375, 26, 78, -102, -50),
-        (0.00384521484375, 160, 108, 32, -20),
+        (1.0, 128, 128, 0, 0),
+        (1.0, 228, 238, 100, 110),
+        (1.0, 108, 208, -20, 80),
+        (1.0, 26, 78, -102, -50),
+        (1.0, 160, 108, 32, -20),
     ]
 
     pad_odd_exp = np.array(
@@ -82,7 +82,7 @@ class TestClean:
         beam = np.load(self.beam_path)
         # Without residuals
         I_clean, sky_model = ac.clean_hogbom(
-            obs, beam, 0.3, 100, 1e-2, clean_beam_size_px=10
+            obs, beam, max_iter=40, gamma=0.1, threshold=1e-5
         )
         npt.assert_array_almost_equal(
             I_clean,
@@ -100,7 +100,7 @@ class TestClean:
 
         # With residuals
         I_clean_res, sky_model_res = ac.clean_hogbom(
-            obs, beam, 0.3, 100, 1e-2, clean_beam_size_px=10, res=True
+            obs, beam, max_iter=40, gamma=0.1, threshold=1e-5, res=True
         )
         npt.assert_array_almost_equal(
             I_clean_res,
