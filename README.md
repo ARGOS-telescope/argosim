@@ -94,8 +94,8 @@ If you use `argosim` in your research, please cite it as follows:
 @software{argosim,
   author = {Ezequiel Centofanti and Emma Ayçoberry and Samuel Farrens and Samuel Gullin and Manal Bensahli and Jean-Luc Starck and John Antoniadis},
   title = {argosim: a Python package for radio interferometric simulations},
-  version = {1.0.1},
-  year = {2025},
+  version = {2.0.0},
+  year = {2026},
   url = {https://github.com/ARGOS-telescope/argosim}
 }
 ```
