@@ -27,23 +27,24 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=4418a689" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
     <script src="_static/documentation_options.js?v=4acdca81"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'argosim.imaging_utils';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -52,20 +53,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -91,7 +98,51 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
     </header>
   
 
@@ -168,6 +219,7 @@
 <li class="toctree-l3"><a class="reference internal" href="argosim.data_utils.html">argosim.data_utils module</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">argosim.imaging_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="argosim.metrics_utils.html">argosim.metrics_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="argosim.optim_utils.html">argosim.optim_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="argosim.plot_utils.html">argosim.plot_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="argosim.rand_utils.html">argosim.rand_utils module</a></li>
 </ul>
@@ -350,11 +402,18 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
 
 
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -382,13 +441,21 @@
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.add_noise_uv"><code class="docutils literal notranslate"><span class="pre">add_noise_uv()</span></code></a></li>
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.add_noise_vis"><code class="docutils literal notranslate"><span class="pre">add_noise_vis()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.check_uv_in_grid"><code class="docutils literal notranslate"><span class="pre">check_uv_in_grid()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.check_uv_samples_range"><code class="docutils literal notranslate"><span class="pre">check_uv_samples_range()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.compute_visibilities_grid"><code class="docutils literal notranslate"><span class="pre">compute_visibilities_grid()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.degrid_visibilities_conv"><code class="docutils literal notranslate"><span class="pre">degrid_visibilities_conv()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.grid_sampling_function"><code class="docutils literal notranslate"><span class="pre">grid_sampling_function()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.grid_uv_samples"><code class="docutils literal notranslate"><span class="pre">grid_uv_samples()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.grid_visibilities_conv"><code class="docutils literal notranslate"><span class="pre">grid_visibilities_conv()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.kaiser_bessel"><code class="docutils literal notranslate"><span class="pre">kaiser_bessel()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.kb_correction"><code class="docutils literal notranslate"><span class="pre">kb_correction()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.scale_uv_samples"><code class="docutils literal notranslate"><span class="pre">scale_uv_samples()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.scale_uv_samples_continuous"><code class="docutils literal notranslate"><span class="pre">scale_uv_samples_continuous()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.simulate_dirty_observation"><code class="docutils literal notranslate"><span class="pre">simulate_dirty_observation()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.simulate_dirty_observation_nn"><code class="docutils literal notranslate"><span class="pre">simulate_dirty_observation_nn()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.sky2uv"><code class="docutils literal notranslate"><span class="pre">sky2uv()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.uv2sky"><code class="docutils literal notranslate"><span class="pre">uv2sky()</span></code></a></li>
 </ul>
@@ -406,6 +473,10 @@
 <span id="argosim-imaging-utils-module"></span><h1>argosim.imaging_utils module<a class="headerlink" href="#module-argosim.imaging_utils" title="Link to this heading">#</a></h1>
 <p>Imaging utils.</p>
 <p>This module contains functions to perform radio interferometric imaging.</p>
+<p>The production forward model uses <strong>Kaiser-Bessel (KB) convolutional gridding</strong>
+(<a class="reference internal" href="#argosim.imaging_utils.simulate_dirty_observation" title="argosim.imaging_utils.simulate_dirty_observation"><code class="xref py py-func docutils literal notranslate"><span class="pre">simulate_dirty_observation()</span></code></a>). A legacy nearest-neighbour (NN)
+binary-mask path is kept at the bottom of the module for the GUI and for
+teaching; see the “Legacy / educational” section there.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Authors<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Ezequiel Centofanti &lt;<a class="reference external" href="mailto:ezequiel&#46;centofanti&#37;&#52;&#48;cea&#46;fr">ezequiel<span>&#46;</span>centofanti<span>&#64;</span>cea<span>&#46;</span>fr</a>&gt;
@@ -413,21 +484,23 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 </dd>
 </dl>
 <dl class="py function">
-<dt class="sig sig-object py" id="argosim.imaging_utils.add_noise_uv">
-<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">add_noise_uv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uv_mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#add_noise_uv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.add_noise_uv" title="Link to this definition">#</a></dt>
-<dd><p>Add noise in uv-plane.</p>
-<p>Function to add white gaussian noise to the visibilities in the uv-plane.</p>
+<dt class="sig sig-object py" id="argosim.imaging_utils.add_noise_vis">
+<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">add_noise_vis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#add_noise_vis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.add_noise_vis" title="Link to this definition">#</a></dt>
+<dd><p>Add independent complex Gaussian noise to ungridded visibilities.</p>
+<p>Adds independent complex noise to each visibility datum. Real and imaginary
+parts are each drawn from <code class="docutils literal notranslate"><span class="pre">N(0,</span> <span class="pre">sigma/sqrt(2))</span></code> so that the total noise
+power per visibility is <code class="docutils literal notranslate"><span class="pre">sigma^2</span></code>. This prepares for the proper
+per-baseline noise model (radiometer equation) to be integrated later.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>vis</strong> (<em>np.ndarray</em>) – The visibilities.</p></li>
-<li><p><strong>mask</strong> (<em>np.ndarray</em>) – The uv sampling mask.</p></li>
-<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The standard deviation of the noise.</p></li>
-<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Optional seed to set.</p></li>
+<li><p><strong>vis</strong> (<em>np.ndarray</em>) – Complex visibility values, shape <code class="docutils literal notranslate"><span class="pre">(n_vis,)</span></code>.</p></li>
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Standard deviation of the complex noise.</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Optional seed for reproducibility.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>vis</strong> – The visibilities with added noise.</p>
+<dd class="field-even"><p><strong>vis_noisy</strong> – Visibilities with added noise.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.ndarray</p>
@@ -436,9 +509,43 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="argosim.imaging_utils.check_uv_in_grid">
+<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">check_uv_in_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uv_px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_out_of_bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'warn'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#check_uv_in_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.check_uv_in_grid" title="Link to this definition">#</a></dt>
+<dd><p>Check that UV samples fall inside the uv grid.</p>
+<p>Convolutional gridding silently drops any visibility whose target pixel
+falls outside the grid (<code class="docutils literal notranslate"><span class="pre">grid_visibilities_conv</span></code> uses <code class="docutils literal notranslate"><span class="pre">mode=&quot;drop&quot;</span></code>),
+so a grid too small for the longest baselines quietly loses data. This
+function flags that case, using the continuous pixel coordinates returned by
+<code class="docutils literal notranslate"><span class="pre">scale_uv_samples_continuous</span></code>: a sample is out of the grid when its pixel
+coordinate is <code class="docutils literal notranslate"><span class="pre">&lt;</span> <span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">grid_shape</span></code> along either axis.</p>
+<p>The message therefore reports the largest field of view that keeps every
+sample on the grid for the chosen <code class="docutils literal notranslate"><span class="pre">Npix</span></code> and uv coverage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uv_px</strong> (<em>jnp.ndarray</em>) – Continuous pixel coordinates <code class="docutils literal notranslate"><span class="pre">(u,</span> <span class="pre">v)</span></code> for each visibility,
+shape <code class="docutils literal notranslate"><span class="pre">(n_vis,</span> <span class="pre">2)</span></code>, as returned by <code class="docutils literal notranslate"><span class="pre">scale_uv_samples_continuous</span></code>.</p></li>
+<li><p><strong>grid_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Shape of the uv grid <code class="docutils literal notranslate"><span class="pre">(ny,</span> <span class="pre">nx)</span></code>.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Field of view in degrees corresponding to <code class="docutils literal notranslate"><span class="pre">uv_px</span></code> / <code class="docutils literal notranslate"><span class="pre">grid_shape</span></code>.
+A scalar is applied to both axes; a tuple is read as <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.
+Used to report the maximum field of view that keeps all samples on-grid.</p></li>
+<li><p><strong>on_out_of_bounds</strong> (<em>{&quot;warn&quot;</em><em>, </em><em>&quot;error&quot;</em><em>, </em><em>&quot;ignore&quot;}</em>) – Action when one or more samples fall outside the grid:
+<code class="docutils literal notranslate"><span class="pre">&quot;warn&quot;</span></code> (default) emits a <code class="docutils literal notranslate"><span class="pre">UserWarning</span></code> reporting the proportion of
+dropped samples, <code class="docutils literal notranslate"><span class="pre">&quot;error&quot;</span></code> raises a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;ignore&quot;</span></code>
+returns silently (samples are still dropped downstream).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">on_out_of_bounds</span></code> is not one of the accepted options, or if it is
+<code class="docutils literal notranslate"><span class="pre">&quot;error&quot;</span></code> and any sample falls outside the grid.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="argosim.imaging_utils.check_uv_samples_range">
 <span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">check_uv_samples_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uv_samples_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uv_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sky_uv_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#check_uv_samples_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.check_uv_samples_range" title="Link to this definition">#</a></dt>
-<dd><p>Check uv samples range (JAX version).</p>
+<dd><p>Check uv samples range.</p>
 <p>Function to check if the uv samples are within the uv-plane range.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -446,7 +553,7 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <li><p><strong>uv_samples_indices</strong> (<em>np.ndarray</em>) – The indices of the uv samples in pixel coordinates.</p></li>
 <li><p><strong>sky_uv_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The shape of the sky model in pixels.</p></li>
 <li><p><strong>uv_samples</strong> (<em>np.ndarray</em>) – The uv samples coordinates in meters.</p></li>
-<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The field of view size in degrees.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The field of view size in degrees, scalar or <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -474,9 +581,77 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="argosim.imaging_utils.degrid_visibilities_conv">
+<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">degrid_visibilities_conv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sky_uv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uv_px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">W</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#degrid_visibilities_conv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.degrid_visibilities_conv" title="Link to this definition">#</a></dt>
+<dd><p>Convolutional degridding with Kaiser-Bessel anti-aliasing kernel (JAX).</p>
+<p>Interpolates complex visibility values from a gridded sky model at the
+given UV positions. This is the adjoint of <a class="reference internal" href="#argosim.imaging_utils.grid_visibilities_conv" title="argosim.imaging_utils.grid_visibilities_conv"><code class="xref py py-func docutils literal notranslate"><span class="pre">grid_visibilities_conv()</span></code></a>.
+Differentiable w.r.t. <code class="docutils literal notranslate"><span class="pre">sky_uv</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sky_uv</strong> (<em>jnp.ndarray</em>) – Gridded sky model in UV domain, shape <code class="docutils literal notranslate"><span class="pre">grid_shape</span></code>, complex.</p></li>
+<li><p><strong>uv_px</strong> (<em>jnp.ndarray</em>) – Continuous pixel coordinates <code class="docutils literal notranslate"><span class="pre">(u,</span> <span class="pre">v)</span></code> for each visibility,
+shape <code class="docutils literal notranslate"><span class="pre">(n_vis,</span> <span class="pre">2)</span></code>.</p></li>
+<li><p><strong>grid_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Shape of <code class="docutils literal notranslate"><span class="pre">sky_uv</span></code> <code class="docutils literal notranslate"><span class="pre">(ny,</span> <span class="pre">nx)</span></code>. Must be a static argument.</p></li>
+<li><p><strong>W</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Kernel support width in pixels (odd). Must be a static argument.</p></li>
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – KB shape parameter. Must be a static argument.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>vis</strong> – Interpolated complex visibilities, shape <code class="docutils literal notranslate"><span class="pre">(n_vis,)</span></code>.
+Contributions from out-of-bounds grid points are clipped to the
+nearest edge pixel.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>jnp.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.imaging_utils.grid_sampling_function">
+<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">grid_sampling_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'kb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_support</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oversampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'natural'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#grid_sampling_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.grid_sampling_function" title="Link to this definition">#</a></dt>
+<dd><p>Grid the unit sampling function and return the uv plane and dirty beam.</p>
+<p>GUI helper. Grids unit visibilities (ones) at the uv sample positions to
+build the gridded sampling function, whose inverse Fourier transform is the
+dirty beam (impulse response). Supports the two gridding schemes offered in
+the GUI:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;nn&quot;</span></code>: nearest-neighbour sampling mask (<a class="reference internal" href="#argosim.imaging_utils.grid_uv_samples" title="argosim.imaging_utils.grid_uv_samples"><code class="xref py py-func docutils literal notranslate"><span class="pre">grid_uv_samples()</span></code></a>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;kb&quot;</span></code>: Kaiser-Bessel convolutional gridding
+(<a class="reference internal" href="#argosim.imaging_utils.grid_visibilities_conv" title="argosim.imaging_utils.grid_visibilities_conv"><code class="xref py py-func docutils literal notranslate"><span class="pre">grid_visibilities_conv()</span></code></a>) with image-domain correction and
+oversampling, matching <a class="reference internal" href="#argosim.imaging_utils.simulate_dirty_observation" title="argosim.imaging_utils.simulate_dirty_observation"><code class="xref py py-func docutils literal notranslate"><span class="pre">simulate_dirty_observation()</span></code></a>.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>track</strong> (<em>np.ndarray</em>) – The uv sampling points, shape <code class="docutils literal notranslate"><span class="pre">(n_vis,</span> <span class="pre">3)</span></code>.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Field of view in degrees, scalar or <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.</p></li>
+<li><p><strong>npix</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of pixels per side of the native image / uv grid.</p></li>
+<li><p><strong>method</strong> (<em>{&quot;kb&quot;</em><em>, </em><em>&quot;nn&quot;}</em>) – Gridding scheme.</p></li>
+<li><p><strong>kernel_support</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – KB kernel support width in pixels (odd). Only used for <code class="docutils literal notranslate"><span class="pre">method=&quot;kb&quot;</span></code>.</p></li>
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – KB shape parameter. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses <code class="docutils literal notranslate"><span class="pre">2.34</span> <span class="pre">*</span> <span class="pre">kernel_support</span></code>.</p></li>
+<li><p><strong>oversampling</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – UV-grid oversampling factor for <code class="docutils literal notranslate"><span class="pre">method=&quot;kb&quot;</span></code>.</p></li>
+<li><p><strong>weighting</strong> (<em>{&quot;natural&quot;</em><em>, </em><em>&quot;uniform&quot;}</em>) – Visibility weighting (see <code class="xref py py-func docutils literal notranslate"><span class="pre">_visibility_weights()</span></code>). For NN it selects
+the mask (natural -&gt; histogram, uniform -&gt; binary).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>uv_grid</strong> (<em>jnp.ndarray</em>) – The gridded sampling function on the uv plane. Shape <code class="docutils literal notranslate"><span class="pre">(npix,</span> <span class="pre">npix)</span></code>
+for NN, or the oversampled <code class="docutils literal notranslate"><span class="pre">(n_os,</span> <span class="pre">n_os)</span></code> for KB.</p></li>
+<li><p><strong>dirty_beam</strong> (<em>jnp.ndarray</em>) – The dirty beam (impulse response), shape <code class="docutils literal notranslate"><span class="pre">(npix,</span> <span class="pre">npix)</span></code>.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="argosim.imaging_utils.grid_uv_samples">
-<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">grid_uv_samples</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uv_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sky_uv_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'binary'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#grid_uv_samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.grid_uv_samples" title="Link to this definition">#</a></dt>
-<dd><p>Grid uv samples (JAX version).</p>
+<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">grid_uv_samples</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uv_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sky_uv_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'binary'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#grid_uv_samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.grid_uv_samples" title="Link to this definition">#</a></dt>
+<dd><p>Grid uv samples.</p>
 <p>Compute the uv sampling mask from the uv samples.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -484,8 +659,7 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <li><p><strong>uv_samples</strong> (<em>np.ndarray</em>) – The uv samples coordinates in meters.</p></li>
 <li><p><strong>sky_uv_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The shape of the sky model in pixels.</p></li>
 <li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The field of view size in degrees.</p></li>
-<li><p><strong>mask_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The type of mask to use. Choose between ‘binary’, ‘histogram’ and ‘weighted’.</p></li>
-<li><p><strong>weights</strong> (<em>np.ndarray</em>) – The weights to use for the mask type ‘weighted’.</p></li>
+<li><p><strong>mask_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The type of mask to use. Choose between ‘binary’ and ‘histogram’.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -499,16 +673,106 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="argosim.imaging_utils.grid_visibilities_conv">
+<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">grid_visibilities_conv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uv_px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">W</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#grid_visibilities_conv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.grid_visibilities_conv" title="Link to this definition">#</a></dt>
+<dd><p>Convolutional gridding with Kaiser-Bessel anti-aliasing kernel (JAX).</p>
+<p>Distributes complex visibility values onto a regular grid using a
+Kaiser-Bessel convolution kernel. The Python loop over the <code class="docutils literal notranslate"><span class="pre">W</span> <span class="pre">x</span> <span class="pre">W</span></code>
+kernel support is unrolled by JAX at JIT-compile time, so the compiled
+kernel is fully vectorised over all visibilities. Differentiable w.r.t.
+<code class="docutils literal notranslate"><span class="pre">vis</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vis</strong> (<em>jnp.ndarray</em>) – Complex visibility values to grid, shape <code class="docutils literal notranslate"><span class="pre">(n_vis,)</span></code>.</p></li>
+<li><p><strong>uv_px</strong> (<em>jnp.ndarray</em>) – Continuous pixel coordinates <code class="docutils literal notranslate"><span class="pre">(u,</span> <span class="pre">v)</span></code> for each visibility,
+shape <code class="docutils literal notranslate"><span class="pre">(n_vis,</span> <span class="pre">2)</span></code>.</p></li>
+<li><p><strong>grid_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Shape of the output grid <code class="docutils literal notranslate"><span class="pre">(ny,</span> <span class="pre">nx)</span></code>. Must be a static argument.</p></li>
+<li><p><strong>W</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Kernel support width in pixels (odd). Must be a static argument.
+Typically <code class="docutils literal notranslate"><span class="pre">W</span> <span class="pre">=</span> <span class="pre">7</span></code>.</p></li>
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – KB shape parameter. Must be a static argument.
+Typically <code class="docutils literal notranslate"><span class="pre">beta</span> <span class="pre">=</span> <span class="pre">2.34</span> <span class="pre">*</span> <span class="pre">W</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>grid</strong> – Gridded visibilities, shape <code class="docutils literal notranslate"><span class="pre">grid_shape</span></code>, complex dtype (<code class="docutils literal notranslate"><span class="pre">complex64</span></code>
+by default, <code class="docutils literal notranslate"><span class="pre">complex128</span></code> if JAX x64 is enabled).
+Out-of-bounds contributions are silently dropped.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>jnp.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.imaging_utils.kaiser_bessel">
+<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">kaiser_bessel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">W</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#kaiser_bessel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.kaiser_bessel" title="Link to this definition">#</a></dt>
+<dd><p>Kaiser-Bessel anti-aliasing kernel.</p>
+<p>Evaluates the Kaiser-Bessel window function used as a gridding convolution
+kernel to suppress aliasing artefacts from non-uniform sampling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>jnp.ndarray</em>) – Offset from the kernel centre in pixels.</p></li>
+<li><p><strong>W</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Kernel support width in pixels (number of pixels the kernel spans).</p></li>
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Shape parameter controlling the trade-off between main-lobe width and
+side-lobe suppression. A standard choice is <code class="docutils literal notranslate"><span class="pre">beta</span> <span class="pre">=</span> <span class="pre">2.34</span> <span class="pre">*</span> <span class="pre">W</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Kaiser-Bessel kernel values at <code class="docutils literal notranslate"><span class="pre">x</span></code>. Evaluates to zero outside
+<code class="docutils literal notranslate"><span class="pre">[-W/2,</span> <span class="pre">W/2]</span></code> by the clip operation on the argument.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>jnp.ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The epsilon inside the square root keeps its argument strictly positive.
+Without it <code class="docutils literal notranslate"><span class="pre">sqrt</span></code> has an infinite derivative at <code class="docutils literal notranslate"><span class="pre">arg</span> <span class="pre">==</span> <span class="pre">0</span></code> (the support
+edge <code class="docutils literal notranslate"><span class="pre">|x|</span> <span class="pre">=</span> <span class="pre">W/2</span></code>, always hit by the gridding stencil), giving a NaN
+gradient in single precision. The value change is negligible (~1e-12).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.imaging_utils.kb_correction">
+<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">kb_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">W</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#kb_correction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.kb_correction" title="Link to this definition">#</a></dt>
+<dd><p>Image-domain correction for Kaiser-Bessel convolutional gridding.</p>
+<p>Computes the 2D correction image <code class="docutils literal notranslate"><span class="pre">C(l,</span> <span class="pre">m)</span></code> such that multiplying the
+dirty image by <code class="docutils literal notranslate"><span class="pre">C</span></code> compensates for the amplitude taper introduced by the
+KB convolution kernel. The correction is separable:
+<code class="docutils literal notranslate"><span class="pre">C(l,</span> <span class="pre">m)</span> <span class="pre">=</span> <span class="pre">C_1d(l)</span> <span class="pre">*</span> <span class="pre">C_1d(m)</span></code>, where <code class="docutils literal notranslate"><span class="pre">C_1d</span></code> is the reciprocal of the
+discrete Fourier transform of the 1D KB kernel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Shape of the grid <code class="docutils literal notranslate"><span class="pre">(ny,</span> <span class="pre">nx)</span></code>.</p></li>
+<li><p><strong>W</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Kernel support width in pixels.</p></li>
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – KB shape parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>correction</strong> – 2D image-domain correction array, shape <code class="docutils literal notranslate"><span class="pre">grid_shape</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>jnp.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="argosim.imaging_utils.scale_uv_samples">
 <span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">scale_uv_samples</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uv_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sky_uv_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#scale_uv_samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.scale_uv_samples" title="Link to this definition">#</a></dt>
-<dd><p>Scale uv samples (JAX version).</p>
-<p>Function to scale the uv samples to pixel coordinates.</p>
+<dd><p>Scale uv samples to nearest integer pixel coordinates (NN snap).</p>
+<p>Function to scale the uv samples to pixel coordinates, rounding to the
+nearest cell.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>uv_samples</strong> (<em>np.ndarray</em>) – The uv samples coordinates in meters.</p></li>
 <li><p><strong>sky_uv_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The shape of the sky model in pixels.</p></li>
-<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The field of view size in degrees.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The field of view size in degrees, scalar or <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -521,10 +785,38 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="argosim.imaging_utils.scale_uv_samples_continuous">
+<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">scale_uv_samples_continuous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uv_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sky_uv_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#scale_uv_samples_continuous"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.scale_uv_samples_continuous" title="Link to this definition">#</a></dt>
+<dd><p>Scale UV samples to continuous pixel coordinates.</p>
+<p>Returns floating-point (non-rounded) pixel positions, required for
+sub-pixel-accurate convolutional gridding.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uv_samples</strong> (<em>jnp.ndarray</em>) – UV samples in wavelengths, shape <code class="docutils literal notranslate"><span class="pre">(n_vis,</span> <span class="pre">3)</span></code>.</p></li>
+<li><p><strong>sky_uv_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Shape of the UV grid <code class="docutils literal notranslate"><span class="pre">(ny,</span> <span class="pre">nx)</span></code>.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Field of view in degrees, scalar or <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>uv_px</strong> – Continuous pixel coordinates <code class="docutils literal notranslate"><span class="pre">(u,</span> <span class="pre">v)</span></code> for each visibility,
+shape <code class="docutils literal notranslate"><span class="pre">(n_vis,</span> <span class="pre">2)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>jnp.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="argosim.imaging_utils.simulate_dirty_observation">
-<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">simulate_dirty_observation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_band</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freqs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#simulate_dirty_observation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.simulate_dirty_observation" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">simulate_dirty_observation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_band</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freqs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_support</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oversampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_out_of_bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'warn'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'natural'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#simulate_dirty_observation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.simulate_dirty_observation" title="Link to this definition">#</a></dt>
 <dd><p>Simulate dirty observation.</p>
-<p>Function to simulate a radio observation of the sky model from the track uv-samples.</p>
+<p>Function to simulate a radio observation of the sky model from the track
+uv-samples using convolutional gridding with a Kaiser-Bessel anti-aliasing
+kernel. The forward model is: degrid true visibilities from the sky FFT,
+add per-visibility complex Gaussian noise, re-grid with the KB kernel, and
+apply the image-domain correction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -534,8 +826,72 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
 <li><p><strong>multi_band</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, simulate a multi-band observation.</p></li>
 <li><p><strong>freqs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – The frequency list for the multi-band simulation.</p></li>
 <li><p><strong>beam</strong> (<em>Beam</em>) – The beam object to apply to the sky, only used in multi-band simulations.</p></li>
-<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The standard deviation of the noise.</p></li>
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Standard deviation of the complex Gaussian noise added independently to
+each visibility (radiometer-style), in sky/flux units. The dirty image
+is normalised so a point source of flux <code class="docutils literal notranslate"><span class="pre">S</span></code> peaks at <code class="docutils literal notranslate"><span class="pre">S</span></code> (Jy/beam),
+so the image noise scales roughly as <code class="docutils literal notranslate"><span class="pre">sigma</span> <span class="pre">/</span> <span class="pre">sqrt(n_vis)</span></code>.</p></li>
 <li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Optional seed to set for reproducibility in noise realisation.</p></li>
+<li><p><strong>kernel_support</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – KB kernel support width in pixels (odd). Default is 7. Larger values
+give better anti-aliasing at the cost of more compute.</p></li>
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – KB kernel shape parameter. If <code class="docutils literal notranslate"><span class="pre">None</span></code> (default), uses the standard
+heuristic <code class="docutils literal notranslate"><span class="pre">beta</span> <span class="pre">=</span> <span class="pre">2.34</span> <span class="pre">*</span> <span class="pre">kernel_support</span></code>. Expose it to experiment
+with different main-lobe/side-lobe trade-offs.</p></li>
+<li><p><strong>oversampling</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – UV-grid oversampling factor. The sky is zero-padded to
+<code class="docutils literal notranslate"><span class="pre">oversampling</span> <span class="pre">*</span> <span class="pre">N</span></code> pixels before gridding (finer UV cells, same
+angular pixel scale, FoV scaled by <code class="docutils literal notranslate"><span class="pre">oversampling</span></code>), and the dirty
+image/beam are cropped back to the original <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">x</span> <span class="pre">N</span></code> afterwards. This
+discards the image borders where the KB correction amplifies noise and
+aliasing. Default is 2, matching the <code class="docutils literal notranslate"><span class="pre">beta</span> <span class="pre">=</span> <span class="pre">2.34</span> <span class="pre">*</span> <span class="pre">W</span></code> heuristic. Set
+to 1 to recover the un-padded native-resolution behaviour.</p></li>
+<li><p><strong>on_out_of_bounds</strong> (<em>{&quot;warn&quot;</em><em>, </em><em>&quot;error&quot;</em><em>, </em><em>&quot;ignore&quot;}</em>) – Behaviour when UV samples fall outside the (oversampled) uv grid and
+would be silently dropped by the convolutional gridding. <code class="docutils literal notranslate"><span class="pre">&quot;warn&quot;</span></code>
+(default) emits a <code class="docutils literal notranslate"><span class="pre">UserWarning</span></code> reporting the proportion of dropped
+samples, <code class="docutils literal notranslate"><span class="pre">&quot;error&quot;</span></code> raises a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;ignore&quot;</span></code> disables
+the check. See <a class="reference internal" href="#argosim.imaging_utils.check_uv_in_grid" title="argosim.imaging_utils.check_uv_in_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">check_uv_in_grid()</span></code></a>.</p></li>
+<li><p><strong>weighting</strong> (<em>{&quot;natural&quot;</em><em>, </em><em>&quot;uniform&quot;}</em>) – Visibility weighting scheme (see <code class="xref py py-func docutils literal notranslate"><span class="pre">_visibility_weights()</span></code>).
+<code class="docutils literal notranslate"><span class="pre">&quot;natural&quot;</span></code> (default) weights every visibility equally (best
+sensitivity, broadest PSF); <code class="docutils literal notranslate"><span class="pre">&quot;uniform&quot;</span></code> weights each by
+<code class="docutils literal notranslate"><span class="pre">1/count</span></code> of its uv cell (finer PSF, higher noise).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>obs</strong> (<em>np.ndarray</em>) – The dirty observation(s).</p></li>
+<li><p><strong>dirty_beam</strong> (<em>np.ndarray</em>) – The dirty beam(s).</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.imaging_utils.simulate_dirty_observation_nn">
+<span class="sig-prename descclassname"><span class="pre">argosim.imaging_utils.</span></span><span class="sig-name descname"><span class="pre">simulate_dirty_observation_nn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_band</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freqs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'natural'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/imaging_utils.html#simulate_dirty_observation_nn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.imaging_utils.simulate_dirty_observation_nn" title="Link to this definition">#</a></dt>
+<dd><p>Simulate a dirty observation with nearest-neighbour (NN) gridding.</p>
+<p>Educational counterpart to <a class="reference internal" href="#argosim.imaging_utils.simulate_dirty_observation" title="argosim.imaging_utils.simulate_dirty_observation"><code class="xref py py-func docutils literal notranslate"><span class="pre">simulate_dirty_observation()</span></code></a> (which uses
+Kaiser-Bessel convolutional gridding). Here each visibility is snapped to
+its nearest uv-grid cell: the sky FFT is multiplied by the sampling mask,
+per-visibility (per-cell) noise is added, and the result is inverse
+Fourier-transformed. Intended to contrast NN vs KB gridding in the GUI; the
+KB forward model is the one to use for prototyping and applications.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sky</strong> (<em>np.ndarray</em>) – The sky model image.</p></li>
+<li><p><strong>track</strong> (<em>np.ndarray</em>) – The uv sampling points.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The field of view size in degrees, scalar or <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.</p></li>
+<li><p><strong>multi_band</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, simulate a multi-band observation.</p></li>
+<li><p><strong>freqs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – The frequency list for the multi-band simulation.</p></li>
+<li><p><strong>beam</strong> (<em>Beam</em>) – The beam object to apply to the sky, only used in multi-band simulations.</p></li>
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Standard deviation of the complex Gaussian noise added independently to
+each sampled uv cell (visibility domain, matching the KB forward model),
+in sky/flux units. The dirty image is normalised so a point source of
+flux <code class="docutils literal notranslate"><span class="pre">S</span></code> peaks at <code class="docutils literal notranslate"><span class="pre">S</span></code> (Jy/beam). See <code class="xref py py-func docutils literal notranslate"><span class="pre">_add_cell_noise()</span></code>.</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Optional seed to set for reproducibility in the noise realisation.</p></li>
+<li><p><strong>weighting</strong> (<em>{&quot;natural&quot;</em><em>, </em><em>&quot;uniform&quot;}</em>) – Visibility weighting. For NN this is exactly the sampling-mask choice:
+<code class="docutils literal notranslate"><span class="pre">&quot;natural&quot;</span></code> uses the <code class="docutils literal notranslate"><span class="pre">&quot;histogram&quot;</span></code> mask (each cell weighted by its
+sample count), <code class="docutils literal notranslate"><span class="pre">&quot;uniform&quot;</span></code> uses the <code class="docutils literal notranslate"><span class="pre">&quot;binary&quot;</span></code> mask (each sampled
+cell weighted equally). See <a class="reference internal" href="#argosim.imaging_utils.simulate_dirty_observation" title="argosim.imaging_utils.simulate_dirty_observation"><code class="xref py py-func docutils literal notranslate"><span class="pre">simulate_dirty_observation()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -632,13 +988,21 @@ Samuel Gullin &lt;<a class="reference external" href="mailto:gullin&#37;&#52;&#4
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.add_noise_uv"><code class="docutils literal notranslate"><span class="pre">add_noise_uv()</span></code></a></li>
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.add_noise_vis"><code class="docutils literal notranslate"><span class="pre">add_noise_vis()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.check_uv_in_grid"><code class="docutils literal notranslate"><span class="pre">check_uv_in_grid()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.check_uv_samples_range"><code class="docutils literal notranslate"><span class="pre">check_uv_samples_range()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.compute_visibilities_grid"><code class="docutils literal notranslate"><span class="pre">compute_visibilities_grid()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.degrid_visibilities_conv"><code class="docutils literal notranslate"><span class="pre">degrid_visibilities_conv()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.grid_sampling_function"><code class="docutils literal notranslate"><span class="pre">grid_sampling_function()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.grid_uv_samples"><code class="docutils literal notranslate"><span class="pre">grid_uv_samples()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.grid_visibilities_conv"><code class="docutils literal notranslate"><span class="pre">grid_visibilities_conv()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.kaiser_bessel"><code class="docutils literal notranslate"><span class="pre">kaiser_bessel()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.kb_correction"><code class="docutils literal notranslate"><span class="pre">kb_correction()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.scale_uv_samples"><code class="docutils literal notranslate"><span class="pre">scale_uv_samples()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.scale_uv_samples_continuous"><code class="docutils literal notranslate"><span class="pre">scale_uv_samples_continuous()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.simulate_dirty_observation"><code class="docutils literal notranslate"><span class="pre">simulate_dirty_observation()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.simulate_dirty_observation_nn"><code class="docutils literal notranslate"><span class="pre">simulate_dirty_observation_nn()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.sky2uv"><code class="docutils literal notranslate"><span class="pre">sky2uv()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.imaging_utils.uv2sky"><code class="docutils literal notranslate"><span class="pre">uv2sky()</span></code></a></li>
 </ul>
@@ -689,8 +1053,8 @@ By Ezequiel Centofanti, Emma Aycoberry
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
 
   <footer class="bd-footer">
   </footer>

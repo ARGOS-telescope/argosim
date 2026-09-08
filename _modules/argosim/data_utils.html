@@ -26,43 +26,50 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=4418a689" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
     <script src="../../_static/documentation_options.js?v=4acdca81"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/argosim/data_utils';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -88,7 +95,47 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
     </header>
   
 
@@ -167,6 +214,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../argosim.data_utils.html">argosim.data_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../argosim.imaging_utils.html">argosim.imaging_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../argosim.metrics_utils.html">argosim.metrics_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../argosim.optim_utils.html">argosim.optim_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../argosim.plot_utils.html">argosim.plot_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../argosim.rand_utils.html">argosim.rand_utils module</a></li>
 </ul>
@@ -284,11 +332,18 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
 
 
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -320,14 +375,14 @@
                 <article class="bd-article">
                   
   <h1>Source code for argosim.data_utils</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Data uils.</span>
+<span></span><span class="sd">"""Data uils.</span>
 
 <span class="sd">This module contains functions to generate synthetic observations for the Argosim project.</span>
 
 <span class="sd">:Authors: Ezequiel Centofanti &lt;ezequiel.centofanti@cea.fr&gt;</span>
 <span class="sd">          Samuel Gullin &lt;gullin@ia.forth.gr&gt;</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -338,7 +393,7 @@
 <div class="viewcode-block" id="gauss_source">
 <a class="viewcode-back" href="../../argosim.data_utils.html#argosim.data_utils.gauss_source">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">gauss_source</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">sigma</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">fwhm_pix</span><span class="o">=</span><span class="mi">64</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Gauss source (JAX version).</span>
+<span class="w">    </span><span class="sd">"""Gauss source (JAX version).</span>
 
 <span class="sd">    Function to generate a 2D Gaussian source.</span>
 
@@ -359,7 +414,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    source : np.ndarray</span>
 <span class="sd">        Image of size (nx,ny) containing the 2D Gaussian source.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">fwhm</span> <span class="o">=</span> <span class="mf">2.355</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span>
         <span class="n">jnp</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">fwhm</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">fwhm</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">nx</span><span class="p">),</span> <span class="n">jnp</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">fwhm</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">fwhm</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">ny</span><span class="p">)</span>
@@ -380,7 +435,7 @@
 <div class="viewcode-block" id="sigma2d">
 <a class="viewcode-back" href="../../argosim.data_utils.html#argosim.data_utils.sigma2d">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">sigma2d</span><span class="p">(</span><span class="n">min_var</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cov_lim</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sigma 2D.</span>
+<span class="w">    </span><span class="sd">"""Sigma 2D.</span>
 
 <span class="sd">    Function to generate a random 2D covariance matrix.</span>
 
@@ -397,7 +452,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    sigma : np.ndarray</span>
 <span class="sd">        The 2D covariance matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">with</span> <span class="n">local_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">):</span>
         <span class="n">var_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">+</span> <span class="n">min_var</span>
         <span class="c1"># Limit eccentricity</span>
@@ -411,7 +466,7 @@
 <div class="viewcode-block" id="mu2d">
 <a class="viewcode-back" href="../../argosim.data_utils.html#argosim.data_utils.mu2d">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mu2d</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mu 2D.</span>
+<span class="w">    </span><span class="sd">"""Mu 2D.</span>
 
 <span class="sd">    Function to generate a random 2D mean vector in the range [-1,1]x[-1,1].</span>
 
@@ -424,7 +479,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    mu : np.ndarray</span>
 <span class="sd">        The 2D mean vector.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">with</span> <span class="n">local_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">):</span>
         <span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">mu</span></div>
@@ -434,7 +489,7 @@
 <div class="viewcode-block" id="random_source">
 <a class="viewcode-back" href="../../argosim.data_utils.html#argosim.data_utils.random_source">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">random_source</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">pix_size</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Random source.</span>
+<span class="w">    </span><span class="sd">"""Random source.</span>
 
 <span class="sd">    Function to generate 2D Gaussian source with random mean and covariance.</span>
 
@@ -451,7 +506,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    source : np.ndarray</span>
 <span class="sd">        Image of size (nx,ny) containing the 2D Gaussian source.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">with</span> <span class="n">local_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">):</span>
         <span class="n">mu</span> <span class="o">=</span> <span class="n">mu2d</span><span class="p">()</span>
         <span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma2d</span><span class="p">()</span>
@@ -462,9 +517,9 @@
 <div class="viewcode-block" id="n_source_sky">
 <a class="viewcode-back" href="../../argosim.data_utils.html#argosim.data_utils.n_source_sky">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">n_source_sky</span><span class="p">(</span>
-    <span class="n">shape_px</span><span class="p">,</span> <span class="n">fov</span><span class="p">,</span> <span class="n">deg_size_list</span><span class="p">,</span> <span class="n">source_intensity_list</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;none&quot;</span>
+    <span class="n">shape_px</span><span class="p">,</span> <span class="n">fov</span><span class="p">,</span> <span class="n">deg_size_list</span><span class="p">,</span> <span class="n">source_intensity_list</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s2">"flux"</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;N source sky.</span>
+<span class="w">    </span><span class="sd">"""N source sky.</span>
 
 <span class="sd">    Function to generate a sky image with multiple Gaussian sources at random positions.</span>
 
@@ -483,13 +538,13 @@
 <span class="sd">    seed : int</span>
 <span class="sd">        Optional seed to set</span>
 <span class="sd">    norm : str</span>
-<span class="sd">        The normalization method. Options are &#39;none&#39;, &#39;flux&#39; and &#39;max&#39;. Default is &#39;none&#39;.</span>
+<span class="sd">        The normalization method. Options are 'none', 'flux' and 'max'. Default is 'none'.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    sky : np.ndarray</span>
 <span class="sd">        Image of size (nx,ny) containing the sky model.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">pix_per_deg</span> <span class="o">=</span> <span class="n">shape_px</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">fov</span>
     <span class="n">pix_size_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">deg_size</span> <span class="o">*</span> <span class="n">pix_per_deg</span> <span class="k">for</span> <span class="n">deg_size</span> <span class="ow">in</span> <span class="n">deg_size_list</span><span class="p">]</span>
     <span class="k">with</span> <span class="n">local_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">):</span>
@@ -500,14 +555,14 @@
 
     <span class="n">sky</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">source_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">norm</span> <span class="o">==</span> <span class="s2">&quot;flux&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">norm</span> <span class="o">==</span> <span class="s2">"flux"</span><span class="p">:</span>
         <span class="n">norm_sky</span> <span class="o">=</span> <span class="n">sky</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sky</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-    <span class="k">elif</span> <span class="n">norm</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">norm</span> <span class="o">==</span> <span class="s2">"max"</span><span class="p">:</span>
         <span class="n">norm_sky</span> <span class="o">=</span> <span class="n">sky</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">sky</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">norm</span> <span class="o">==</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">norm</span> <span class="o">==</span> <span class="s2">"none"</span><span class="p">:</span>
         <span class="n">norm_sky</span> <span class="o">=</span> <span class="n">sky</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid normalization method. Use &#39;sum&#39;, &#39;max&#39; or &#39;none&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Invalid normalization method. Use 'sum', 'max' or 'none'."</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">norm_sky</span></div>
 
@@ -573,8 +628,8 @@ By Ezequiel Centofanti, Emma Aycoberry
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
 
   <footer class="bd-footer">
   </footer>

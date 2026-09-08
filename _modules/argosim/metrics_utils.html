@@ -26,43 +26,50 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=4418a689" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
     <script src="../../_static/documentation_options.js?v=4acdca81"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/argosim/metrics_utils';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -88,7 +95,47 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
     </header>
   
 
@@ -167,6 +214,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../argosim.data_utils.html">argosim.data_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../argosim.imaging_utils.html">argosim.imaging_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../argosim.metrics_utils.html">argosim.metrics_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../argosim.optim_utils.html">argosim.optim_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../argosim.plot_utils.html">argosim.plot_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../argosim.rand_utils.html">argosim.rand_utils module</a></li>
 </ul>
@@ -284,11 +332,18 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
 
 
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -320,22 +375,25 @@
                 <article class="bd-article">
                   
   <h1>Source code for argosim.metrics_utils</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Metrics utils.</span>
+<span></span><span class="sd">"""Metrics utils.</span>
 
 <span class="sd">This module contains utility functions to compute metrics between images.</span>
 
 <span class="sd">:Authors: Ezequiel Centofanti &lt;ezequiel.centofanti@cea.fr&gt;</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">skimage.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">structural_similarity</span> <span class="k">as</span> <span class="n">ssim_skimage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skimage.feature</span><span class="w"> </span><span class="kn">import</span> <span class="n">peak_local_max</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skimage.segmentation</span><span class="w"> </span><span class="kn">import</span> <span class="n">watershed</span>
 
 
 <div class="viewcode-block" id="mse">
 <a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.mse">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mse</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mean squared error.</span>
+<span class="w">    </span><span class="sd">"""Mean squared error.</span>
 
 <span class="sd">    Function to compute the mean squared error between two images.</span>
 
@@ -350,7 +408,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    mse : float</span>
 <span class="sd">        The mean squared error between the two images.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">img1</span> <span class="o">-</span> <span class="n">img2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span></div>
 
 
@@ -358,7 +416,7 @@
 <div class="viewcode-block" id="residuals">
 <a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.residuals">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">residuals</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">,</span> <span class="n">absolute</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Residuals.</span>
+<span class="w">    </span><span class="sd">"""Residuals.</span>
 
 <span class="sd">    Function to compute the residuals between two images.</span>
 
@@ -373,39 +431,16 @@
 <span class="sd">    -------</span>
 <span class="sd">    residual : np.ndarray</span>
 <span class="sd">        The residuals between the two images.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">img1</span> <span class="o">-</span> <span class="n">img2</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="k">if</span> <span class="n">absolute</span> <span class="k">else</span> <span class="n">res</span></div>
-
-
-
-<div class="viewcode-block" id="ssim">
-<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.ssim">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">ssim</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Structural similarity index.</span>
-
-<span class="sd">    Function to compute the structural similarity index between two images.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    img1 : np.ndarray</span>
-<span class="sd">        The first image.</span>
-<span class="sd">    img2 : np.ndarray</span>
-<span class="sd">        The second image.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    ssim : float</span>
-<span class="sd">        The structural similarity index between the two images.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">ssim_skimage</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">img1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">img2</span><span class="p">),</span> <span class="n">data_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">img1</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">img1</span><span class="p">))</span></div>
 
 
 
 <div class="viewcode-block" id="compute_metrics">
 <a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.compute_metrics">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">compute_metrics</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute metrics.</span>
+<span class="w">    </span><span class="sd">"""Compute metrics.</span>
 
 <span class="sd">    Function to compute the metrics between two images.</span>
 
@@ -420,14 +455,13 @@
 <span class="sd">    -------</span>
 <span class="sd">    metrics : dict</span>
 <span class="sd">        The metrics between the two images.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">mse_val</span> <span class="o">=</span> <span class="n">mse</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">)</span>
     <span class="n">norm_sq</span> <span class="o">=</span> <span class="n">mse</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
     <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;mse&quot;</span><span class="p">:</span> <span class="n">mse_val</span><span class="p">,</span>
-        <span class="s2">&quot;rel_mse&quot;</span><span class="p">:</span> <span class="n">mse_val</span> <span class="o">/</span> <span class="n">norm_sq</span><span class="p">,</span>
-        <span class="s2">&quot;residual&quot;</span><span class="p">:</span> <span class="n">residuals</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">),</span>
-        <span class="s2">&quot;ssim&quot;</span><span class="p">:</span> <span class="n">ssim</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">),</span>
+        <span class="s2">"mse"</span><span class="p">:</span> <span class="n">mse_val</span><span class="p">,</span>
+        <span class="s2">"rel_mse"</span><span class="p">:</span> <span class="n">mse_val</span> <span class="o">/</span> <span class="n">norm_sq</span><span class="p">,</span>
+        <span class="s2">"residual"</span><span class="p">:</span> <span class="n">residuals</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">),</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">metrics</span></div>
 
@@ -436,7 +470,7 @@
 <div class="viewcode-block" id="fit_elliptical_beam">
 <a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.fit_elliptical_beam">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">fit_elliptical_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">threshold_ratio</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fit elliptical beam.</span>
+<span class="w">    </span><span class="sd">"""Fit elliptical beam.</span>
 
 <span class="sd">    Fit an ellipse to the main lobe of the dirty beam using intensity thresholding.</span>
 
@@ -451,7 +485,9 @@
 <span class="sd">    -------</span>
 <span class="sd">    dict : dictionary</span>
 <span class="sd">        Ellipse parameters: center, width, height, angle_deg, eccentricity.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        ``width`` and ``height`` are the full widths at half maximum (FWHM), in</span>
+<span class="sd">        pixels, along the semi-major and semi-minor axes respectively.</span>
+<span class="sd">    """</span>
     <span class="n">max_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">beam</span><span class="p">))</span>
     <span class="n">threshold</span> <span class="o">=</span> <span class="n">threshold_ratio</span> <span class="o">*</span> <span class="n">max_val</span>
     <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">beam</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">threshold</span>
@@ -471,102 +507,123 @@
     <span class="n">angle_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">major_axis</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">major_axis</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">angle_deg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">angle_rad</span><span class="p">)</span>
 
-    <span class="c1"># Axes</span>
-    <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvals</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">height</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvals</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># Axes (FWHM). For the half-max region, 2*sqrt(eigval) is the semi-axis</span>
+    <span class="c1"># (~HWHM, the radius of the region); multiply by 2 to report the full width</span>
+    <span class="c1"># at half maximum.</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvals</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvals</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
     <span class="c1"># Eccentricity</span>
     <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
     <span class="n">eccentricity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">b</span> <span class="o">/</span> <span class="n">a</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span><span class="p">),</span>
-        <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
-        <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span>
-        <span class="s2">&quot;angle_deg&quot;</span><span class="p">:</span> <span class="n">angle_deg</span><span class="p">,</span>
-        <span class="s2">&quot;eccentricity&quot;</span><span class="p">:</span> <span class="n">eccentricity</span><span class="p">,</span>
+        <span class="s2">"center"</span><span class="p">:</span> <span class="p">(</span><span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span><span class="p">),</span>
+        <span class="s2">"width"</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
+        <span class="s2">"height"</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span>
+        <span class="s2">"angle_deg"</span><span class="p">:</span> <span class="n">angle_deg</span><span class="p">,</span>
+        <span class="s2">"eccentricity"</span><span class="p">:</span> <span class="n">eccentricity</span><span class="p">,</span>
     <span class="p">}</span></div>
 
 
 
-<div class="viewcode-block" id="mask_main_lobe_elliptical">
-<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.mask_main_lobe_elliptical">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">mask_main_lobe_elliptical</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">3.0</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mask main lobe elliptical.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_main_lobe_mask_np</span><span class="p">(</span><span class="n">beam_np</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Compute main lobe mask.</span>
 
-<span class="sd">    Apply an elliptical mask to suppress the main lobe from a beam image.</span>
+<span class="sd">    Compute a binary mask of the main lobe of a beam using watershed segmentation.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    beam : np.ndarray</span>
-<span class="sd">        2D beam image.</span>
-<span class="sd">    fit_result : dict</span>
-<span class="sd">        Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity).</span>
-<span class="sd">    scale : float</span>
-<span class="sd">        Scale factor to enlarge or shrink the elliptical mask (default is 3).</span>
+<span class="sd">    beam_np : np.ndarray</span>
+<span class="sd">        The beam image (2D).</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    beam_masked : np.ndarray</span>
-<span class="sd">        Beam image with the main lobe masked (set to 0).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span> <span class="o">=</span> <span class="n">fit_result</span><span class="p">[</span><span class="s2">&quot;center&quot;</span><span class="p">]</span>
-    <span class="n">width</span> <span class="o">=</span> <span class="n">fit_result</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">scale</span>
-    <span class="n">height</span> <span class="o">=</span> <span class="n">fit_result</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">scale</span>
-    <span class="n">angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">fit_result</span><span class="p">[</span><span class="s2">&quot;angle_deg&quot;</span><span class="p">])</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        Binary mask of the main lobe.</span>
+<span class="sd">    """</span>
+    <span class="n">beam_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">beam_np</span><span class="p">)</span>
+    <span class="n">peak_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">beam_np</span><span class="p">),</span> <span class="n">beam_np</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
-    <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">beam</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-    <span class="n">x_shifted</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">center_x</span>
-    <span class="n">y_shifted</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">center_y</span>
+    <span class="c1"># One marker per local maximum -&gt; each lobe gets its own catchment basin</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">peak_local_max</span><span class="p">(</span><span class="n">beam_np</span><span class="p">,</span> <span class="n">min_distance</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">markers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">beam_np</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">markers</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span> <span class="o">=</span> <span class="n">i</span>
 
-    <span class="n">cos_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-    <span class="n">sin_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-    <span class="n">x_rot</span> <span class="o">=</span> <span class="n">cos_angle</span> <span class="o">*</span> <span class="n">x_shifted</span> <span class="o">+</span> <span class="n">sin_angle</span> <span class="o">*</span> <span class="n">y_shifted</span>
-    <span class="n">y_rot</span> <span class="o">=</span> <span class="o">-</span><span class="n">sin_angle</span> <span class="o">*</span> <span class="n">x_shifted</span> <span class="o">+</span> <span class="n">cos_angle</span> <span class="o">*</span> <span class="n">y_shifted</span>
-
-    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_rot</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y_rot</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span>
-
-    <span class="n">beam_masked</span> <span class="o">=</span> <span class="n">beam</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">beam_masked</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-    <span class="k">return</span> <span class="n">beam_masked</span></div>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">watershed</span><span class="p">(</span><span class="o">-</span><span class="n">beam_np</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="n">markers</span><span class="p">)</span>  <span class="c1"># flood "downhill" from each peak</span>
+    <span class="n">main_label</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">peak_idx</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">labels</span> <span class="o">==</span> <span class="n">main_label</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
 
+<div class="viewcode-block" id="beam_isl">
+<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.beam_isl">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_isl</span><span class="p">(</span><span class="n">beam</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Compute ISL.</span>
 
-<div class="viewcode-block" id="compute_sll">
-<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.compute_sll">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">compute_sll</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">3.0</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute sll.</span>
-
-<span class="sd">    Compute the Side-lobe level (SLL) of a beam using an elliptical mask.</span>
+<span class="sd">    Compute the integrated Sidelobe level (ISL) of a beam using watershed segmentation.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    beam : np.ndarray</span>
 <span class="sd">        The beam image (2D).</span>
-<span class="sd">    fit_result : dict</span>
-<span class="sd">        Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.</span>
-<span class="sd">    scale : float</span>
-<span class="sd">        Scale factor for the elliptical mask.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    sll_db : float</span>
-<span class="sd">        Side-lobe level in dB.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">fit_result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">fit_result</span> <span class="o">=</span> <span class="n">fit_elliptical_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">)</span>
-    <span class="n">main_lobe_peak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">beam</span><span class="p">))</span>
-    <span class="n">beam_masked</span> <span class="o">=</span> <span class="n">mask_main_lobe_elliptical</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">beam</span><span class="p">),</span> <span class="n">fit_result</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
-    <span class="n">side_lobe_peak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">beam_masked</span><span class="p">)</span>
-    <span class="n">sll_db</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">side_lobe_peak</span> <span class="o">/</span> <span class="n">main_lobe_peak</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">sll_db</span></div>
+<span class="sd">    float</span>
+<span class="sd">        Integrated sidelobe level (ISL) in dB.</span>
+<span class="sd">    """</span>
+    <span class="c1"># Non-differentiable segmentation step, wrapped for use inside jit/grad</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">pure_callback</span><span class="p">(</span>
+        <span class="n">_main_lobe_mask_np</span><span class="p">,</span>
+        <span class="n">jax</span><span class="o">.</span><span class="n">ShapeDtypeStruct</span><span class="p">(</span><span class="n">beam</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">jnp</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+        <span class="n">beam</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">lax</span><span class="o">.</span><span class="n">stop_gradient</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+
+    <span class="n">main_lobe_power</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">beam</span> <span class="o">*</span> <span class="n">mask</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">side_lobe_power</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">beam</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mask</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">isl_db</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">side_lobe_power</span> <span class="o">/</span> <span class="n">main_lobe_power</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">isl_db</span></div>
+
+
+
+<div class="viewcode-block" id="beam_psl">
+<a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.beam_psl">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_psl</span><span class="p">(</span><span class="n">beam</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Compute PSL.</span>
+
+<span class="sd">    Compute the peak sidelobe level (PSL) of a beam using watershed segmentation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    beam : np.ndarray</span>
+<span class="sd">        The beam image (2D).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Peak sidelobe level (PSL) in dB.</span>
+<span class="sd">    """</span>
+    <span class="c1"># Non-differentiable segmentation step, wrapped for use inside jit/grad</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">pure_callback</span><span class="p">(</span>
+        <span class="n">_main_lobe_mask_np</span><span class="p">,</span>
+        <span class="n">jax</span><span class="o">.</span><span class="n">ShapeDtypeStruct</span><span class="p">(</span><span class="n">beam</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">jnp</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+        <span class="n">beam</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">lax</span><span class="o">.</span><span class="n">stop_gradient</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+
+    <span class="n">main_lobe_peak_power</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">max</span><span class="p">((</span><span class="n">beam</span> <span class="o">*</span> <span class="n">mask</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">side_lobe_peak_power</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">max</span><span class="p">((</span><span class="n">beam</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mask</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">psl_db</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">side_lobe_peak_power</span> <span class="o">/</span> <span class="n">main_lobe_peak_power</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">psl_db</span></div>
 
 
 
 <div class="viewcode-block" id="compute_fwhm">
 <a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.compute_fwhm">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">compute_fwhm</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute fwhm.</span>
+<span class="w">    </span><span class="sd">"""Compute fwhm.</span>
 
 <span class="sd">    Compute FWHM from beam.</span>
 
@@ -581,17 +638,17 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple</span>
 <span class="sd">        FWHM along the semi-major and semi-minor axis of the beam.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">fit_result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">fit_result</span> <span class="o">=</span> <span class="n">fit_elliptical_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">fit_result</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">],</span> <span class="n">fit_result</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">fit_result</span><span class="p">[</span><span class="s2">"width"</span><span class="p">],</span> <span class="n">fit_result</span><span class="p">[</span><span class="s2">"height"</span><span class="p">]</span></div>
 
 
 
 <div class="viewcode-block" id="compute_eccentricity">
 <a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.compute_eccentricity">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">compute_eccentricity</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute eccentricity.</span>
+<span class="w">    </span><span class="sd">"""Compute eccentricity.</span>
 
 <span class="sd">    Compute the eccentricity of the beam main lobe.</span>
 
@@ -606,7 +663,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Eccentricity of the beam. Ranges from 0 to 1, where 0 indicates a perfectly circular beam and 1 a completely degenerated beam.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">fit_result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">fit_result</span> <span class="o">=</span> <span class="n">fit_elliptical_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">)</span>
     <span class="n">fwhm_a</span><span class="p">,</span> <span class="n">fwhm_b</span> <span class="o">=</span> <span class="n">compute_fwhm</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="p">)</span>
@@ -617,9 +674,10 @@
 <div class="viewcode-block" id="compute_beam_metrics">
 <a class="viewcode-back" href="../../argosim.metrics_utils.html#argosim.metrics_utils.compute_beam_metrics">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">compute_beam_metrics</span><span class="p">(</span><span class="n">beam</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute beam metrics.</span>
+<span class="w">    </span><span class="sd">"""Compute beam metrics.</span>
 
-<span class="sd">    Compute main beam metrics: SLL, FWHM, and eccentricity.</span>
+<span class="sd">    Compute main beam metrics: peak and integrated sidelobe level (PSL / ISL),</span>
+<span class="sd">    FWHM, and eccentricity.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -629,16 +687,16 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    dict</span>
-<span class="sd">        Dictionary containing SLL (dB), FWHM (x, y), and eccentricity.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        Dictionary containing PSL (dB), ISL (dB), FWHM (x, y), and eccentricity.</span>
+<span class="sd">    """</span>
     <span class="n">fit_result</span> <span class="o">=</span> <span class="n">fit_elliptical_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">)</span>
-    <span class="n">sll</span> <span class="o">=</span> <span class="n">compute_sll</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="p">)</span>
     <span class="n">fwhm_a</span><span class="p">,</span> <span class="n">fwhm_b</span> <span class="o">=</span> <span class="n">compute_fwhm</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="p">)</span>
     <span class="n">eccentricity</span> <span class="o">=</span> <span class="n">compute_eccentricity</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">fit_result</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;sll_db&quot;</span><span class="p">:</span> <span class="n">sll</span><span class="p">,</span>
-        <span class="s2">&quot;fwhm&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">fwhm_a</span><span class="p">,</span> <span class="n">fwhm_b</span><span class="p">),</span>
-        <span class="s2">&quot;eccentricity&quot;</span><span class="p">:</span> <span class="n">eccentricity</span><span class="p">,</span>
+        <span class="s2">"psl_db"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">beam_psl</span><span class="p">(</span><span class="n">beam</span><span class="p">)),</span>
+        <span class="s2">"isl_db"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">beam_isl</span><span class="p">(</span><span class="n">beam</span><span class="p">)),</span>
+        <span class="s2">"fwhm"</span><span class="p">:</span> <span class="p">(</span><span class="n">fwhm_a</span><span class="p">,</span> <span class="n">fwhm_b</span><span class="p">),</span>
+        <span class="s2">"eccentricity"</span><span class="p">:</span> <span class="n">eccentricity</span><span class="p">,</span>
     <span class="p">}</span></div>
 
 </pre></div>
@@ -703,8 +761,8 @@ By Ezequiel Centofanti, Emma Aycoberry
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
 
   <footer class="bd-footer">
   </footer>

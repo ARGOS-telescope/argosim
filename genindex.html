@@ -26,43 +26,50 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=4418a689" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
     <script src="_static/documentation_options.js?v=4acdca81"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -88,7 +95,47 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
     </header>
   
 
@@ -167,6 +214,7 @@
 <li class="toctree-l3"><a class="reference internal" href="argosim.data_utils.html">argosim.data_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="argosim.imaging_utils.html">argosim.imaging_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="argosim.metrics_utils.html">argosim.metrics_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="argosim.optim_utils.html">argosim.optim_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="argosim.plot_utils.html">argosim.plot_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="argosim.rand_utils.html">argosim.rand_utils module</a></li>
 </ul>
@@ -284,11 +332,18 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
 
 
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -326,9 +381,11 @@
  <a href="#A"><strong>A</strong></a>
  | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#K"><strong>K</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
@@ -336,7 +393,9 @@
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  | <a href="#X"><strong>X</strong></a>
  | <a href="#Y"><strong>Y</strong></a>
  
@@ -344,7 +403,9 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.add_noise_uv">add_noise_uv() (in module argosim.imaging_utils)</a>
+      <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.add_noise_vis">add_noise_vis() (in module argosim.imaging_utils)</a>
+</li>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.antenna_to_beam">antenna_to_beam() (in module argosim.optim_utils)</a>
 </li>
       <li>
     argosim
@@ -374,8 +435,6 @@
         <li><a href="argosim.clean.html#module-argosim.clean">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     argosim.data_utils
 
@@ -383,6 +442,8 @@
         <li><a href="argosim.data_utils.html#module-argosim.data_utils">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     argosim.imaging_utils
 
@@ -395,6 +456,13 @@
 
       <ul>
         <li><a href="argosim.metrics_utils.html#module-argosim.metrics_utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    argosim.optim_utils
+
+      <ul>
+        <li><a href="argosim.optim_utils.html#module-argosim.optim_utils">module</a>
 </li>
       </ul></li>
       <li>
@@ -419,6 +487,16 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="argosim.beam_utils.html#argosim.beam_utils.CosCubeBeam.beam_edge">beam_edge() (argosim.beam_utils.CosCubeBeam method)</a>
 </li>
+      <li><a href="argosim.metrics_utils.html#argosim.metrics_utils.beam_isl">beam_isl() (in module argosim.metrics_utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.beam_mse_loss">beam_mse_loss() (in module argosim.optim_utils)</a>
+</li>
+      <li><a href="argosim.metrics_utils.html#argosim.metrics_utils.beam_psl">beam_psl() (in module argosim.metrics_utils)</a>
+</li>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig.bw">bw (argosim.optim_utils.ObservationConfig attribute)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -427,9 +505,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="argosim.beam_utils.html#argosim.beam_utils.CosCubeBeam.c">c (argosim.beam_utils.CosCubeBeam attribute)</a>
 </li>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.centroid_penalty">centroid_penalty() (in module argosim.optim_utils)</a>
+</li>
       <li><a href="argosim.beam_utils.html#argosim.beam_utils.CosCubeBeam.Cf">Cf() (argosim.beam_utils.CosCubeBeam method)</a>
 </li>
       <li><a href="argosim.beam_utils.html#argosim.beam_utils.CosCubeBeam.check_fov">check_fov() (argosim.beam_utils.CosCubeBeam method)</a>
+</li>
+      <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.check_uv_in_grid">check_uv_in_grid() (in module argosim.imaging_utils)</a>
 </li>
       <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.check_uv_samples_range">check_uv_samples_range() (in module argosim.imaging_utils)</a>
 </li>
@@ -437,10 +519,10 @@
 </li>
       <li><a href="argosim.clean.html#argosim.clean.clean_hogbom">clean_hogbom() (in module argosim.clean)</a>
 </li>
-      <li><a href="argosim.antenna_utils.html#argosim.antenna_utils.combine_antenna_arr">combine_antenna_arr() (in module argosim.antenna_utils)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="argosim.antenna_utils.html#argosim.antenna_utils.combine_antenna_arr">combine_antenna_arr() (in module argosim.antenna_utils)</a>
+</li>
       <li><a href="argosim.metrics_utils.html#argosim.metrics_utils.compute_beam_metrics">compute_beam_metrics() (in module argosim.metrics_utils)</a>
 </li>
       <li><a href="argosim.metrics_utils.html#argosim.metrics_utils.compute_eccentricity">compute_eccentricity() (in module argosim.metrics_utils)</a>
@@ -449,11 +531,23 @@
 </li>
       <li><a href="argosim.metrics_utils.html#argosim.metrics_utils.compute_metrics">compute_metrics() (in module argosim.metrics_utils)</a>
 </li>
-      <li><a href="argosim.metrics_utils.html#argosim.metrics_utils.compute_sll">compute_sll() (in module argosim.metrics_utils)</a>
-</li>
       <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.compute_visibilities_grid">compute_visibilities_grid() (in module argosim.imaging_utils)</a>
 </li>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.Constraint">Constraint (class in argosim.optim_utils)</a>
+</li>
       <li><a href="argosim.beam_utils.html#argosim.beam_utils.CosCubeBeam">CosCubeBeam (class in argosim.beam_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig.dec">dec (argosim.optim_utils.ObservationConfig attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.degrid_visibilities_conv">degrid_visibilities_conv() (in module argosim.imaging_utils)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -467,6 +561,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="argosim.beam_utils.html#argosim.beam_utils.CosCubeBeam.evaluate_beam_fit">evaluate_beam_fit() (argosim.beam_utils.CosCubeBeam method)</a>
 </li>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.exp_decay_schedule">exp_decay_schedule() (in module argosim.optim_utils)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -477,13 +573,19 @@
 </li>
       <li><a href="argosim.clean.html#argosim.clean.find_peak">find_peak() (in module argosim.clean)</a>
 </li>
+      <li><a href="argosim.metrics_utils.html#argosim.metrics_utils.fit_elliptical_beam">fit_elliptical_beam() (in module argosim.metrics_utils)</a>
+</li>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.Constraint.fn">fn (argosim.optim_utils.Constraint attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="argosim.metrics_utils.html#argosim.metrics_utils.fit_elliptical_beam">fit_elliptical_beam() (in module argosim.metrics_utils)</a>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig.fov">fov (argosim.optim_utils.ObservationConfig attribute)</a>
 </li>
       <li><a href="argosim.beam_utils.html#argosim.beam_utils.CosCubeBeam.fov_deg">fov_deg (argosim.beam_utils.CosCubeBeam attribute)</a>
 </li>
       <li><a href="argosim.beam_utils.html#argosim.beam_utils.CosCubeBeam.fov_solid_angle">fov_solid_angle() (argosim.beam_utils.CosCubeBeam method)</a>
+</li>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig.freq">freq (argosim.optim_utils.ObservationConfig attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -497,13 +599,37 @@
 </li>
       <li><a href="argosim.beam_utils.html#argosim.beam_utils.CosCubeBeam.get_beam">get_beam() (argosim.beam_utils.CosCubeBeam method)</a>
 </li>
+      <li><a href="argosim.beam_utils.html#argosim.beam_utils.CosCubeBeam.get_mesh">get_mesh() (argosim.beam_utils.CosCubeBeam method)</a>
+</li>
+      <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.grid_sampling_function">grid_sampling_function() (in module argosim.imaging_utils)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="argosim.beam_utils.html#argosim.beam_utils.CosCubeBeam.get_mesh">get_mesh() (argosim.beam_utils.CosCubeBeam method)</a>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig.grid_shape">grid_shape (argosim.optim_utils.ObservationConfig property)</a>
+</li>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig.grid_shape_os">grid_shape_os (argosim.optim_utils.ObservationConfig property)</a>
 </li>
       <li><a href="argosim.beam_utils.html#argosim.beam_utils.CosCubeBeam.grid_size">grid_size (argosim.beam_utils.CosCubeBeam attribute)</a>
 </li>
       <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.grid_uv_samples">grid_uv_samples() (in module argosim.imaging_utils)</a>
+</li>
+      <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.grid_visibilities_conv">grid_visibilities_conv() (in module argosim.imaging_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.kaiser_bessel">kaiser_bessel() (in module argosim.imaging_utils)</a>
+</li>
+      <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.kb_correction">kb_correction() (in module argosim.imaging_utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig.kernel_beta">kernel_beta (argosim.optim_utils.ObservationConfig property)</a>
+</li>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig.kernel_W">kernel_W (argosim.optim_utils.ObservationConfig attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -511,6 +637,8 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig.lat">lat (argosim.optim_utils.ObservationConfig attribute)</a>
+</li>
       <li><a href="argosim.antenna_utils.html#argosim.antenna_utils.load_antenna_enu_txt">load_antenna_enu_txt() (in module argosim.antenna_utils)</a>
 </li>
   </ul></td>
@@ -525,7 +653,9 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="argosim.metrics_utils.html#argosim.metrics_utils.mask_main_lobe_elliptical">mask_main_lobe_elliptical() (in module argosim.metrics_utils)</a>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.make_loss_fn">make_loss_fn() (in module argosim.optim_utils)</a>
+</li>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.make_optimizer">make_optimizer() (in module argosim.optim_utils)</a>
 </li>
       <li>
     module
@@ -545,6 +675,8 @@
 </li>
         <li><a href="argosim.metrics_utils.html#module-argosim.metrics_utils">argosim.metrics_utils</a>
 </li>
+        <li><a href="argosim.optim_utils.html#module-argosim.optim_utils">argosim.optim_utils</a>
+</li>
         <li><a href="argosim.plot_utils.html#module-argosim.plot_utils">argosim.plot_utils</a>
 </li>
         <li><a href="argosim.rand_utils.html#module-argosim.rand_utils">argosim.rand_utils</a>
@@ -562,7 +694,17 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig.n_freqs">n_freqs (argosim.optim_utils.ObservationConfig attribute)</a>
+</li>
       <li><a href="argosim.data_utils.html#argosim.data_utils.n_source_sky">n_source_sky() (in module argosim.data_utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig.n_times">n_times (argosim.optim_utils.ObservationConfig attribute)</a>
+</li>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.Constraint.name">name (argosim.optim_utils.Constraint attribute)</a>
+</li>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig.npx">npx (argosim.optim_utils.ObservationConfig attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -570,7 +712,15 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig">ObservationConfig (class in argosim.optim_utils)</a>
+</li>
       <li><a href="argosim.rand_utils.html#argosim.rand_utils.local_seed.old_state">old_state (argosim.rand_utils.local_seed attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.optimise_array">optimise_array() (in module argosim.optim_utils)</a>
+</li>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig.oversampling">oversampling (argosim.optim_utils.ObservationConfig attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -594,6 +744,8 @@
 </li>
       <li><a href="argosim.plot_utils.html#argosim.plot_utils.plot_beam_fit">plot_beam_fit() (in module argosim.plot_utils)</a>
 </li>
+      <li><a href="argosim.plot_utils.html#argosim.plot_utils.plot_sidelobes">plot_sidelobes() (in module argosim.plot_utils)</a>
+</li>
       <li><a href="argosim.plot_utils.html#argosim.plot_utils.plot_sky">plot_sky() (in module argosim.plot_utils)</a>
 </li>
       <li><a href="argosim.plot_utils.html#argosim.plot_utils.plot_sky_uv">plot_sky_uv() (in module argosim.plot_utils)</a>
@@ -607,6 +759,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="argosim.beam_utils.html#argosim.beam_utils.CosCubeBeam.r_fov">r_fov() (argosim.beam_utils.CosCubeBeam method)</a>
+</li>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.radius_penalty">radius_penalty() (in module argosim.optim_utils)</a>
 </li>
       <li><a href="argosim.antenna_utils.html#argosim.antenna_utils.random_antenna_arr">random_antenna_arr() (in module argosim.antenna_utils)</a>
 </li>
@@ -628,6 +782,8 @@
 </li>
       <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.scale_uv_samples">scale_uv_samples() (in module argosim.imaging_utils)</a>
 </li>
+      <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.scale_uv_samples_continuous">scale_uv_samples_continuous() (in module argosim.imaging_utils)</a>
+</li>
       <li><a href="argosim.rand_utils.html#argosim.rand_utils.local_seed.seed">seed (argosim.rand_utils.local_seed attribute)</a>
 </li>
       <li><a href="argosim.beam_utils.html#argosim.beam_utils.CosCubeBeam.set_c">set_c() (argosim.beam_utils.CosCubeBeam method)</a>
@@ -644,9 +800,23 @@
 </li>
       <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.simulate_dirty_observation">simulate_dirty_observation() (in module argosim.imaging_utils)</a>
 </li>
+      <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.simulate_dirty_observation_nn">simulate_dirty_observation_nn() (in module argosim.imaging_utils)</a>
+</li>
       <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.sky2uv">sky2uv() (in module argosim.imaging_utils)</a>
 </li>
-      <li><a href="argosim.metrics_utils.html#argosim.metrics_utils.ssim">ssim() (in module argosim.metrics_utils)</a>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.spacing_penalty">spacing_penalty() (in module argosim.optim_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig.t_0">t_0 (argosim.optim_utils.ObservationConfig attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.ObservationConfig.track_h">track_h (argosim.optim_utils.ObservationConfig attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -661,6 +831,14 @@
       <li><a href="argosim.imaging_utils.html#argosim.imaging_utils.uv2sky">uv2sky() (in module argosim.imaging_utils)</a>
 </li>
       <li><a href="argosim.antenna_utils.html#argosim.antenna_utils.uv_track_multiband">uv_track_multiband() (in module argosim.antenna_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="argosim.optim_utils.html#argosim.optim_utils.Constraint.weight">weight (argosim.optim_utils.Constraint attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -743,8 +921,8 @@ By Ezequiel Centofanti, Emma Aycoberry
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
 
   <footer class="bd-footer">
   </footer>

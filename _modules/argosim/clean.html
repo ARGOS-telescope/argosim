@@ -26,43 +26,50 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=4418a689" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
     <script src="../../_static/documentation_options.js?v=4acdca81"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/argosim/clean';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -88,7 +95,47 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
     </header>
   
 
@@ -167,6 +214,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../argosim.data_utils.html">argosim.data_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../argosim.imaging_utils.html">argosim.imaging_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../argosim.metrics_utils.html">argosim.metrics_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../argosim.optim_utils.html">argosim.optim_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../argosim.plot_utils.html">argosim.plot_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../argosim.rand_utils.html">argosim.rand_utils module</a></li>
 </ul>
@@ -284,11 +332,18 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
 
 
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -320,24 +375,25 @@
                 <article class="bd-article">
                   
   <h1>Source code for argosim.clean</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Clean.</span>
+<span></span><span class="sd">"""Clean.</span>
 
 <span class="sd">This module contains the functions to perform</span>
-<span class="sd">the Hogbom&#39;s clean algorithm on dirty observations.</span>
+<span class="sd">the Hogbom's clean algorithm on dirty observations.</span>
 
 <span class="sd">:Authors: Ezequiel Centofanti &lt;ezequiel.centofanti@cea.fr&gt;</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">argosim.data_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">gauss_source</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">argosim.metrics_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">fit_elliptical_beam</span>
 
 
 <div class="viewcode-block" id="shift_beam">
 <a class="viewcode-back" href="../../argosim.clean.html#argosim.clean.shift_beam">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">shift_beam</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">shift_x</span><span class="p">,</span> <span class="n">shift_y</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Shift beam.</span>
+<span class="w">    </span><span class="sd">"""Shift beam.</span>
 
 <span class="sd">    Function to shift the beam image by a given amount of pixels in the</span>
 <span class="sd">    x and y directions.</span>
@@ -355,7 +411,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    beam_shift : np.ndarray</span>
 <span class="sd">        The shifted beam image.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">beam_shift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">beam</span><span class="p">,</span> <span class="n">shift_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">shift_x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">beam_shift</span><span class="p">[:,</span> <span class="n">shift_x</span><span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
@@ -374,9 +430,11 @@
 <div class="viewcode-block" id="find_peak">
 <a class="viewcode-back" href="../../argosim.clean.html#argosim.clean.find_peak">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">find_peak</span><span class="p">(</span><span class="n">I</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find peak.</span>
+<span class="w">    </span><span class="sd">"""Find peak.</span>
 
-<span class="sd">    Function to find the peak of an image.</span>
+<span class="sd">    Function to find the brightest (positive) peak of an image. Cleaning is</span>
+<span class="sd">    positive-only, so the maximum value is used rather than the maximum</span>
+<span class="sd">    absolute value — negative sidelobes are never selected as components.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -395,11 +453,9 @@
 <span class="sd">        The shift in the x direction from the center of the image.</span>
 <span class="sd">    shift_y : int</span>
 <span class="sd">        The shift in the y direction from the center of the image.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">y_max</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">I</span><span class="p">))</span> <span class="o">/</span> <span class="n">I</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">I</span><span class="p">)),</span> <span class="n">I</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="p">)</span>
-    <span class="n">x_off</span><span class="p">,</span> <span class="n">y_off</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">I</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">I</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">y_max</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">I</span><span class="p">)),</span> <span class="n">I</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">y_off</span><span class="p">,</span> <span class="n">x_off</span> <span class="o">=</span> <span class="n">I</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">I</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
     <span class="n">shift_x</span><span class="p">,</span> <span class="n">shift_y</span> <span class="o">=</span> <span class="n">x_max</span> <span class="o">-</span> <span class="n">x_off</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">-</span> <span class="n">y_off</span>
     <span class="n">max_val</span> <span class="o">=</span> <span class="n">I</span><span class="p">[</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_max</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">shift_x</span><span class="p">,</span> <span class="n">shift_y</span></div>
@@ -409,7 +465,7 @@
 <div class="viewcode-block" id="pad_odd">
 <a class="viewcode-back" href="../../argosim.clean.html#argosim.clean.pad_odd">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">pad_odd</span><span class="p">(</span><span class="n">im</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pad odd.</span>
+<span class="w">    </span><span class="sd">"""Pad odd.</span>
 
 <span class="sd">    Function to pad an image with zeros to make it odd in size.</span>
 
@@ -422,23 +478,32 @@
 <span class="sd">    -------</span>
 <span class="sd">    im_padded : np.ndarray</span>
 <span class="sd">        The padded image.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">im</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"constant"</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="clean_hogbom">
 <a class="viewcode-back" href="../../argosim.clean.html#argosim.clean.clean_hogbom">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">clean_hogbom</span><span class="p">(</span>
-    <span class="n">I_obs</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">clean_beam_size_px</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="kc">False</span>
+    <span class="n">I_obs</span><span class="p">,</span>
+    <span class="n">B</span><span class="p">,</span>
+    <span class="n">gamma</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">clean_beam_size_px</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">res</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean Hogbom.</span>
+<span class="w">    </span><span class="sd">"""Clean Hogbom.</span>
 
-<span class="sd">    Function to perform the Hogbom&#39;s clean algorithm on a dirty image.</span>
+<span class="sd">    Function to perform the Hogbom's clean algorithm on a dirty image. Cleaning</span>
+<span class="sd">    is positive-only: at each iteration the brightest positive residual peak is</span>
+<span class="sd">    selected as a component, and cleaning stops when that peak falls below</span>
+<span class="sd">    ``threshold``.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -451,9 +516,14 @@
 <span class="sd">    max_iter : int</span>
 <span class="sd">        The maximum number of iterations.</span>
 <span class="sd">    threshold : float</span>
-<span class="sd">        The threshold to stop the cleaning process.</span>
-<span class="sd">    clean_beam_size_px : int</span>
-<span class="sd">        The size (FWHM) of the clean beam in pixels.</span>
+<span class="sd">        The threshold on the residual peak to stop the cleaning process.</span>
+<span class="sd">    clean_beam_size_px : float, optional</span>
+<span class="sd">        The size (FWHM, in pixels) of the circular restoring beam. If ``None``</span>
+<span class="sd">        (default), it is estimated from the dirty beam: an ellipse is fitted to</span>
+<span class="sd">        the dirty-beam main lobe and a round beam of FWHM equal to the mean of</span>
+<span class="sd">        the two fitted FWHMs is used (a warning prints the estimated size). A</span>
+<span class="sd">        round beam is used on purpose, so sources are restored as they are,</span>
+<span class="sd">        undistorted by the (elliptical) interferometer beam.</span>
 <span class="sd">    res : bool</span>
 <span class="sd">        Add residual signal to clean image.</span>
 
@@ -463,7 +533,7 @@
 <span class="sd">        The cleaned image.</span>
 <span class="sd">    sky_model : np.ndarray</span>
 <span class="sd">        The sky model image.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># If the observation and beam are even in size, pad them with zeros at the bottom and right</span>
     <span class="c1"># An odd beam is easier to place at the image peaks</span>
     <span class="k">if</span> <span class="n">I_obs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -474,24 +544,26 @@
     <span class="n">I_clean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">I_obs</span><span class="p">)</span>
     <span class="n">sky_model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">I_obs</span><span class="p">)</span>
     <span class="n">B_norm</span> <span class="o">=</span> <span class="n">B</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
-    <span class="c1"># B_clean = clean_beam(B_norm, search_box=B_norm.shape[0]//8)</span>
+    <span class="k">if</span> <span class="n">clean_beam_size_px</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Estimate a round restoring beam from the dirty-beam main lobe:</span>
+        <span class="c1"># a round beam of FWHM equal to the mean of the two fitted FWHMs.</span>
+        <span class="n">fit</span> <span class="o">=</span> <span class="n">fit_elliptical_beam</span><span class="p">(</span><span class="n">B_norm</span><span class="p">)</span>
+        <span class="n">clean_beam_size_px</span> <span class="o">=</span> <span class="p">(</span><span class="n">fit</span><span class="p">[</span><span class="s2">"width"</span><span class="p">]</span> <span class="o">+</span> <span class="n">fit</span><span class="p">[</span><span class="s2">"height"</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Estimated clean beam size (FWHM): </span><span class="si">{:.2f}</span><span class="s2"> px"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clean_beam_size_px</span><span class="p">))</span>
     <span class="n">B_clean</span> <span class="o">=</span> <span class="n">gauss_source</span><span class="p">(</span>
         <span class="n">B</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">B</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">fwhm_pix</span><span class="o">=</span><span class="n">clean_beam_size_px</span>
     <span class="p">)</span>
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
-        <span class="c1"># Get peak coordinates and flux value</span>
+        <span class="c1"># Get the brightest positive peak coordinates and flux value</span>
         <span class="n">max_val</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">shift_x</span><span class="p">,</span> <span class="n">shift_y</span> <span class="o">=</span> <span class="n">find_peak</span><span class="p">(</span><span class="n">I_res</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">threshold</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">max_val</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reached threshold at iteration </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Reached threshold at iteration </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
             <span class="k">break</span>
         <span class="c1"># Subtract the peak from the dirty image</span>
         <span class="n">I_res</span> <span class="o">-=</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">max_val</span> <span class="o">*</span> <span class="n">shift_beam</span><span class="p">(</span><span class="n">B_norm</span><span class="p">,</span> <span class="n">shift_x</span><span class="p">,</span> <span class="n">shift_y</span><span class="p">)</span>
         <span class="n">sky_model</span><span class="p">[</span><span class="n">y_max</span><span class="p">,</span> <span class="n">x_max</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">max_val</span>
         <span class="n">I_clean</span> <span class="o">+=</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">max_val</span> <span class="o">*</span> <span class="n">shift_beam</span><span class="p">(</span><span class="n">B_clean</span><span class="p">,</span> <span class="n">shift_x</span><span class="p">,</span> <span class="n">shift_y</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">max_val</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: negative peak found with amplitude:&quot;</span><span class="p">,</span> <span class="n">max_val</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">I_obs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">I_res</span> <span class="o">=</span> <span class="n">I_res</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -565,8 +637,8 @@ By Ezequiel Centofanti, Emma Aycoberry
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
 
   <footer class="bd-footer">
   </footer>

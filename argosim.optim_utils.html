@@ -1,0 +1,1021 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>argosim.optim_utils module &#8212; Argosim 0.0.3 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=4418a689" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="_static/documentation_options.js?v=4acdca81"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'argosim.optim_utils';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="argosim.plot_utils module" href="argosim.plot_utils.html" />
+    <link rel="prev" title="argosim.metrics_utils module" href="argosim.metrics_utils.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Argosim 0.0.3 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">About Argosim</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Development team</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Installing Argosim</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Running Argosim</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="running.html">Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui.html">Argosim GUI</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Example</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="example.html">Basic simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">argosim</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="argosim.html">argosim package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="argosim.antenna_utils.html">argosim.antenna_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="argosim.beam_utils.html">argosim.beam_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="argosim.clean.html">argosim.clean module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="argosim.data_utils.html">argosim.data_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="argosim.imaging_utils.html">argosim.imaging_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="argosim.metrics_utils.html">argosim.metrics_utils module</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">argosim.optim_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="argosim.plot_utils.html">argosim.plot_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="argosim.rand_utils.html">argosim.rand_utils module</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ARGOS-telescope/argosim" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ARGOS-telescope/argosim/edit/main/argosim.optim_utils.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ARGOS-telescope/argosim/issues/new?title=Issue%20on%20page%20%2Fargosim.optim_utils.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/argosim.optim_utils.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>argosim.optim_utils module</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.Constraint"><code class="docutils literal notranslate"><span class="pre">Constraint</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.Constraint.fn"><code class="docutils literal notranslate"><span class="pre">Constraint.fn</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.Constraint.name"><code class="docutils literal notranslate"><span class="pre">Constraint.name</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.Constraint.weight"><code class="docutils literal notranslate"><span class="pre">Constraint.weight</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig"><code class="docutils literal notranslate"><span class="pre">ObservationConfig</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.bw"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.bw</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.dec"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.dec</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.fov"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.fov</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.freq"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.freq</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.grid_shape"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.grid_shape</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.grid_shape_os"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.grid_shape_os</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.kernel_W"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.kernel_W</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.kernel_beta"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.kernel_beta</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.lat"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.lat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.n_freqs"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.n_freqs</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.n_times"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.n_times</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.npx"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.npx</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.oversampling"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.oversampling</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.t_0"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.t_0</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.track_h"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.track_h</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.antenna_to_beam"><code class="docutils literal notranslate"><span class="pre">antenna_to_beam()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.beam_mse_loss"><code class="docutils literal notranslate"><span class="pre">beam_mse_loss()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.centroid_penalty"><code class="docutils literal notranslate"><span class="pre">centroid_penalty()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.exp_decay_schedule"><code class="docutils literal notranslate"><span class="pre">exp_decay_schedule()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.make_loss_fn"><code class="docutils literal notranslate"><span class="pre">make_loss_fn()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.make_optimizer"><code class="docutils literal notranslate"><span class="pre">make_optimizer()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.optimise_array"><code class="docutils literal notranslate"><span class="pre">optimise_array()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.radius_penalty"><code class="docutils literal notranslate"><span class="pre">radius_penalty()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.spacing_penalty"><code class="docutils literal notranslate"><span class="pre">spacing_penalty()</span></code></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-argosim.optim_utils">
+<span id="argosim-optim-utils-module"></span><h1>argosim.optim_utils module<a class="headerlink" href="#module-argosim.optim_utils" title="Link to this heading">#</a></h1>
+<p>Optim utils.</p>
+<p>This module contains the building blocks for end-to-end gradient-based
+optimisation of antenna-array layouts using the differentiable
+Kaiser-Bessel gridding forward model from <a class="reference internal" href="argosim.imaging_utils.html#module-argosim.imaging_utils" title="argosim.imaging_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">argosim.imaging_utils</span></code></a>.</p>
+<p>It is intentionally modular so that the user can mix and match:</p>
+<ul class="simple">
+<li><p>a forward model parameterised by an <a class="reference internal" href="#argosim.optim_utils.ObservationConfig" title="argosim.optim_utils.ObservationConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObservationConfig</span></code></a>;</p></li>
+<li><p>a target / objective loss (currently: image-matching MSE; future:
+FWHM, sidelobe level, UV-coverage metrics);</p></li>
+<li><p>an arbitrary list of weighted soft constraints
+(<a class="reference internal" href="#argosim.optim_utils.Constraint" title="argosim.optim_utils.Constraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">Constraint</span></code></a>) — minimum antenna spacing, maximum array radius,
+centroid pin, etc.;</p></li>
+<li><p>an optimiser built via <a class="reference internal" href="#argosim.optim_utils.make_optimizer" title="argosim.optim_utils.make_optimizer"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_optimizer()</span></code></a> (Adam, SGD, AdamW, …)
+with an optional learning-rate schedule via <a class="reference internal" href="#argosim.optim_utils.exp_decay_schedule" title="argosim.optim_utils.exp_decay_schedule"><code class="xref py py-func docutils literal notranslate"><span class="pre">exp_decay_schedule()</span></code></a>.</p></li>
+</ul>
+<p>The full optimisation loop is exposed as <a class="reference internal" href="#argosim.optim_utils.optimise_array" title="argosim.optim_utils.optimise_array"><code class="xref py py-func docutils literal notranslate"><span class="pre">optimise_array()</span></code></a>, which
+returns the final positions, the loss history, and per-step antenna
+snapshots for animation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Authors<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Ezequiel Centofanti &lt;<a class="reference external" href="mailto:ezequiel&#46;centofanti&#37;&#52;&#48;cea&#46;fr">ezequiel<span>&#46;</span>centofanti<span>&#64;</span>cea<span>&#46;</span>fr</a>&gt;</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="argosim.optim_utils.Constraint">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">argosim.optim_utils.</span></span><span class="sig-name descname"><span class="pre">Constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/optim_utils.html#Constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.optim_utils.Constraint" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Constraint.</p>
+<p>A weighted soft constraint applied to the antenna array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Human-readable name (used in reports / logs).</p></li>
+<li><p><strong>fn</strong> (<em>Callable</em>) – <code class="docutils literal notranslate"><span class="pre">(antenna,)</span> <span class="pre">-&gt;</span> <span class="pre">scalar</span></code> penalty function.</p></li>
+<li><p><strong>weight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Multiplicative weight in the total loss.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="argosim.optim_utils.Constraint.fn">
+<span class="sig-name descname"><span class="pre">fn</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><span class="pre">Callable</span></a></span><a class="headerlink" href="#argosim.optim_utils.Constraint.fn" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="argosim.optim_utils.Constraint.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#argosim.optim_utils.Constraint.name" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="argosim.optim_utils.Constraint.weight">
+<span class="sig-name descname"><span class="pre">weight</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#argosim.optim_utils.Constraint.weight" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">argosim.optim_utils.</span></span><span class="sig-name descname"><span class="pre">ObservationConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.6108652381980153</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5585053606381855</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2000000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_freqs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_h</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_W</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oversampling</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/optim_utils.html#ObservationConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.optim_utils.ObservationConfig" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Observation configuration.</p>
+<p>Static parameters of the imaging / observation model used by the
+differentiable forward map. Kept frozen so it is hashable and safe
+to pass through <a class="reference external" href="https://docs.jax.dev/en/latest/_autosummary/jax.jit.html#jax.jit" title="(in JAX)"><code class="xref py py-func docutils literal notranslate"><span class="pre">jax.jit()</span></code></a> as a static argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>npx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of pixels per side of the (square) image grid.</p></li>
+<li><p><strong>fov</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Field of view in degrees (square FOV).</p></li>
+<li><p><strong>lat</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Array latitude in radians.</p></li>
+<li><p><strong>dec</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Source declination in radians.</p></li>
+<li><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Central observation frequency in Hz.</p></li>
+<li><p><strong>bw</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Total bandwidth in Hz.</p></li>
+<li><p><strong>n_freqs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of frequency channels sampled across <code class="docutils literal notranslate"><span class="pre">bw</span></code>.</p></li>
+<li><p><strong>n_times</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of time samples across the integration.</p></li>
+<li><p><strong>track_h</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Total integration time in hours.</p></li>
+<li><p><strong>t_0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Initial hour-angle in hours.</p></li>
+<li><p><strong>kernel_W</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – KB gridding kernel support width in pixels (odd integer).</p></li>
+<li><p><strong>oversampling</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – UV-grid oversampling factor. The PSF is gridded onto an
+<code class="docutils literal notranslate"><span class="pre">oversampling</span> <span class="pre">*</span> <span class="pre">npx</span></code> grid (finer UV cells, FoV scaled by
+<code class="docutils literal notranslate"><span class="pre">oversampling</span></code>) and the dirty beam is cropped back to
+<code class="docutils literal notranslate"><span class="pre">npx</span> <span class="pre">x</span> <span class="pre">npx</span></code>, discarding the borders where the KB correction
+amplifies noise/aliasing. Default is 2; set to 1 for the
+un-padded native-resolution behaviour.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><a class="reference internal" href="#argosim.optim_utils.ObservationConfig.grid_shape" title="argosim.optim_utils.ObservationConfig.grid_shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_shape</span></code></a></dt><dd><p>Image grid shape <code class="docutils literal notranslate"><span class="pre">(npx,</span> <span class="pre">npx)</span></code>.</p>
+</dd>
+<dt><a class="reference internal" href="#argosim.optim_utils.ObservationConfig.grid_shape_os" title="argosim.optim_utils.ObservationConfig.grid_shape_os"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_shape_os</span></code></a></dt><dd><p>Oversampled UV-grid shape <code class="docutils literal notranslate"><span class="pre">(oversampling</span> <span class="pre">*</span> <span class="pre">npx,)</span> <span class="pre">*</span> <span class="pre">2</span></code>.</p>
+</dd>
+<dt><a class="reference internal" href="#argosim.optim_utils.ObservationConfig.kernel_beta" title="argosim.optim_utils.ObservationConfig.kernel_beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kernel_beta</span></code></a></dt><dd><p>KB shape parameter (<code class="docutils literal notranslate"><span class="pre">2.34</span> <span class="pre">*</span> <span class="pre">W</span></code>, standard choice).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig.bw">
+<span class="sig-name descname"><span class="pre">bw</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1000000000.0</span></span><a class="headerlink" href="#argosim.optim_utils.ObservationConfig.bw" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig.dec">
+<span class="sig-name descname"><span class="pre">dec</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.5585053606381855</span></span><a class="headerlink" href="#argosim.optim_utils.ObservationConfig.dec" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig.fov">
+<span class="sig-name descname"><span class="pre">fov</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.4</span></span><a class="headerlink" href="#argosim.optim_utils.ObservationConfig.fov" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig.freq">
+<span class="sig-name descname"><span class="pre">freq</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2000000000.0</span></span><a class="headerlink" href="#argosim.optim_utils.ObservationConfig.freq" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig.grid_shape">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">grid_shape</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#argosim.optim_utils.ObservationConfig.grid_shape" title="Link to this definition">#</a></dt>
+<dd><p>Image grid shape <code class="docutils literal notranslate"><span class="pre">(npx,</span> <span class="pre">npx)</span></code>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig.grid_shape_os">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">grid_shape_os</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#argosim.optim_utils.ObservationConfig.grid_shape_os" title="Link to this definition">#</a></dt>
+<dd><p>Oversampled UV-grid shape <code class="docutils literal notranslate"><span class="pre">(oversampling</span> <span class="pre">*</span> <span class="pre">npx,)</span> <span class="pre">*</span> <span class="pre">2</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig.kernel_W">
+<span class="sig-name descname"><span class="pre">kernel_W</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></span><a class="headerlink" href="#argosim.optim_utils.ObservationConfig.kernel_W" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig.kernel_beta">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">kernel_beta</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#argosim.optim_utils.ObservationConfig.kernel_beta" title="Link to this definition">#</a></dt>
+<dd><p>KB shape parameter (<code class="docutils literal notranslate"><span class="pre">2.34</span> <span class="pre">*</span> <span class="pre">W</span></code>, standard choice).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig.lat">
+<span class="sig-name descname"><span class="pre">lat</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.6108652381980153</span></span><a class="headerlink" href="#argosim.optim_utils.ObservationConfig.lat" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig.n_freqs">
+<span class="sig-name descname"><span class="pre">n_freqs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></span><a class="headerlink" href="#argosim.optim_utils.ObservationConfig.n_freqs" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig.n_times">
+<span class="sig-name descname"><span class="pre">n_times</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></span><a class="headerlink" href="#argosim.optim_utils.ObservationConfig.n_times" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig.npx">
+<span class="sig-name descname"><span class="pre">npx</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">256</span></span><a class="headerlink" href="#argosim.optim_utils.ObservationConfig.npx" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig.oversampling">
+<span class="sig-name descname"><span class="pre">oversampling</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#argosim.optim_utils.ObservationConfig.oversampling" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig.t_0">
+<span class="sig-name descname"><span class="pre">t_0</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.0</span></span><a class="headerlink" href="#argosim.optim_utils.ObservationConfig.t_0" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="argosim.optim_utils.ObservationConfig.track_h">
+<span class="sig-name descname"><span class="pre">track_h</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.5</span></span><a class="headerlink" href="#argosim.optim_utils.ObservationConfig.track_h" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.optim_utils.antenna_to_beam">
+<span class="sig-prename descclassname"><span class="pre">argosim.optim_utils.</span></span><span class="sig-name descname"><span class="pre">antenna_to_beam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">antenna</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#argosim.optim_utils.ObservationConfig" title="argosim.optim_utils.ObservationConfig"><span class="pre">ObservationConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/optim_utils.html#antenna_to_beam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.optim_utils.antenna_to_beam" title="Link to this definition">#</a></dt>
+<dd><p>Antenna positions to normalised dirty beam.</p>
+<p>Differentiable forward model mapping antenna ENU positions to the
+peak-normalised dirty beam (PSF) via baseline computation, UV-track
+generation, Kaiser-Bessel convolutional gridding, and inverse FFT.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>antenna</strong> (<em>jnp.ndarray</em>) – Antenna ENU positions, shape <code class="docutils literal notranslate"><span class="pre">(n_ant,</span> <span class="pre">3)</span></code> in metres.</p></li>
+<li><p><strong>config</strong> (<a class="reference internal" href="#argosim.optim_utils.ObservationConfig" title="argosim.optim_utils.ObservationConfig"><em>ObservationConfig</em></a>) – Static imaging / observation parameters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>beam</strong> – Peak-normalised dirty beam, shape <code class="docutils literal notranslate"><span class="pre">config.grid_shape</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>jnp.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.optim_utils.beam_mse_loss">
+<span class="sig-prename descclassname"><span class="pre">argosim.optim_utils.</span></span><span class="sig-name descname"><span class="pre">beam_mse_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/optim_utils.html#beam_mse_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.optim_utils.beam_mse_loss" title="Link to this definition">#</a></dt>
+<dd><p>Beam MSE loss.</p>
+<p>Normalised mean squared error between a (peak-normalised) dirty
+beam and a target image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>beam</strong> (<em>jnp.ndarray</em>) – Peak-normalised dirty beam.</p></li>
+<li><p><strong>target</strong> (<em>jnp.ndarray</em>) – Target image (e.g. a tight Gaussian).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>loss</strong> – Scalar normalised MSE.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>jnp.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.optim_utils.centroid_penalty">
+<span class="sig-prename descclassname"><span class="pre">argosim.optim_utils.</span></span><span class="sig-name descname"><span class="pre">centroid_penalty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">antenna</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/optim_utils.html#centroid_penalty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.optim_utils.centroid_penalty" title="Link to this definition">#</a></dt>
+<dd><p>Centroid penalty.</p>
+<p>Squared offset of the array centroid from the origin (E-N plane).
+Removes the loss’s translational degeneracy by pinning the centroid
+so the optimiser does not drift as a rigid body.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>antenna</strong> (<em>jnp.ndarray</em>) – Antenna ENU positions, shape <code class="docutils literal notranslate"><span class="pre">(n_ant,</span> <span class="pre">3)</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>penalty</strong> – Scalar non-negative penalty in m^2.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>jnp.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.optim_utils.exp_decay_schedule">
+<span class="sig-prename descclassname"><span class="pre">argosim.optim_utils.</span></span><span class="sig-name descname"><span class="pre">exp_decay_schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transition_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decay_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/optim_utils.html#exp_decay_schedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.optim_utils.exp_decay_schedule" title="Link to this definition">#</a></dt>
+<dd><p>Exp decay schedule.</p>
+<p>Exponential learning-rate decay from <code class="docutils literal notranslate"><span class="pre">init_lr</span></code> toward <code class="docutils literal notranslate"><span class="pre">end_lr</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>init_lr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Initial learning rate.</p></li>
+<li><p><strong>end_lr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Asymptotic learning rate (lower bound).</p></li>
+<li><p><strong>transition_steps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of steps over which to apply one decay factor.</p></li>
+<li><p><strong>decay_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Multiplicative decay per <code class="docutils literal notranslate"><span class="pre">transition_steps</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>schedule</strong> – Step-indexed learning-rate schedule.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>optax.Schedule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.optim_utils.make_loss_fn">
+<span class="sig-prename descclassname"><span class="pre">argosim.optim_utils.</span></span><span class="sig-name descname"><span class="pre">make_loss_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">forward_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_loss_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#argosim.optim_utils.Constraint" title="argosim.optim_utils.Constraint"><span class="pre">Constraint</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/optim_utils.html#make_loss_fn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.optim_utils.make_loss_fn" title="Link to this definition">#</a></dt>
+<dd><p>Make loss fn.</p>
+<p>Build a scalar loss combining a target / objective term and a set
+of weighted soft constraints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>forward_fn</strong> (<em>Callable</em>) – <code class="docutils literal notranslate"><span class="pre">(antenna,)</span> <span class="pre">-&gt;</span> <span class="pre">observable</span></code> — differentiable. Typically a
+partially applied <a class="reference internal" href="#argosim.optim_utils.antenna_to_beam" title="argosim.optim_utils.antenna_to_beam"><code class="xref py py-func docutils literal notranslate"><span class="pre">antenna_to_beam()</span></code></a>.</p></li>
+<li><p><strong>target_loss_fn</strong> (<em>Callable</em>) – <code class="docutils literal notranslate"><span class="pre">(observable,)</span> <span class="pre">-&gt;</span> <span class="pre">scalar</span></code> target term.</p></li>
+<li><p><strong>constraints</strong> (<em>sequence</em><em> of </em><a class="reference internal" href="#argosim.optim_utils.Constraint" title="argosim.optim_utils.Constraint"><em>Constraint</em></a>) – Weighted soft constraints on antenna positions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>loss_fn</strong> – <code class="docutils literal notranslate"><span class="pre">(antenna,)</span> <span class="pre">-&gt;</span> <span class="pre">scalar</span></code> total loss.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.optim_utils.make_optimizer">
+<span class="sig-prename descclassname"><span class="pre">argosim.optim_utils.</span></span><span class="sig-name descname"><span class="pre">make_optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'adam'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/optim_utils.html#make_optimizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.optim_utils.make_optimizer" title="Link to this definition">#</a></dt>
+<dd><p>Make optimizer.</p>
+<p>Build an <code class="xref py py-mod docutils literal notranslate"><span class="pre">optax</span></code> optimiser by name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Optimiser name: <code class="docutils literal notranslate"><span class="pre">&quot;adam&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;sgd&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;adamw&quot;</span></code>.</p></li>
+<li><p><strong>lr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>optax.Schedule</em>) – Constant learning rate or an <code class="docutils literal notranslate"><span class="pre">optax</span></code> schedule.</p></li>
+<li><p><strong>**kwargs</strong> – Forwarded to the underlying <code class="docutils literal notranslate"><span class="pre">optax</span></code> constructor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>optimizer</strong> – The configured optimiser.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>optax.GradientTransformation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.optim_utils.optimise_array">
+<span class="sig-prename descclassname"><span class="pre">argosim.optim_utils.</span></span><span class="sig-name descname"><span class="pre">optimise_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">antenna_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot_every</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freeze_u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose_every</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/optim_utils.html#optimise_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.optim_utils.optimise_array" title="Link to this definition">#</a></dt>
+<dd><p>Optimise array.</p>
+<p>Run gradient-based optimisation of the antenna layout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>antenna_init</strong> (<em>jnp.ndarray</em>) – Initial antenna ENU positions, shape <code class="docutils literal notranslate"><span class="pre">(n_ant,</span> <span class="pre">3)</span></code>.</p></li>
+<li><p><strong>loss_fn</strong> (<em>Callable</em>) – <code class="docutils literal notranslate"><span class="pre">(antenna,)</span> <span class="pre">-&gt;</span> <span class="pre">scalar</span></code> total loss, e.g. from
+<a class="reference internal" href="#argosim.optim_utils.make_loss_fn" title="argosim.optim_utils.make_loss_fn"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_loss_fn()</span></code></a>.</p></li>
+<li><p><strong>optimizer</strong> (<em>optax.GradientTransformation</em>) – The optimiser to step with, e.g. from <a class="reference internal" href="#argosim.optim_utils.make_optimizer" title="argosim.optim_utils.make_optimizer"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_optimizer()</span></code></a>.</p></li>
+<li><p><strong>n_steps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of optimisation steps to run.</p></li>
+<li><p><strong>snapshot_every</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – If given, store antenna positions and loss every this many
+steps (uniform spacing).</p></li>
+<li><p><strong>snapshot_steps</strong> (<em>sequence</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Explicit step indices at which to store a snapshot. Useful for
+non-uniform spacing (e.g. log-spaced: dense early, sparse late).
+Overrides <code class="docutils literal notranslate"><span class="pre">snapshot_every</span></code> when provided. Step 0 (initial)
+and step <code class="docutils literal notranslate"><span class="pre">n_steps</span></code> (final) are always included.</p></li>
+<li><p><strong>freeze_u</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, zero out the U (vertical) gradient component so the
+array stays flat.</p></li>
+<li><p><strong>verbose_every</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Print a status line every this many steps. Set to <code class="docutils literal notranslate"><span class="pre">None</span></code> or
+<code class="docutils literal notranslate"><span class="pre">0</span></code> to silence.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>result</strong> – Keys: <code class="docutils literal notranslate"><span class="pre">antenna</span></code> (final positions, jnp.ndarray),
+<code class="docutils literal notranslate"><span class="pre">loss_history</span></code> (np.ndarray, length <code class="docutils literal notranslate"><span class="pre">n_steps</span></code>),
+<code class="docutils literal notranslate"><span class="pre">snapshots_antenna</span></code> (np.ndarray, shape <code class="docutils literal notranslate"><span class="pre">(n_frames,</span> <span class="pre">n_ant,</span> <span class="pre">3)</span></code>),
+<code class="docutils literal notranslate"><span class="pre">snapshots_loss</span></code> (np.ndarray, length <code class="docutils literal notranslate"><span class="pre">n_frames</span></code>),
+<code class="docutils literal notranslate"><span class="pre">snapshots_step</span></code> (np.ndarray of int, length <code class="docutils literal notranslate"><span class="pre">n_frames</span></code>,
+the step index of each stored snapshot),
+<code class="docutils literal notranslate"><span class="pre">snapshot_every</span></code> (int or None).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.optim_utils.radius_penalty">
+<span class="sig-prename descclassname"><span class="pre">argosim.optim_utils.</span></span><span class="sig-name descname"><span class="pre">radius_penalty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">antenna</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_max</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/optim_utils.html#radius_penalty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.optim_utils.radius_penalty" title="Link to this definition">#</a></dt>
+<dd><p>Radius penalty.</p>
+<p>Smooth ReLU barrier on each antenna’s distance from the array
+centroid above <code class="docutils literal notranslate"><span class="pre">r_max</span></code>. Models a circular site footprint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>antenna</strong> (<em>jnp.ndarray</em>) – Antenna ENU positions, shape <code class="docutils literal notranslate"><span class="pre">(n_ant,</span> <span class="pre">3)</span></code>.</p></li>
+<li><p><strong>r_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Maximum allowed radius from the centroid in metres.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>penalty</strong> – Scalar non-negative penalty.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>jnp.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argosim.optim_utils.spacing_penalty">
+<span class="sig-prename descclassname"><span class="pre">argosim.optim_utils.</span></span><span class="sig-name descname"><span class="pre">spacing_penalty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">antenna</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d_min</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/argosim/optim_utils.html#spacing_penalty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#argosim.optim_utils.spacing_penalty" title="Link to this definition">#</a></dt>
+<dd><p>Spacing penalty.</p>
+<p>Smooth ReLU barrier on antenna pairs closer than <code class="docutils literal notranslate"><span class="pre">d_min</span></code> in the
+E-N plane. Each violating pair contributes <code class="docutils literal notranslate"><span class="pre">(1</span> <span class="pre">-</span> <span class="pre">dist/d_min)^2</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>antenna</strong> (<em>jnp.ndarray</em>) – Antenna ENU positions, shape <code class="docutils literal notranslate"><span class="pre">(n_ant,</span> <span class="pre">3)</span></code>.</p></li>
+<li><p><strong>d_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Minimum allowed pairwise distance in metres.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>penalty</strong> – Scalar non-negative penalty.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>jnp.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="argosim.metrics_utils.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">argosim.metrics_utils module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="argosim.plot_utils.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">argosim.plot_utils module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.Constraint"><code class="docutils literal notranslate"><span class="pre">Constraint</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.Constraint.fn"><code class="docutils literal notranslate"><span class="pre">Constraint.fn</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.Constraint.name"><code class="docutils literal notranslate"><span class="pre">Constraint.name</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.Constraint.weight"><code class="docutils literal notranslate"><span class="pre">Constraint.weight</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig"><code class="docutils literal notranslate"><span class="pre">ObservationConfig</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.bw"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.bw</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.dec"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.dec</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.fov"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.fov</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.freq"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.freq</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.grid_shape"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.grid_shape</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.grid_shape_os"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.grid_shape_os</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.kernel_W"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.kernel_W</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.kernel_beta"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.kernel_beta</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.lat"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.lat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.n_freqs"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.n_freqs</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.n_times"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.n_times</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.npx"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.npx</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.oversampling"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.oversampling</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.t_0"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.t_0</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.ObservationConfig.track_h"><code class="docutils literal notranslate"><span class="pre">ObservationConfig.track_h</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.antenna_to_beam"><code class="docutils literal notranslate"><span class="pre">antenna_to_beam()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.beam_mse_loss"><code class="docutils literal notranslate"><span class="pre">beam_mse_loss()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.centroid_penalty"><code class="docutils literal notranslate"><span class="pre">centroid_penalty()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.exp_decay_schedule"><code class="docutils literal notranslate"><span class="pre">exp_decay_schedule()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.make_loss_fn"><code class="docutils literal notranslate"><span class="pre">make_loss_fn()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.make_optimizer"><code class="docutils literal notranslate"><span class="pre">make_optimizer()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.optimise_array"><code class="docutils literal notranslate"><span class="pre">optimise_array()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.radius_penalty"><code class="docutils literal notranslate"><span class="pre">radius_penalty()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argosim.optim_utils.spacing_penalty"><code class="docutils literal notranslate"><span class="pre">spacing_penalty()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ezequiel Centofanti, Emma Aycoberry
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, Ezequiel Centofanti, Emma Aycoberry.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
