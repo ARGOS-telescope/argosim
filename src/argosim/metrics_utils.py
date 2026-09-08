@@ -6,8 +6,11 @@ This module contains utility functions to compute metrics between images.
 
 """
 
+import jax
+import jax.numpy as jnp
 import numpy as np
-from skimage.metrics import structural_similarity as ssim_skimage
+from skimage.feature import peak_local_max
+from skimage.segmentation import watershed
 
 
 def mse(img1, img2):
@@ -51,26 +54,6 @@ def residuals(img1, img2, absolute=True):
     return np.abs(res) if absolute else res
 
 
-def ssim(img1, img2):
-    """Structural similarity index.
-
-    Function to compute the structural similarity index between two images.
-
-    Parameters
-    ----------
-    img1 : np.ndarray
-        The first image.
-    img2 : np.ndarray
-        The second image.
-
-    Returns
-    -------
-    ssim : float
-        The structural similarity index between the two images.
-    """
-    return ssim_skimage(np.array(img1), np.array(img2), data_range=np.max(img1) - np.min(img1))
-
-
 def compute_metrics(img1, img2):
     """Compute metrics.
 
@@ -94,7 +77,6 @@ def compute_metrics(img1, img2):
         "mse": mse_val,
         "rel_mse": mse_val / norm_sq,
         "residual": residuals(img1, img2),
-        "ssim": ssim(img1, img2),
     }
     return metrics
 
@@ -115,6 +97,8 @@ def fit_elliptical_beam(beam, threshold_ratio=0.5):
     -------
     dict : dictionary
         Ellipse parameters: center, width, height, angle_deg, eccentricity.
+        ``width`` and ``height`` are the full widths at half maximum (FWHM), in
+        pixels, along the semi-major and semi-minor axes respectively.
     """
     max_val = np.max(np.abs(beam))
     threshold = threshold_ratio * max_val
@@ -135,9 +119,11 @@ def fit_elliptical_beam(beam, threshold_ratio=0.5):
     angle_rad = np.arctan2(major_axis[0], major_axis[1])
     angle_deg = np.degrees(angle_rad)
 
-    # Axes
-    width = 2 * np.sqrt(eigvals[0])
-    height = 2 * np.sqrt(eigvals[1])
+    # Axes (FWHM). For the half-max region, 2*sqrt(eigval) is the semi-axis
+    # (~HWHM, the radius of the region); multiply by 2 to report the full width
+    # at half maximum.
+    width = 4 * np.sqrt(eigvals[0])
+    height = 4 * np.sqrt(eigvals[1])
 
     # Eccentricity
     a, b = max(width, height), min(width, height)
@@ -152,72 +138,91 @@ def fit_elliptical_beam(beam, threshold_ratio=0.5):
     }
 
 
-def mask_main_lobe_elliptical(beam, fit_result, scale=3.0):
-    """Mask main lobe elliptical.
+def _main_lobe_mask_np(beam_np):
+    """Compute main lobe mask.
 
-    Apply an elliptical mask to suppress the main lobe from a beam image.
+    Compute a binary mask of the main lobe of a beam using watershed segmentation.
 
     Parameters
     ----------
-    beam : np.ndarray
-        2D beam image.
-    fit_result : dict
-        Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity).
-    scale : float
-        Scale factor to enlarge or shrink the elliptical mask (default is 3).
+    beam_np : np.ndarray
+        The beam image (2D).
 
     Returns
     -------
-    beam_masked : np.ndarray
-        Beam image with the main lobe masked (set to 0).
+    np.ndarray
+        Binary mask of the main lobe.
     """
-    center_x, center_y = fit_result["center"]
-    width = fit_result["width"] * scale
-    height = fit_result["height"] * scale
-    angle = np.radians(fit_result["angle_deg"])
+    beam_np = np.asarray(beam_np)
+    peak_idx = np.unravel_index(np.argmax(beam_np), beam_np.shape)
 
-    y, x = np.indices(beam.shape)
-    x_shifted = x - center_x
-    y_shifted = y - center_y
+    # One marker per local maximum -> each lobe gets its own catchment basin
+    coords = peak_local_max(beam_np, min_distance=1)
+    markers = np.zeros(beam_np.shape, dtype=np.int32)
+    for i, c in enumerate(coords, start=1):
+        markers[tuple(c)] = i
 
-    cos_angle = np.cos(angle)
-    sin_angle = np.sin(angle)
-    x_rot = cos_angle * x_shifted + sin_angle * y_shifted
-    y_rot = -sin_angle * x_shifted + cos_angle * y_shifted
-
-    mask = (x_rot**2 / (width / 2) ** 2 + y_rot**2 / (height / 2) ** 2) < 1
-
-    beam_masked = beam.copy()
-    beam_masked[mask] = 0.0
-    return beam_masked
+    labels = watershed(-beam_np, markers=markers)  # flood "downhill" from each peak
+    main_label = labels[peak_idx]
+    return (labels == main_label).astype(np.float32)
 
 
-def compute_sll(beam, fit_result=None, scale=3.0):
-    """Compute sll.
+def beam_isl(beam):
+    """Compute ISL.
 
-    Compute the Side-lobe level (SLL) of a beam using an elliptical mask.
+    Compute the integrated Sidelobe level (ISL) of a beam using watershed segmentation.
 
     Parameters
     ----------
     beam : np.ndarray
         The beam image (2D).
-    fit_result : dict
-        Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.
-    scale : float
-        Scale factor for the elliptical mask.
 
     Returns
     -------
-    sll_db : float
-        Side-lobe level in dB.
+    float
+        Integrated sidelobe level (ISL) in dB.
     """
-    if fit_result is None:
-        fit_result = fit_elliptical_beam(beam)
-    main_lobe_peak = np.max(np.abs(beam))
-    beam_masked = mask_main_lobe_elliptical(np.abs(beam), fit_result, scale=scale)
-    side_lobe_peak = np.max(beam_masked)
-    sll_db = 10 * np.log10(side_lobe_peak / main_lobe_peak + 1e-12)
-    return sll_db
+    # Non-differentiable segmentation step, wrapped for use inside jit/grad
+    mask = jax.pure_callback(
+        _main_lobe_mask_np,
+        jax.ShapeDtypeStruct(beam.shape, jnp.float32),
+        beam,
+    )
+    mask = jax.lax.stop_gradient(mask)
+
+    main_lobe_power = jnp.sum((beam * mask) ** 2)
+    side_lobe_power = jnp.sum((beam * (1 - mask)) ** 2)
+    isl_db = 10 * jnp.log10(side_lobe_power / main_lobe_power + 1e-12)
+    return isl_db
+
+
+def beam_psl(beam):
+    """Compute PSL.
+
+    Compute the peak sidelobe level (PSL) of a beam using watershed segmentation.
+
+    Parameters
+    ----------
+    beam : np.ndarray
+        The beam image (2D).
+
+    Returns
+    -------
+    float
+        Peak sidelobe level (PSL) in dB.
+    """
+    # Non-differentiable segmentation step, wrapped for use inside jit/grad
+    mask = jax.pure_callback(
+        _main_lobe_mask_np,
+        jax.ShapeDtypeStruct(beam.shape, jnp.float32),
+        beam,
+    )
+    mask = jax.lax.stop_gradient(mask)
+
+    main_lobe_peak_power = jnp.max((beam * mask) ** 2)
+    side_lobe_peak_power = jnp.max((beam * (1 - mask)) ** 2)
+    psl_db = 10 * jnp.log10(side_lobe_peak_power / main_lobe_peak_power + 1e-12)
+    return psl_db
 
 
 def compute_fwhm(beam, fit_result=None):
@@ -268,7 +273,8 @@ def compute_eccentricity(beam, fit_result=None):
 def compute_beam_metrics(beam):
     """Compute beam metrics.
 
-    Compute main beam metrics: SLL, FWHM, and eccentricity.
+    Compute main beam metrics: peak and integrated sidelobe level (PSL / ISL),
+    FWHM, and eccentricity.
 
     Parameters
     ----------
@@ -278,14 +284,14 @@ def compute_beam_metrics(beam):
     Returns
     -------
     dict
-        Dictionary containing SLL (dB), FWHM (x, y), and eccentricity.
+        Dictionary containing PSL (dB), ISL (dB), FWHM (x, y), and eccentricity.
     """
     fit_result = fit_elliptical_beam(beam)
-    sll = compute_sll(beam, fit_result)
     fwhm_a, fwhm_b = compute_fwhm(beam, fit_result)
     eccentricity = compute_eccentricity(beam, fit_result)
     return {
-        "sll_db": sll,
+        "psl_db": float(beam_psl(beam)),
+        "isl_db": float(beam_isl(beam)),
         "fwhm": (fwhm_a, fwhm_b),
         "eccentricity": eccentricity,
     }

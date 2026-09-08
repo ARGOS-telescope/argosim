@@ -1,7 +1,7 @@
 # widget_apsyn.py
 import sys
 from PyQt6.QtWidgets import (
-    QWidget, QLabel, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton
+    QWidget, QLabel, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, QComboBox
 )
 from PyQt6.QtCore import Qt
 
@@ -90,6 +90,36 @@ class ApertureSynthesisWidget(QWidget):
         group3.addWidget(self.param_widgets['nchan'])
         layout.addLayout(group3)
 
+        # Group 4: Gridding method and its Kaiser-Bessel parameters
+        group4 = QHBoxLayout()
+        self.method_label = QLabel("Gridding:")
+        self.method_combo = QComboBox()
+        self.method_combo.addItems(["KB (convolutional)", "NN (nearest-neighbour)"])
+        self.method_combo.currentTextChanged.connect(self._on_method_changed)
+        group4.addWidget(self.method_label)
+        group4.addWidget(self.method_combo)
+        self.weighting_label = QLabel("Weighting:")
+        self.weighting_combo = QComboBox()
+        self.weighting_combo.addItems(["natural", "uniform"])
+        group4.addWidget(self.weighting_label)
+        group4.addWidget(self.weighting_combo)
+        self.param_widgets['kernel_support'] = QLineEdit()
+        self.param_widgets['kernel_support'].setText("7")
+        self.param_labels['kernel_support'] = QLabel("Kernel support W (px):")
+        group4.addWidget(self.param_labels['kernel_support'])
+        group4.addWidget(self.param_widgets['kernel_support'])
+        self.param_widgets['beta'] = QLineEdit()
+        self.param_widgets['beta'].setText("auto")
+        self.param_labels['beta'] = QLabel("KB beta:")
+        group4.addWidget(self.param_labels['beta'])
+        group4.addWidget(self.param_widgets['beta'])
+        self.param_widgets['oversampling'] = QLineEdit()
+        self.param_widgets['oversampling'].setText("2")
+        self.param_labels['oversampling'] = QLabel("Oversampling:")
+        group4.addWidget(self.param_labels['oversampling'])
+        group4.addWidget(self.param_widgets['oversampling'])
+        layout.addLayout(group4)
+
         # Buttons row
         button_row = QHBoxLayout()
         self.sim_button = QPushButton("Simulate")
@@ -110,6 +140,13 @@ class ApertureSynthesisWidget(QWidget):
         self.setLayout(layout)
         self.current_uv_points = None
 
+    def _on_method_changed(self):
+        # Kaiser-Bessel parameters only apply to the convolutional method.
+        is_kb = self.method_combo.currentText().startswith("KB")
+        for key in ('kernel_support', 'beta', 'oversampling'):
+            self.param_widgets[key].setEnabled(is_kb)
+            self.param_labels[key].setEnabled(is_kb)
+
     def _reset_defaults(self):
         self.param_widgets['latitude'].setText("35")
         self.param_widgets['declination'].setText("35")
@@ -121,6 +158,11 @@ class ApertureSynthesisWidget(QWidget):
         self.param_widgets['nchan'].setText("5")
         self.param_widgets['fov'].setText("0.1")
         self.param_widgets['Npx'].setText("256")
+        self.method_combo.setCurrentIndex(0)
+        self.weighting_combo.setCurrentIndex(0)
+        self.param_widgets['kernel_support'].setText("7")
+        self.param_widgets['beta'].setText("auto")
+        self.param_widgets['oversampling'].setText("2")
 
     def _simulate(self):
         # Gather parameters
@@ -135,6 +177,12 @@ class ApertureSynthesisWidget(QWidget):
             nchan = int(self.param_widgets['nchan'].text())
             fov_size = float(self.param_widgets['fov'].text())
             Npx = int(self.param_widgets['Npx'].text())
+            method = "kb" if self.method_combo.currentText().startswith("KB") else "nn"
+            weighting = self.weighting_combo.currentText()
+            kernel_support = int(self.param_widgets['kernel_support'].text())
+            beta_text = self.param_widgets['beta'].text().strip().lower()
+            beta = None if beta_text in ("", "auto", "none") else float(beta_text)
+            oversampling = float(self.param_widgets['oversampling'].text())
         except Exception as e:
             self.fig.clear()
             ax = self.fig.add_subplot(1, 1, 1)
@@ -164,7 +212,10 @@ class ApertureSynthesisWidget(QWidget):
             f=central_freq*1e9, df=bandwidth*1e9, n_freqs=nchan)
         self.current_uv_points = uv_points
         try:
-            uv_mask, _ = argosim.imaging_utils.grid_uv_samples(uv_samples=uv_points, sky_uv_shape=(Npx, Npx), fov_size=(fov_size, fov_size))
+            uv_grid, dirty_beam = argosim.imaging_utils.grid_sampling_function(
+                uv_points, fov_size, Npx, method=method, weighting=weighting,
+                kernel_support=kernel_support, beta=beta, oversampling=oversampling,
+            )
         except ValueError as e:
             self.fig.clear()
             ax = self.fig.add_subplot(1, 1, 1)
@@ -172,20 +223,20 @@ class ApertureSynthesisWidget(QWidget):
             ax.axis('off')
             self.canvas.draw()
             return
-        dirty_beam = argosim.imaging_utils.uv2sky(uv_mask)
 
-        # Plot
+        # The gridded uv plane keeps the native uv extent; for KB it lives on the
+        # oversampled grid (finer cells), so scale its FoV by the oversampling.
+        uv_fov = fov_size * (uv_grid.shape[0] / Npx)
+
+        # Plot: gridded visibilities (sampling function) and the dirty beam.
         self.fig.clear()
         ax1 = self.fig.add_subplot(1, 2, 1)
-        # ax1.imshow(np.abs(uv_mask), origin='lower', cmap='viridis')
-        # argosim.plot_utils.plot_sky_uv(np.abs(uv_mask), fov_size=(0.1,0.1), )
-        argosim.plot_utils.plot_baselines(uv_points, ax=ax1, fig=self.fig)
-        max_uv = (180/np.pi) * Npx / (2*fov_size) / 1e3
-        ax1.set_xlim((-max_uv, max_uv))
-        ax1.set_ylim((-max_uv, max_uv))
-        ax1.set_title('uv Coverage')
+        argosim.plot_utils.plot_sky_uv(
+            uv_grid, fov_size=(uv_fov, uv_fov), ax=ax1, fig=self.fig,
+            scale="log", cbar=True,
+        )
+        ax1.set_title(f'Gridded Visibilities ({method.upper()})')
         ax2 = self.fig.add_subplot(1, 2, 2)
-        # ax2.imshow(dirty_beam, origin='lower', cmap='viridis')
         argosim.plot_utils.plot_sky(dirty_beam, fov_size=(fov_size, fov_size), ax=ax2, fig=self.fig, title='Dirty Beam')
         ax2.set_title("Dirty Beam")
         self.canvas.draw()
@@ -198,3 +249,19 @@ class ApertureSynthesisWidget(QWidget):
     
     def get_current_Npx(self):
         return self.param_widgets['Npx'].text()
+
+    def get_current_method(self):
+        return "kb" if self.method_combo.currentText().startswith("KB") else "nn"
+
+    def get_current_weighting(self):
+        return self.weighting_combo.currentText()
+
+    def get_current_kernel_support(self):
+        return self.param_widgets['kernel_support'].text()
+
+    def get_current_beta(self):
+        beta_text = self.param_widgets['beta'].text().strip().lower()
+        return None if beta_text in ("", "auto", "none") else float(beta_text)
+
+    def get_current_oversampling(self):
+        return self.param_widgets['oversampling'].text()

@@ -209,9 +209,11 @@ def get_baselines(array):
     """
     # Get the baseline for every combination of antennas except for i=j baselines.
     array = jnp.asarray(array)
+    n = array.shape[0]
     diffs = array[:, None, :] - array[None, :, :]  # Shape: (n, n, 3)
-    mask = ~jnp.eye(array.shape[0], dtype=bool)  # Shape: (n, n), True where i ≠ j
-    return diffs[mask].reshape(-1, 3)
+    # Static integer indices keep the output shape concrete under jit/grad.
+    i_idx, j_idx = np.where(~np.eye(n, dtype=bool))
+    return diffs[i_idx, j_idx]
 
 
 @jit

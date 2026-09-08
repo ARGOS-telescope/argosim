@@ -10,6 +10,7 @@ the Hogbom's clean algorithm on dirty observations.
 import numpy as np
 
 from argosim.data_utils import gauss_source
+from argosim.metrics_utils import fit_elliptical_beam
 
 
 def shift_beam(beam, shift_x, shift_y):
@@ -49,7 +50,9 @@ def shift_beam(beam, shift_x, shift_y):
 def find_peak(I):
     """Find peak.
 
-    Function to find the peak of an image.
+    Function to find the brightest (positive) peak of an image. Cleaning is
+    positive-only, so the maximum value is used rather than the maximum
+    absolute value — negative sidelobes are never selected as components.
 
     Parameters
     ----------
@@ -69,10 +72,8 @@ def find_peak(I):
     shift_y : int
         The shift in the y direction from the center of the image.
     """
-    y_max, x_max = int(np.argmax(np.abs(I)) / I.shape[0]), np.mod(
-        np.argmax(np.abs(I)), I.shape[0]
-    )
-    x_off, y_off = int(I.shape[0] / 2), int(I.shape[1] / 2)
+    y_max, x_max = np.unravel_index(int(np.argmax(I)), I.shape)
+    y_off, x_off = I.shape[0] // 2, I.shape[1] // 2
     shift_x, shift_y = x_max - x_off, y_max - y_off
     max_val = I[y_max, x_max]
     return max_val, x_max, y_max, shift_x, shift_y
@@ -101,11 +102,20 @@ def pad_odd(im):
 
 
 def clean_hogbom(
-    I_obs, B, gamma=0.2, max_iter=100, threshold=None, clean_beam_size_px=2, res=False
+    I_obs,
+    B,
+    gamma=0.2,
+    max_iter=100,
+    threshold=None,
+    clean_beam_size_px=None,
+    res=False,
 ):
     """Clean Hogbom.
 
-    Function to perform the Hogbom's clean algorithm on a dirty image.
+    Function to perform the Hogbom's clean algorithm on a dirty image. Cleaning
+    is positive-only: at each iteration the brightest positive residual peak is
+    selected as a component, and cleaning stops when that peak falls below
+    ``threshold``.
 
     Parameters
     ----------
@@ -118,9 +128,14 @@ def clean_hogbom(
     max_iter : int
         The maximum number of iterations.
     threshold : float
-        The threshold to stop the cleaning process.
-    clean_beam_size_px : int
-        The size (FWHM) of the clean beam in pixels.
+        The threshold on the residual peak to stop the cleaning process.
+    clean_beam_size_px : float, optional
+        The size (FWHM, in pixels) of the circular restoring beam. If ``None``
+        (default), it is estimated from the dirty beam: an ellipse is fitted to
+        the dirty-beam main lobe and a round beam of FWHM equal to the mean of
+        the two fitted FWHMs is used (a warning prints the estimated size). A
+        round beam is used on purpose, so sources are restored as they are,
+        undistorted by the (elliptical) interferometer beam.
     res : bool
         Add residual signal to clean image.
 
@@ -141,13 +156,18 @@ def clean_hogbom(
     I_clean = np.zeros_like(I_obs)
     sky_model = np.zeros_like(I_obs)
     B_norm = B / np.max(B)
-    # B_clean = clean_beam(B_norm, search_box=B_norm.shape[0]//8)
+    if clean_beam_size_px is None:
+        # Estimate a round restoring beam from the dirty-beam main lobe:
+        # a round beam of FWHM equal to the mean of the two fitted FWHMs.
+        fit = fit_elliptical_beam(B_norm)
+        clean_beam_size_px = (fit["width"] + fit["height"]) / 2
+        print("Estimated clean beam size (FWHM): {:.2f} px".format(clean_beam_size_px))
     B_clean = gauss_source(
         B.shape[1], B.shape[0], np.array([0, 0]), fwhm_pix=clean_beam_size_px
     )
 
     for i in range(max_iter):
-        # Get peak coordinates and flux value
+        # Get the brightest positive peak coordinates and flux value
         max_val, x_max, y_max, shift_x, shift_y = find_peak(I_res)
         if threshold is not None and max_val < threshold:
             print("Reached threshold at iteration {}".format(i))
@@ -156,9 +176,6 @@ def clean_hogbom(
         I_res -= gamma * max_val * shift_beam(B_norm, shift_x, shift_y)
         sky_model[y_max, x_max] += gamma * max_val
         I_clean += gamma * max_val * shift_beam(B_clean, shift_x, shift_y)
-
-        if max_val < 0:
-            print("Warning: negative peak found with amplitude:", max_val)
 
     if I_obs.shape[0] % 2 != 0:
         I_res = I_res[:-1, :-1]

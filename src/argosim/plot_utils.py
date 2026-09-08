@@ -14,6 +14,7 @@ from matplotlib.patches import Ellipse
 from skimage.transform import rotate
 
 from argosim import metrics_utils
+from argosim.imaging_utils import _as_fov_tuple
 
 
 def plot_antenna_arr(
@@ -149,6 +150,7 @@ def plot_sky(
     """
     if ax == None or fig == None:
         fig, ax = plt.subplots(1, 1)
+    fov_size = _as_fov_tuple(fov_size)
     im = ax.imshow(
         image,
         extent=[-fov_size[0] / 2, fov_size[0] / 2, -fov_size[1] / 2, fov_size[1] / 2],
@@ -194,21 +196,41 @@ def plot_sky_uv(
     -------
     None
     """
+    fov_size = _as_fov_tuple(fov_size)
     max_u = (180 / np.pi) * image_uv.shape[0] / (2 * fov_size[0]) / 1000
     max_v = (180 / np.pi) * image_uv.shape[1] / (2 * fov_size[1]) / 1000
 
     if ax is None or fig is None:
         fig, ax = plt.subplots(1, 1)
+    image_uv = np.abs(image_uv)
+    extent = [-max_u, max_u, -max_v, max_v]
     if scale == "log":
-        image_uv = np.log10(np.abs(image_uv) + 1e-10)
-    elif scale == "linear":
-        image_uv = np.abs(image_uv)
-    im = ax.imshow(image_uv, extent=[-max_u, max_u, -max_v, max_v], origin="lower")
-    if cbar:
-        fig.colorbar(im, ax=ax)
+        # Plot log10 of the amplitude (so low/mid values stay visible), but label
+        # the colorbar with the true (non-log) amplitudes. Empty and near-zero
+        # cells are clamped to a floor a few decades below the peak, so they all
+        # render as the lowest colour -- no white gaps and no isolated dots from
+        # the numerical KB kernel tails.
+        vmax = float(np.max(image_uv))
+        vmax = vmax if vmax > 0 else 1.0
+        floor = vmax * 1e-4
+        data = np.log10(np.maximum(image_uv, floor))
+        lo, hi = float(np.log10(floor)), float(np.log10(vmax))
+        im = ax.imshow(data, extent=extent, origin="lower", vmin=lo, vmax=hi)
+        if cbar:
+            # Ticks: zero (the floor) at the bottom, the peak at the top, and 3
+            # in between; labelled with the actual amplitudes.
+            ticks = np.linspace(lo, hi, 5)
+            cb = fig.colorbar(im, ax=ax, ticks=ticks)
+            labels = [f"{10 ** t:.2g}" for t in ticks]
+            labels[0] = "0"
+            cb.ax.set_yticklabels(labels)
+    else:
+        im = ax.imshow(image_uv, extent=extent, origin="lower")
+        if cbar:
+            fig.colorbar(im, ax=ax)
     ax.set_xlabel(r"$u$(k$\lambda$)")
     ax.set_ylabel(r"$v$(k$\lambda$)")
-    ax.set_title("Amplitude")
+    ax.set_title(title)
     if ax is None or fig is None:
         plt.show()
 
@@ -357,6 +379,7 @@ def plot_beam_and_fit(beam, fov_size, fit_result=None):  # pragma: no cover
     """
     if fit_result is None:
         fit_result = metrics_utils.fit_elliptical_beam(beam)
+    fov_size = _as_fov_tuple(fov_size)
     Npx = beam.shape[0]
     # Beam fit ellipse
     ellipse = Ellipse(
@@ -433,7 +456,10 @@ def plot_beam_and_fit(beam, fov_size, fit_result=None):  # pragma: no cover
     )
     ax[1].set_xlabel("(deg)")
     ax[1].plot(
-        [int(Npx // 2 - fit_result["width"]), int(Npx // 2 + fit_result["width"])],
+        [
+            int(Npx // 2 - fit_result["width"] / 2),
+            int(Npx // 2 + fit_result["width"] / 2),
+        ],
         [np.max(semi_major_beam) / 2, np.max(semi_major_beam) / 2],
         color="black",
         linestyle="--",
@@ -442,8 +468,8 @@ def plot_beam_and_fit(beam, fov_size, fit_result=None):  # pragma: no cover
     )
     ax[1].scatter(
         [
-            int(Npx // 2 - fit_result["width"] + 1),
-            int(Npx // 2 + fit_result["width"] + 1),
+            int(Npx // 2 - fit_result["width"] / 2 + 1),
+            int(Npx // 2 + fit_result["width"] / 2 + 1),
         ],
         [np.max(semi_major_beam) / 2, np.max(semi_major_beam) / 2],
         color="black",
@@ -462,7 +488,10 @@ def plot_beam_and_fit(beam, fov_size, fit_result=None):  # pragma: no cover
     )
     ax[2].set_xlabel("(deg)")
     ax[2].plot(
-        [int(Npx // 2 - fit_result["height"]), int(Npx // 2 + fit_result["height"])],
+        [
+            int(Npx // 2 - fit_result["height"] / 2),
+            int(Npx // 2 + fit_result["height"] / 2),
+        ],
         [np.max(semi_minor_beam) / 2, np.max(semi_minor_beam) / 2],
         color="black",
         linestyle="--",
@@ -471,8 +500,8 @@ def plot_beam_and_fit(beam, fov_size, fit_result=None):  # pragma: no cover
     )
     ax[2].scatter(
         [
-            int(Npx // 2 - fit_result["height"] + 1),
-            int(Npx // 2 + fit_result["height"] + 1),
+            int(Npx // 2 - fit_result["height"] / 2 + 1),
+            int(Npx // 2 + fit_result["height"] / 2 + 1),
         ],
         [np.max(semi_minor_beam) / 2, np.max(semi_minor_beam) / 2],
         color="black",
@@ -482,4 +511,60 @@ def plot_beam_and_fit(beam, fov_size, fit_result=None):  # pragma: no cover
     ax[2].legend(loc="upper right", fontsize=30)
 
     plt.tight_layout()
+    plt.show()
+
+
+def plot_sidelobes(beam, fov_size):  # pragma: no cover
+    """Plot sidelobes.
+
+    Plot the main lobe and sidelobes segmentation of the beam using the watershed algorithm.
+
+    Parameters
+    ----------
+    beam : np.ndarray
+        2D beam image.
+    fov_size : float or tuple
+        The field of view size in degrees, scalar or ``(fov_y, fov_x)``.
+
+    Returns
+    -------
+    None
+    """
+    fov_size = _as_fov_tuple(fov_size)
+    main_lobe_mask = metrics_utils._main_lobe_mask_np(beam)
+    fig, ax = plt.subplots(1, 3, figsize=(20, 5))
+    plot_sky(
+        main_lobe_mask,
+        fig=fig,
+        ax=ax[0],
+        fov_size=fov_size,
+        title="Main Lobe Mask",
+    )
+    plot_sky(
+        beam * main_lobe_mask,
+        fig=fig,
+        ax=ax[1],
+        fov_size=fov_size,
+        title="Main Lobe",
+    )
+    plot_sky(
+        beam * (1 - main_lobe_mask),
+        fig=fig,
+        ax=ax[2],
+        fov_size=fov_size,
+        title="Side Lobes",
+    )
+    sidelobe_peak_px = np.array(
+        np.unravel_index(np.argmax(beam * (1 - main_lobe_mask)), beam.shape)
+    )
+    sidelobe_peak_lm = sidelobe_peak_px / beam.shape[0] * fov_size - fov_size / 2
+    ax[2].scatter(
+        sidelobe_peak_lm[1],
+        sidelobe_peak_lm[0],
+        color="red",
+        s=100,
+        marker="x",
+        label="Side Lobe Peak",
+    )
+    plt.legend()
     plt.show()
