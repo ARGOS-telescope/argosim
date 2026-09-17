@@ -15,9 +15,9 @@ sys.path.insert(0, os.path.abspath("../.."))
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "Argosim"
-copyright = "2024, Ezequiel Centofanti, Emma Aycoberry"
+copyright = "2026, Ezequiel Centofanti, Emma Aycoberry"
 author = "Ezequiel Centofanti, Emma Aycoberry"
-release = "0.0.3"
+release = "2.0.0"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
