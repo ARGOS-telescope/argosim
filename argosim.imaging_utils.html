@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>argosim.imaging_utils module &#8212; Argosim 0.0.3 documentation</title>
+    <title>argosim.imaging_utils module &#8212; Argosim 2.0.0 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=4acdca81"></script>
+    <script src="_static/documentation_options.js?v=ce394494"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
@@ -177,7 +177,7 @@
   
   
   
-    <p class="title logo__title">Argosim 0.0.3 documentation</p>
+    <p class="title logo__title">Argosim 2.0.0 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -495,8 +495,8 @@ per-baseline noise model (radiometer equation) to be integrated later.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>vis</strong> (<em>np.ndarray</em>) – Complex visibility values, shape <code class="docutils literal notranslate"><span class="pre">(n_vis,)</span></code>.</p></li>
-<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Standard deviation of the complex noise.</p></li>
-<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Optional seed for reproducibility.</p></li>
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Standard deviation of the complex noise.</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Optional seed for reproducibility.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -525,8 +525,8 @@ sample on the grid for the chosen <code class="docutils literal notranslate"><sp
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>uv_px</strong> (<em>jnp.ndarray</em>) – Continuous pixel coordinates <code class="docutils literal notranslate"><span class="pre">(u,</span> <span class="pre">v)</span></code> for each visibility,
 shape <code class="docutils literal notranslate"><span class="pre">(n_vis,</span> <span class="pre">2)</span></code>, as returned by <code class="docutils literal notranslate"><span class="pre">scale_uv_samples_continuous</span></code>.</p></li>
-<li><p><strong>grid_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Shape of the uv grid <code class="docutils literal notranslate"><span class="pre">(ny,</span> <span class="pre">nx)</span></code>.</p></li>
-<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Field of view in degrees corresponding to <code class="docutils literal notranslate"><span class="pre">uv_px</span></code> / <code class="docutils literal notranslate"><span class="pre">grid_shape</span></code>.
+<li><p><strong>grid_shape</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Shape of the uv grid <code class="docutils literal notranslate"><span class="pre">(ny,</span> <span class="pre">nx)</span></code>.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Field of view in degrees corresponding to <code class="docutils literal notranslate"><span class="pre">uv_px</span></code> / <code class="docutils literal notranslate"><span class="pre">grid_shape</span></code>.
 A scalar is applied to both axes; a tuple is read as <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.
 Used to report the maximum field of view that keeps all samples on-grid.</p></li>
 <li><p><strong>on_out_of_bounds</strong> (<em>{&quot;warn&quot;</em><em>, </em><em>&quot;error&quot;</em><em>, </em><em>&quot;ignore&quot;}</em>) – Action when one or more samples fall outside the grid:
@@ -536,7 +536,7 @@ returns silently (samples are still dropped downstream).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">on_out_of_bounds</span></code> is not one of the accepted options, or if it is
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">on_out_of_bounds</span></code> is not one of the accepted options, or if it is
 <code class="docutils literal notranslate"><span class="pre">&quot;error&quot;</span></code> and any sample falls outside the grid.</p>
 </dd>
 </dl>
@@ -551,9 +551,9 @@ returns silently (samples are still dropped downstream).</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>uv_samples_indices</strong> (<em>np.ndarray</em>) – The indices of the uv samples in pixel coordinates.</p></li>
-<li><p><strong>sky_uv_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The shape of the sky model in pixels.</p></li>
+<li><p><strong>sky_uv_shape</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The shape of the sky model in pixels.</p></li>
 <li><p><strong>uv_samples</strong> (<em>np.ndarray</em>) – The uv samples coordinates in meters.</p></li>
-<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The field of view size in degrees, scalar or <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The field of view size in degrees, scalar or <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -593,9 +593,9 @@ Differentiable w.r.t. <code class="docutils literal notranslate"><span class="pr
 <li><p><strong>sky_uv</strong> (<em>jnp.ndarray</em>) – Gridded sky model in UV domain, shape <code class="docutils literal notranslate"><span class="pre">grid_shape</span></code>, complex.</p></li>
 <li><p><strong>uv_px</strong> (<em>jnp.ndarray</em>) – Continuous pixel coordinates <code class="docutils literal notranslate"><span class="pre">(u,</span> <span class="pre">v)</span></code> for each visibility,
 shape <code class="docutils literal notranslate"><span class="pre">(n_vis,</span> <span class="pre">2)</span></code>.</p></li>
-<li><p><strong>grid_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Shape of <code class="docutils literal notranslate"><span class="pre">sky_uv</span></code> <code class="docutils literal notranslate"><span class="pre">(ny,</span> <span class="pre">nx)</span></code>. Must be a static argument.</p></li>
-<li><p><strong>W</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Kernel support width in pixels (odd). Must be a static argument.</p></li>
-<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – KB shape parameter. Must be a static argument.</p></li>
+<li><p><strong>grid_shape</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Shape of <code class="docutils literal notranslate"><span class="pre">sky_uv</span></code> <code class="docutils literal notranslate"><span class="pre">(ny,</span> <span class="pre">nx)</span></code>. Must be a static argument.</p></li>
+<li><p><strong>W</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Kernel support width in pixels (odd). Must be a static argument.</p></li>
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – KB shape parameter. Must be a static argument.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -627,12 +627,12 @@ oversampling, matching <a class="reference internal" href="#argosim.imaging_util
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>track</strong> (<em>np.ndarray</em>) – The uv sampling points, shape <code class="docutils literal notranslate"><span class="pre">(n_vis,</span> <span class="pre">3)</span></code>.</p></li>
-<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Field of view in degrees, scalar or <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.</p></li>
-<li><p><strong>npix</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of pixels per side of the native image / uv grid.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Field of view in degrees, scalar or <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.</p></li>
+<li><p><strong>npix</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of pixels per side of the native image / uv grid.</p></li>
 <li><p><strong>method</strong> (<em>{&quot;kb&quot;</em><em>, </em><em>&quot;nn&quot;}</em>) – Gridding scheme.</p></li>
-<li><p><strong>kernel_support</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – KB kernel support width in pixels (odd). Only used for <code class="docutils literal notranslate"><span class="pre">method=&quot;kb&quot;</span></code>.</p></li>
-<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – KB shape parameter. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses <code class="docutils literal notranslate"><span class="pre">2.34</span> <span class="pre">*</span> <span class="pre">kernel_support</span></code>.</p></li>
-<li><p><strong>oversampling</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – UV-grid oversampling factor for <code class="docutils literal notranslate"><span class="pre">method=&quot;kb&quot;</span></code>.</p></li>
+<li><p><strong>kernel_support</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – KB kernel support width in pixels (odd). Only used for <code class="docutils literal notranslate"><span class="pre">method=&quot;kb&quot;</span></code>.</p></li>
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – KB shape parameter. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses <code class="docutils literal notranslate"><span class="pre">2.34</span> <span class="pre">*</span> <span class="pre">kernel_support</span></code>.</p></li>
+<li><p><strong>oversampling</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – UV-grid oversampling factor for <code class="docutils literal notranslate"><span class="pre">method=&quot;kb&quot;</span></code>.</p></li>
 <li><p><strong>weighting</strong> (<em>{&quot;natural&quot;</em><em>, </em><em>&quot;uniform&quot;}</em>) – Visibility weighting (see <code class="xref py py-func docutils literal notranslate"><span class="pre">_visibility_weights()</span></code>). For NN it selects
 the mask (natural -&gt; histogram, uniform -&gt; binary).</p></li>
 </ul>
@@ -657,9 +657,9 @@ for NN, or the oversampled <code class="docutils literal notranslate"><span clas
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>uv_samples</strong> (<em>np.ndarray</em>) – The uv samples coordinates in meters.</p></li>
-<li><p><strong>sky_uv_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The shape of the sky model in pixels.</p></li>
-<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The field of view size in degrees.</p></li>
-<li><p><strong>mask_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The type of mask to use. Choose between ‘binary’ and ‘histogram’.</p></li>
+<li><p><strong>sky_uv_shape</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The shape of the sky model in pixels.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The field of view size in degrees.</p></li>
+<li><p><strong>mask_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The type of mask to use. Choose between ‘binary’ and ‘histogram’.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -687,10 +687,10 @@ kernel is fully vectorised over all visibilities. Differentiable w.r.t.
 <li><p><strong>vis</strong> (<em>jnp.ndarray</em>) – Complex visibility values to grid, shape <code class="docutils literal notranslate"><span class="pre">(n_vis,)</span></code>.</p></li>
 <li><p><strong>uv_px</strong> (<em>jnp.ndarray</em>) – Continuous pixel coordinates <code class="docutils literal notranslate"><span class="pre">(u,</span> <span class="pre">v)</span></code> for each visibility,
 shape <code class="docutils literal notranslate"><span class="pre">(n_vis,</span> <span class="pre">2)</span></code>.</p></li>
-<li><p><strong>grid_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Shape of the output grid <code class="docutils literal notranslate"><span class="pre">(ny,</span> <span class="pre">nx)</span></code>. Must be a static argument.</p></li>
-<li><p><strong>W</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Kernel support width in pixels (odd). Must be a static argument.
+<li><p><strong>grid_shape</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Shape of the output grid <code class="docutils literal notranslate"><span class="pre">(ny,</span> <span class="pre">nx)</span></code>. Must be a static argument.</p></li>
+<li><p><strong>W</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Kernel support width in pixels (odd). Must be a static argument.
 Typically <code class="docutils literal notranslate"><span class="pre">W</span> <span class="pre">=</span> <span class="pre">7</span></code>.</p></li>
-<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – KB shape parameter. Must be a static argument.
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – KB shape parameter. Must be a static argument.
 Typically <code class="docutils literal notranslate"><span class="pre">beta</span> <span class="pre">=</span> <span class="pre">2.34</span> <span class="pre">*</span> <span class="pre">W</span></code>.</p></li>
 </ul>
 </dd>
@@ -715,8 +715,8 @@ kernel to suppress aliasing artefacts from non-uniform sampling.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>jnp.ndarray</em>) – Offset from the kernel centre in pixels.</p></li>
-<li><p><strong>W</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Kernel support width in pixels (number of pixels the kernel spans).</p></li>
-<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Shape parameter controlling the trade-off between main-lobe width and
+<li><p><strong>W</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Kernel support width in pixels (number of pixels the kernel spans).</p></li>
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Shape parameter controlling the trade-off between main-lobe width and
 side-lobe suppression. A standard choice is <code class="docutils literal notranslate"><span class="pre">beta</span> <span class="pre">=</span> <span class="pre">2.34</span> <span class="pre">*</span> <span class="pre">W</span></code>.</p></li>
 </ul>
 </dd>
@@ -747,9 +747,9 @@ discrete Fourier transform of the 1D KB kernel.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Shape of the grid <code class="docutils literal notranslate"><span class="pre">(ny,</span> <span class="pre">nx)</span></code>.</p></li>
-<li><p><strong>W</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Kernel support width in pixels.</p></li>
-<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – KB shape parameter.</p></li>
+<li><p><strong>grid_shape</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Shape of the grid <code class="docutils literal notranslate"><span class="pre">(ny,</span> <span class="pre">nx)</span></code>.</p></li>
+<li><p><strong>W</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Kernel support width in pixels.</p></li>
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – KB shape parameter.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -771,8 +771,8 @@ nearest cell.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>uv_samples</strong> (<em>np.ndarray</em>) – The uv samples coordinates in meters.</p></li>
-<li><p><strong>sky_uv_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The shape of the sky model in pixels.</p></li>
-<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The field of view size in degrees, scalar or <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.</p></li>
+<li><p><strong>sky_uv_shape</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The shape of the sky model in pixels.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The field of view size in degrees, scalar or <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -794,8 +794,8 @@ sub-pixel-accurate convolutional gridding.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>uv_samples</strong> (<em>jnp.ndarray</em>) – UV samples in wavelengths, shape <code class="docutils literal notranslate"><span class="pre">(n_vis,</span> <span class="pre">3)</span></code>.</p></li>
-<li><p><strong>sky_uv_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Shape of the UV grid <code class="docutils literal notranslate"><span class="pre">(ny,</span> <span class="pre">nx)</span></code>.</p></li>
-<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Field of view in degrees, scalar or <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.</p></li>
+<li><p><strong>sky_uv_shape</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Shape of the UV grid <code class="docutils literal notranslate"><span class="pre">(ny,</span> <span class="pre">nx)</span></code>.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Field of view in degrees, scalar or <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -822,21 +822,21 @@ apply the image-domain correction.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sky</strong> (<em>np.ndarray</em>) – The sky model image.</p></li>
 <li><p><strong>track</strong> (<em>np.ndarray</em>) – The uv sampling points.</p></li>
-<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The field of view size in degrees.</p></li>
-<li><p><strong>multi_band</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, simulate a multi-band observation.</p></li>
-<li><p><strong>freqs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – The frequency list for the multi-band simulation.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The field of view size in degrees.</p></li>
+<li><p><strong>multi_band</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, simulate a multi-band observation.</p></li>
+<li><p><strong>freqs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – The frequency list for the multi-band simulation.</p></li>
 <li><p><strong>beam</strong> (<em>Beam</em>) – The beam object to apply to the sky, only used in multi-band simulations.</p></li>
-<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Standard deviation of the complex Gaussian noise added independently to
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Standard deviation of the complex Gaussian noise added independently to
 each visibility (radiometer-style), in sky/flux units. The dirty image
 is normalised so a point source of flux <code class="docutils literal notranslate"><span class="pre">S</span></code> peaks at <code class="docutils literal notranslate"><span class="pre">S</span></code> (Jy/beam),
 so the image noise scales roughly as <code class="docutils literal notranslate"><span class="pre">sigma</span> <span class="pre">/</span> <span class="pre">sqrt(n_vis)</span></code>.</p></li>
-<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Optional seed to set for reproducibility in noise realisation.</p></li>
-<li><p><strong>kernel_support</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – KB kernel support width in pixels (odd). Default is 7. Larger values
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Optional seed to set for reproducibility in noise realisation.</p></li>
+<li><p><strong>kernel_support</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – KB kernel support width in pixels (odd). Default is 7. Larger values
 give better anti-aliasing at the cost of more compute.</p></li>
-<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – KB kernel shape parameter. If <code class="docutils literal notranslate"><span class="pre">None</span></code> (default), uses the standard
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – KB kernel shape parameter. If <code class="docutils literal notranslate"><span class="pre">None</span></code> (default), uses the standard
 heuristic <code class="docutils literal notranslate"><span class="pre">beta</span> <span class="pre">=</span> <span class="pre">2.34</span> <span class="pre">*</span> <span class="pre">kernel_support</span></code>. Expose it to experiment
 with different main-lobe/side-lobe trade-offs.</p></li>
-<li><p><strong>oversampling</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – UV-grid oversampling factor. The sky is zero-padded to
+<li><p><strong>oversampling</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – UV-grid oversampling factor. The sky is zero-padded to
 <code class="docutils literal notranslate"><span class="pre">oversampling</span> <span class="pre">*</span> <span class="pre">N</span></code> pixels before gridding (finer UV cells, same
 angular pixel scale, FoV scaled by <code class="docutils literal notranslate"><span class="pre">oversampling</span></code>), and the dirty
 image/beam are cropped back to the original <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">x</span> <span class="pre">N</span></code> afterwards. This
@@ -879,15 +879,15 @@ KB forward model is the one to use for prototyping and applications.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sky</strong> (<em>np.ndarray</em>) – The sky model image.</p></li>
 <li><p><strong>track</strong> (<em>np.ndarray</em>) – The uv sampling points.</p></li>
-<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The field of view size in degrees, scalar or <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.</p></li>
-<li><p><strong>multi_band</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, simulate a multi-band observation.</p></li>
-<li><p><strong>freqs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – The frequency list for the multi-band simulation.</p></li>
+<li><p><strong>fov_size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – The field of view size in degrees, scalar or <code class="docutils literal notranslate"><span class="pre">(fov_y,</span> <span class="pre">fov_x)</span></code>.</p></li>
+<li><p><strong>multi_band</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, simulate a multi-band observation.</p></li>
+<li><p><strong>freqs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – The frequency list for the multi-band simulation.</p></li>
 <li><p><strong>beam</strong> (<em>Beam</em>) – The beam object to apply to the sky, only used in multi-band simulations.</p></li>
-<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Standard deviation of the complex Gaussian noise added independently to
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Standard deviation of the complex Gaussian noise added independently to
 each sampled uv cell (visibility domain, matching the KB forward model),
 in sky/flux units. The dirty image is normalised so a point source of
 flux <code class="docutils literal notranslate"><span class="pre">S</span></code> peaks at <code class="docutils literal notranslate"><span class="pre">S</span></code> (Jy/beam). See <code class="xref py py-func docutils literal notranslate"><span class="pre">_add_cell_noise()</span></code>.</p></li>
-<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Optional seed to set for reproducibility in the noise realisation.</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Optional seed to set for reproducibility in the noise realisation.</p></li>
 <li><p><strong>weighting</strong> (<em>{&quot;natural&quot;</em><em>, </em><em>&quot;uniform&quot;}</em>) – Visibility weighting. For NN this is exactly the sampling-mask choice:
 <code class="docutils literal notranslate"><span class="pre">&quot;natural&quot;</span></code> uses the <code class="docutils literal notranslate"><span class="pre">&quot;histogram&quot;</span></code> mask (each cell weighted by its
 sample count), <code class="docutils literal notranslate"><span class="pre">&quot;uniform&quot;</span></code> uses the <code class="docutils literal notranslate"><span class="pre">&quot;binary&quot;</span></code> mask (each sampled
@@ -1029,7 +1029,7 @@ By Ezequiel Centofanti, Emma Aycoberry
 
   <p class="copyright">
     
-      © Copyright 2024, Ezequiel Centofanti, Emma Aycoberry.
+      © Copyright 2026, Ezequiel Centofanti, Emma Aycoberry.
       <br/>
     
   </p>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>argosim.metrics_utils module &#8212; Argosim 0.0.3 documentation</title>
+    <title>argosim.metrics_utils module &#8212; Argosim 2.0.0 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=4acdca81"></script>
+    <script src="_static/documentation_options.js?v=ce394494"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
@@ -177,7 +177,7 @@
   
   
   
-    <p class="title logo__title">Argosim 0.0.3 documentation</p>
+    <p class="title logo__title">Argosim 2.0.0 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -484,7 +484,7 @@
 <dd class="field-even"><p>Integrated sidelobe level (ISL) in dB.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -502,7 +502,7 @@
 <dd class="field-even"><p>Peak sidelobe level (PSL) in dB.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -521,7 +521,7 @@ FWHM, and eccentricity.</p>
 <dd class="field-even"><p>Dictionary containing PSL (dB), ISL (dB), FWHM (x, y), and eccentricity.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -535,14 +535,14 @@ FWHM, and eccentricity.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>beam</strong> (<em>np.ndarray</em>) – The beam image (2D).</p></li>
-<li><p><strong>fit_result</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.</p></li>
+<li><p><strong>fit_result</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Eccentricity of the beam. Ranges from 0 to 1, where 0 indicates a perfectly circular beam and 1 a completely degenerated beam.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -556,14 +556,14 @@ FWHM, and eccentricity.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>beam</strong> (<em>np.ndarray</em>) – The beam image (2D).</p></li>
-<li><p><strong>fit_result</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.</p></li>
+<li><p><strong>fit_result</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – Dictionary containing the ellipse parameters (center, width, height, angle_deg, eccentricity). If None, it is computed from the beam.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>FWHM along the semi-major and semi-minor axis of the beam.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -584,7 +584,7 @@ FWHM, and eccentricity.</p>
 <dd class="field-even"><p><strong>metrics</strong> – The metrics between the two images.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -598,7 +598,7 @@ FWHM, and eccentricity.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>beam</strong> (<em>np.ndarray</em>) – 2D beam image.</p></li>
-<li><p><strong>threshold_ratio</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Threshold fraction of the maximum intensity to define the bright region.</p></li>
+<li><p><strong>threshold_ratio</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Threshold fraction of the maximum intensity to define the bright region.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -628,7 +628,7 @@ pixels, along the semi-major and semi-minor axes respectively.</p>
 <dd class="field-even"><p><strong>mse</strong> – The mean squared error between the two images.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -736,7 +736,7 @@ By Ezequiel Centofanti, Emma Aycoberry
 
   <p class="copyright">
     
-      © Copyright 2024, Ezequiel Centofanti, Emma Aycoberry.
+      © Copyright 2026, Ezequiel Centofanti, Emma Aycoberry.
       <br/>
     
   </p>

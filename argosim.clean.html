@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>argosim.clean module &#8212; Argosim 0.0.3 documentation</title>
+    <title>argosim.clean module &#8212; Argosim 2.0.0 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=4acdca81"></script>
+    <script src="_static/documentation_options.js?v=ce394494"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
@@ -177,7 +177,7 @@
   
   
   
-    <p class="title logo__title">Argosim 0.0.3 documentation</p>
+    <p class="title logo__title">Argosim 2.0.0 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -480,16 +480,16 @@ selected as a component, and cleaning stops when that peak falls below
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>I_obs</strong> (<em>np.ndarray</em>) – The dirty image.</p></li>
 <li><p><strong>B</strong> (<em>np.ndarray</em>) – The beam image (fft shifted).</p></li>
-<li><p><strong>gamma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The clean gain.</p></li>
-<li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The maximum number of iterations.</p></li>
-<li><p><strong>threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The threshold on the residual peak to stop the cleaning process.</p></li>
-<li><p><strong>clean_beam_size_px</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – The size (FWHM, in pixels) of the circular restoring beam. If <code class="docutils literal notranslate"><span class="pre">None</span></code>
+<li><p><strong>gamma</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The clean gain.</p></li>
+<li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The maximum number of iterations.</p></li>
+<li><p><strong>threshold</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The threshold on the residual peak to stop the cleaning process.</p></li>
+<li><p><strong>clean_beam_size_px</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – The size (FWHM, in pixels) of the circular restoring beam. If <code class="docutils literal notranslate"><span class="pre">None</span></code>
 (default), it is estimated from the dirty beam: an ellipse is fitted to
 the dirty-beam main lobe and a round beam of FWHM equal to the mean of
 the two fitted FWHMs is used (a warning prints the estimated size). A
 round beam is used on purpose, so sources are restored as they are,
 undistorted by the (elliptical) interferometer beam.</p></li>
-<li><p><strong>res</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Add residual signal to clean image.</p></li>
+<li><p><strong>res</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Add residual signal to clean image.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -554,8 +554,8 @@ x and y directions.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>beam</strong> (<em>np.ndarray</em>) – The beam image.</p></li>
-<li><p><strong>shift_x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The shift in the x direction.</p></li>
-<li><p><strong>shift_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The shift in the y direction.</p></li>
+<li><p><strong>shift_x</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The shift in the x direction.</p></li>
+<li><p><strong>shift_y</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The shift in the y direction.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -644,7 +644,7 @@ By Ezequiel Centofanti, Emma Aycoberry
 
   <p class="copyright">
     
-      © Copyright 2024, Ezequiel Centofanti, Emma Aycoberry.
+      © Copyright 2026, Ezequiel Centofanti, Emma Aycoberry.
       <br/>
     
   </p>
